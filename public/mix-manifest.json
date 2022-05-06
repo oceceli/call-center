@@ -1,4 +1,11 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/css/prime-theme.css": "/css/prime-theme.css",
+    "/css/primevue.min.css": "/css/primevue.min.css",
+    "/css/primeicons.css": "/css/primeicons.css",
+    "/css/fonts/primeicons.eot": "/css/fonts/primeicons.eot",
+    "/css/fonts/primeicons.svg": "/css/fonts/primeicons.svg",
+    "/css/fonts/primeicons.ttf": "/css/fonts/primeicons.ttf",
+    "/css/fonts/primeicons.woff": "/css/fonts/primeicons.woff"
 }

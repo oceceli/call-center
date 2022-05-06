@@ -18,9 +18,14 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
         require('autoprefixer'),
     ])
+    .copy('node_modules/primevue/resources/themes/lara-light-indigo/theme.css', 'public/css/prime-theme.css')
+    .copy('node_modules/primevue/resources/primevue.min.css', 'public/css')
+    .copy('node_modules/primeicons/primeicons.css', 'public/css')
+    .copy('node_modules/primeicons/fonts', 'public/css/fonts')
     .alias({
         '@': 'resources/js',
     });
+    
 
 if (mix.inProduction()) {
     mix.version();

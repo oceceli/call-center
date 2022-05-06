@@ -11,6 +11,9 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/prime-theme.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/primevue.min.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/primeicons.css') }}">
 
         <!-- Scripts -->
         @routes
