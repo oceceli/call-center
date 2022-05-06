@@ -4,36 +4,31 @@ import { Head } from "@inertiajs/inertia-vue3";
 </script>
 
 <template>
-  
   <BreezeAuthenticatedLayout>
-    <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        <Button label="Small" icon="pi pi-check" class="p-button-sm" />
-      </h2>
-    </template>
+    <template #header> </template>sdf
   </BreezeAuthenticatedLayout>
 </template>
 
 <script>
-import Button from "primevue/button";
 import Dropdown from "primevue/dropdown";
-export default {
-  components: [Button, Dropdown],
+
+import { defineComponent } from "vue";
+import { useToast } from "primevue/usetoast";
+export default  {
+  components: [Dropdown, useToast],
   data() {
     return {
       basicItems: null,
-
-      selectedCity: null,
-      cities: [
-        { name: "New York", code: "NY" },
-        { name: "Rome", code: "RM" },
-        { name: "London", code: "LDN" },
-        { name: "Istanbul", code: "IST" },
-        { name: "Paris", code: "PRS" },
-      ],
     };
   },
   mounted() {
+    this.$toast.add({
+      severity: "success",
+      summary: "Success Message",
+      detail: "Order submitted",
+      life: 3000,
+    });
+
     this.basicItems = Array.from({ length: 100000 }).map(
       (_, i) => `Item #${i}`
     );
