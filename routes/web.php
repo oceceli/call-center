@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,13 +26,7 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/users', function() {
-    return Inertia::render('Users', [
-        'users' => cache()->rememberForever('users', function() {
-            return User::all();
-        })
-    ]);
-})->name('users');
+Route::get('/users', [RegisteredUserController::class, 'index'])->name('users');
 
 
 Route::get('/customers', function() {

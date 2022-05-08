@@ -14,6 +14,16 @@ use Inertia\Inertia;
 
 class RegisteredUserController extends Controller
 {
+
+    public function index()
+    {
+        return Inertia::render('Users', [
+            'users' => cache()->rememberForever('users', function() {
+                return User::all();
+            })
+        ]);
+    }
+
     /**
      * Display the registration view.
      *
