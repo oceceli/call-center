@@ -1,12 +1,16 @@
-require('./bootstrap');
+// require('./bootstrap');
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 
-// import PrimeVue from 'primevue/config';
+import { Link } from '@inertiajs/inertia-vue3'
+import AppLayout from "@/Layouts/App.vue"
+
+import PrimeVue from 'primevue/config';
 // import Dialog from 'primevue/dialog';
 import ToastService from 'primevue/toastservice';
+import Toast from 'primevue/toast';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
@@ -15,12 +19,15 @@ createInertiaApp({
     resolve: (name) => require(`./Pages/${name}.vue`),
     setup({ el, app, props, plugin }) {
         return createApp({ render: () => h(app, props) })
-            .use(plugin)
-            .use(ToastService)
-            // .use(PrimeVue)
-            // .component('Dialog', Dialog)
-            .mixin({ methods: { route } })
-            .mount(el);
+        .use(PrimeVue)
+        .use(ToastService)
+        .use(plugin)
+        // .component('AppLayout', AppLayout)
+        .component('Toast', Toast)
+        .component('Link', Link)
+        // .component('Dialog', Dialog)
+        .mixin({ methods: { route } })
+        .mount(el);
     },
 });
 
