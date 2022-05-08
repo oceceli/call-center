@@ -20141,6 +20141,42 @@ var __default__ = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Forms/UserForm.vue?vue&type=script&lang=js":
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Forms/UserForm.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  setup: function setup() {
+    var form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
+      first_name: null,
+      last_name: null,
+      email: null
+    });
+
+    function submit() {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia.post("/users", form);
+    }
+
+    return {
+      form: form,
+      submit: submit
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Users.vue?vue&type=script&lang=js":
 /*!******************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Users.vue?vue&type=script&lang=js ***!
@@ -20158,6 +20194,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var primevue_column_Column_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primevue/column/Column.vue */ "./node_modules/primevue/column/Column.vue");
 /* harmony import */ var primevue_rating_Rating_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/rating/Rating.vue */ "./node_modules/primevue/rating/Rating.vue");
 /* harmony import */ var primevue_button_Button_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/button/Button.vue */ "./node_modules/primevue/button/Button.vue");
+/* harmony import */ var primevue_toolbar_Toolbar_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/toolbar/Toolbar.vue */ "./node_modules/primevue/toolbar/Toolbar.vue");
+/* harmony import */ var primevue_fileupload_FileUpload_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/fileupload/FileUpload.vue */ "./node_modules/primevue/fileupload/FileUpload.vue");
+/* harmony import */ var primevue_usetoast__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primevue/usetoast */ "./node_modules/primevue/usetoast/usetoast.esm.js");
+
+
+
 
 
 
@@ -20171,7 +20213,9 @@ __webpack_require__.r(__webpack_exports__);
     DataTable: primevue_datatable_DataTable_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     Column: primevue_column_Column_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     Rating: primevue_rating_Rating_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    Button: primevue_button_Button_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    Button: primevue_button_Button_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    Toolbar: primevue_toolbar_Toolbar_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    FileUpload: primevue_fileupload_FileUpload_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   props: {
     users: Object
@@ -20198,10 +20242,46 @@ __webpack_require__.r(__webpack_exports__);
     var products = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(); // const users = props.users;
     // const productService = ref(new ProductService());
 
+    var selection = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)([]);
+    var expandedRows = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)([]);
+    var editingRows = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(null);
+    var toast = (0,primevue_usetoast__WEBPACK_IMPORTED_MODULE_8__.useToast)();
+
+    var onRowSelect = function onRowSelect(event) {
+      toast.add({
+        severity: 'info',
+        summary: 'User Selected',
+        detail: 'Name: ' + event.data.name,
+        life: 3000
+      });
+    };
+
+    var onRowEditSave = function onRowEditSave() {
+      toast.add({
+        severity: 'info',
+        summary: 'Kayıt başarılı',
+        detail: 'Kaydedildi!',
+        life: 3000
+      });
+    };
+
+    var dt = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)();
+
+    var exportCSV = function exportCSV() {
+      dt.value.exportCSV();
+    };
+
     return {
       products: products,
       columns: columns,
-      formatCurrency: formatCurrency
+      formatCurrency: formatCurrency,
+      selection: selection,
+      onRowSelect: onRowSelect,
+      expandedRows: expandedRows,
+      editingRows: editingRows,
+      onRowEditSave: onRowEditSave,
+      exportCSV: exportCSV,
+      dt: dt
     };
   }
 });
@@ -20603,19 +20683,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "h-screen"
+  "class": "h-screen relative"
 };
 var _hoisted_2 = {
-  "class": "ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]"
+  "class": "ml-auto lg:w-[75%] xl:w-[80%] 2xl:w-[85%] h-full flex flex-col"
 };
 var _hoisted_3 = {
-  "class": "bg-red-200 px-6 pt-6 bg-gray-50"
+  "class": "px-6 pt-6 bg-gray-50 flex-1 shadow"
 };
 var _hoisted_4 = {
-  "class": "p-6 bg-white rounded-lg shadow"
+  "class": "p-6 bg-white rounded-lg shadow mb-6"
 };
+
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "p-2 flex items-center justify-center bg-opacity-60"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "font-bold"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  target: "_blank",
+  href: "https://www.smartmetrics.com.tr",
+  "class": "text-sm text-blue-400 hover:red-500"
+}, "Smartmetrics")])], -1
+/* HOISTED */
+);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Sidebar"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Topbar"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"md:col-span-2 lg:col-span-1\" >\n                <div class=\"h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white\">\n                    <svg class=\"w-40 m-auto opacity-75\" viewBox=\"0 0 146 146\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M73.1866 5.7129C81.999 5.7129 90.725 7.44863 98.8666 10.821C107.008 14.1933 114.406 19.1363 120.637 25.3675C126.868 31.5988 131.811 38.9964 135.184 47.138C138.556 55.2796 140.292 64.0057 140.292 72.818C140.292 81.6304 138.556 90.3565 135.184 98.4981C131.811 106.64 126.868 114.037 120.637 120.269C114.406 126.5 107.008 131.443 98.8666 134.815C90.725 138.187 81.999 139.923 73.1866 139.923C64.3742 139.923 55.6481 138.187 47.5066 134.815C39.365 131.443 31.9674 126.5 25.7361 120.269C19.5048 114.037 14.5619 106.64 11.1895 98.4981C7.81717 90.3565 6.08144 81.6304 6.08144 72.818C6.08144 64.0057 7.81717 55.2796 11.1895 47.138C14.5619 38.9964 19.5048 31.5988 25.7361 25.3675C31.9674 19.1363 39.365 14.1933 47.5066 10.821C55.6481 7.44863 64.3742 5.7129 73.1866 5.7129L73.1866 5.7129Z\" stroke=\"#e4e4f2\" stroke-width=\"4.89873\"/>\n                        <path d=\"M73.5 23.4494C79.9414 23.4494 86.3198 24.7181 92.2709 27.1831C98.222 29.6482 103.629 33.2612 108.184 37.816C112.739 42.3707 116.352 47.778 118.817 53.7291C121.282 59.6802 122.551 66.0586 122.551 72.5C122.551 78.9414 121.282 85.3198 118.817 91.2709C116.352 97.222 112.739 102.629 108.184 107.184C103.629 111.739 98.222 115.352 92.2709 117.817C86.3198 120.282 79.9414 121.551 73.5 121.551C67.0586 121.551 60.6802 120.282 54.7291 117.817C48.778 115.352 43.3707 111.739 38.816 107.184C34.2612 102.629 30.6481 97.222 28.1831 91.2709C25.7181 85.3198 24.4494 78.9414 24.4494 72.5C24.4494 66.0586 25.7181 59.6802 28.1831 53.7291C30.6481 47.778 34.2612 42.3707 38.816 37.816C43.3707 33.2612 48.778 29.6481 54.7291 27.1831C60.6802 24.7181 67.0586 23.4494 73.5 23.4494L73.5 23.4494Z\" stroke=\"#e4e4f2\" stroke-width=\"4.89873\"/>\n                        <path d=\"M73 24C84.3364 24 95.3221 27.9307 104.085 35.1225C112.848 42.3142 118.847 52.322 121.058 63.4406C123.27 74.5592 121.558 86.1006 116.214 96.0984C110.87 106.096 102.225 113.932 91.7515 118.27C81.278 122.608 69.6243 123.181 58.7761 119.89C47.9278 116.599 38.5562 109.649 32.258 100.223C25.9598 90.7971 23.1248 79.479 24.2359 68.1972C25.3471 56.9153 30.3357 46.3678 38.3518 38.3518\" stroke=\"url(#paint0_linear_622:13617)\" stroke-width=\"10\" stroke-linecap=\"round\"/>\n                        <path d=\"M73 5.00001C84.365 5.00001 95.5488 7.84852 105.529 13.2852C115.509 18.7218 123.968 26.5732 130.131 36.1217C136.295 45.6702 139.967 56.6112 140.812 67.9448C141.657 79.2783 139.648 90.6429 134.968 101C130.288 111.357 123.087 120.375 114.023 127.232C104.96 134.088 94.3218 138.563 83.0824 140.248C71.8431 141.933 60.3606 140.775 49.6845 136.878C39.0085 132.981 29.4793 126.471 21.9681 117.942\" stroke=\"url(#paint1_linear_622:13617)\" stroke-width=\"10\" stroke-linecap=\"round\"/>\n                        <path d=\"M9.60279 97.5926C6.37325 89.2671 4.81515 80.3871 5.01745 71.4595C5.21975 62.5319 7.1785 53.7316 10.7818 45.561C14.3852 37.3904 19.5626 30.0095 26.0184 23.8398C32.4742 17.6701 40.082 12.8323 48.4075 9.6028\" stroke=\"url(#paint2_linear_622:13617)\" stroke-width=\"10\" stroke-linecap=\"round\"/>\n                        <path d=\"M73 5.00001C86.6504 5.00001 99.9849 9.10831 111.269 16.7904\" stroke=\"url(#paint3_linear_622:13617)\" stroke-width=\"10\" stroke-linecap=\"round\"/>\n                        <circle cx=\"73.5\" cy=\"72.5\" r=\"29\" fill=\"#e4e4f2\" stroke=\"#e4e4f2\"/>\n                        <path d=\"M74 82.8332C68.0167 82.8332 63.1666 77.9831 63.1666 71.9998C63.1666 66.0166 68.0167 61.1665 74 61.1665C79.9832 61.1665 84.8333 66.0166 84.8333 71.9998C84.8333 77.9831 79.9832 82.8332 74 82.8332ZM74 80.6665C76.2985 80.6665 78.5029 79.7534 80.1282 78.1281C81.7535 76.5028 82.6666 74.2984 82.6666 71.9998C82.6666 69.7013 81.7535 67.4969 80.1282 65.8716C78.5029 64.2463 76.2985 63.3332 74 63.3332C71.7014 63.3332 69.497 64.2463 67.8717 65.8716C66.2464 67.4969 65.3333 69.7013 65.3333 71.9998C65.3333 74.2984 66.2464 76.5028 67.8717 78.1281C69.497 79.7534 71.7014 80.6665 74 80.6665ZM70.75 67.6665H77.25L79.9583 71.4582L74 77.4165L68.0416 71.4582L70.75 67.6665ZM71.8658 69.8332L70.8691 71.2307L74 74.3615L77.1308 71.2307L76.1341 69.8332H71.8658Z\" fill=\"#6A6A9F\"/>\n                        <defs>\n                        <linearGradient id=\"paint0_linear_622:13617\" x1=\"45.9997\" y1=\"19\" x2=\"46.0897\" y2=\"124.308\" gradientUnits=\"userSpaceOnUse\">\n                        <stop stop-color=\"#E323FF\"/>\n                        <stop offset=\"1\" stop-color=\"#7517F8\"/>\n                        </linearGradient>\n                        <linearGradient id=\"paint1_linear_622:13617\" x1=\"1.74103e-06\" y1=\"8.70228e-06\" x2=\"6.34739e-08\" y2=\"140.677\" gradientUnits=\"userSpaceOnUse\">\n                        <stop stop-color=\"#4DFFDF\"/>\n                        <stop offset=\"1\" stop-color=\"#4DA1FF\"/>\n                        </linearGradient>\n                        <linearGradient id=\"paint2_linear_622:13617\" x1=\"36.4997\" y1=\"5.07257e-06\" x2=\"36.6213\" y2=\"142.36\" gradientUnits=\"userSpaceOnUse\">\n                        <stop stop-color=\"#FFD422\"/>\n                        <stop offset=\"1\" stop-color=\"#FF7D05\"/>\n                        </linearGradient>\n                        <linearGradient id=\"paint3_linear_622:13617\" x1=\"1.74103e-06\" y1=\"8.70228e-06\" x2=\"6.34739e-08\" y2=\"140.677\" gradientUnits=\"userSpaceOnUse\">\n                        <stop stop-color=\"#4DFFDF\"/>\n                        <stop offset=\"1\" stop-color=\"#4DA1FF\"/>\n                        </linearGradient>\n                        </defs>\n                    </svg>\n                    <div>\n                        <h5 class=\"text-xl text-gray-600 text-center\">Global Activities</h5>\n                        <div class=\"mt-2 flex justify-center gap-4\">\n                            <h3 class=\"text-3xl font-bold text-gray-700\">$23,988</h3>\n                            <div class=\"flex items-end gap-1 text-green-500\">\n                                <svg class=\"w-3\" viewBox=\"0 0 12 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                <path d=\"M6.00001 0L12 8H-3.05176e-05L6.00001 0Z\" fill=\"currentColor\"/>\n                                </svg>\n                                <span>2%</span>\n                            </div>\n                        </div>\n                        <span class=\"block text-center text-gray-500\">Compared to last week $13,988</span>\n                    </div>\n                    <table class=\"w-full text-gray-600\">\n                        <tbody>\n                            <tr>\n                                <td class=\"py-2\">Tailored ui</td>\n                                <td class=\"text-gray-500\">896</td>\n                                <td>\n                                    <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                        <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <path d=\"M0 7C8.62687 7 7.61194 16 17.7612 16C27.9104 16 25.3731 9 34 9C42.6269 9 44.5157 5 51.2537 5C57.7936 5 59.3731 14.5 68 14.5\" stroke=\"url(#paint0_linear_622:13631)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                        <defs>\n                                        <linearGradient id=\"paint0_linear_622:13631\" x1=\"68\" y1=\"7.74997\" x2=\"1.69701\" y2=\"8.10029\" gradientUnits=\"userSpaceOnUse\">\n                                        <stop stop-color=\"#E323FF\"/>\n                                        <stop offset=\"1\" stop-color=\"#7517F8\"/>\n                                        </linearGradient>\n                                        </defs>\n                                    </svg>\n                                </td>   \n                            </tr>\n                            <tr>\n                                <td class=\"py-2\">Customize</td>\n                                <td class=\"text-gray-500\">1200</td>\n                                <td>\n                                    <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                        <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <path d=\"M0 12.929C8.69077 12.929 7.66833 9.47584 17.8928 9.47584C28.1172 9.47584 25.5611 15.9524 34.2519 15.9524C42.9426 15.9524 44.8455 10.929 51.6334 10.929C58.2217 10.929 59.3092 5 68 5\" stroke=\"url(#paint0_linear_622:13640)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                        <defs>\n                                        <linearGradient id=\"paint0_linear_622:13640\" x1=\"34\" y1=\"5\" x2=\"34\" y2=\"15.9524\" gradientUnits=\"userSpaceOnUse\">\n                                        <stop stop-color=\"#8AFF6C\"/>\n                                        <stop offset=\"1\" stop-color=\"#02C751\"/>\n                                        </linearGradient>\n                                        </defs>\n                                    </svg>\n                                </td>   \n                            </tr>\n                            <tr>\n                                <td class=\"py-2\">Other</td>\n                                <td class=\"text-gray-500\">12</td>\n                                <td>\n                                    <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                        <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <path d=\"M0 6C8.62687 6 6.85075 12.75 17 12.75C27.1493 12.75 25.3731 9 34 9C42.6269 9 42.262 13.875 49 13.875C55.5398 13.875 58.3731 6 67 6\" stroke=\"url(#paint0_linear_622:13649)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                        <defs>\n                                        <linearGradient id=\"paint0_linear_622:13649\" x1=\"67\" y1=\"7.96873\" x2=\"1.67368\" y2=\"8.44377\" gradientUnits=\"userSpaceOnUse\">\n                                        <stop stop-color=\"#FFD422\"/>\n                                        <stop offset=\"1\" stop-color=\"#FF7D05\"/>\n                                        </linearGradient>\n                                        </defs>\n                                    </svg>\n                                </td>   \n                            </tr>\n                        </tbody>\n                    </table> \n                </div>\n            </div>\n            <div>\n                <div class=\"h-full py-6 px-6 rounded-xl border border-gray-200 bg-white\">\n                    <h5 class=\"text-xl text-gray-700\">Downloads</h5>\n                    <div class=\"my-8\">\n                        <h1 class=\"text-5xl font-bold text-gray-800\">64,5%</h1>\n                        <span class=\"text-gray-500\">Compared to last week $13,988</span>\n                    </div>\n                    <svg class=\"w-full\" viewBox=\"0 0 218 69\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M0 67.5C27.8998 67.5 24.6002 15 52.5 15C80.3998 15 77.1002 29 105 29C132.9 29 128.6 52 156.5 52C184.4 52 189.127 63.8158 217.027 63.8158\" stroke=\"url(#paint0_linear_622:13664)\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n                        <path d=\"M0 67.5C27.2601 67.5 30.7399 31 58 31C85.2601 31 80.7399 2 108 2C135.26 2 134.74 43 162 43C189.26 43 190.74 63.665 218 63.665\" stroke=\"url(#paint1_linear_622:13664)\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n                        <defs>\n                        <linearGradient id=\"paint0_linear_622:13664\" x1=\"217.027\" y1=\"15\" x2=\"7.91244\" y2=\"15\" gradientUnits=\"userSpaceOnUse\">\n                        <stop stop-color=\"#4DFFDF\"/>\n                        <stop offset=\"1\" stop-color=\"#4DA1FF\"/>\n                        </linearGradient>\n                        <linearGradient id=\"paint1_linear_622:13664\" x1=\"218\" y1=\"18.3748\" x2=\"5.4362\" y2=\"18.9795\" gradientUnits=\"userSpaceOnUse\">\n                        <stop stop-color=\"#E323FF\"/>\n                        <stop offset=\"1\" stop-color=\"#7517F8\"/>\n                        </linearGradient>\n                        </defs>\n                    </svg>\n                    <table class=\"mt-6 -mb-2 w-full text-gray-600\">\n                        <tbody>\n                            <tr>\n                                <td class=\"py-2\">From new users</td>\n                                <td class=\"text-gray-500\">896</td>\n                                <td>\n                                    <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                        <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <path d=\"M0 7C8.62687 7 7.61194 16 17.7612 16C27.9104 16 25.3731 9 34 9C42.6269 9 44.5157 5 51.2537 5C57.7936 5 59.3731 14.5 68 14.5\" stroke=\"url(#paint0_linear_622:13631)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                        <defs>\n                                        <linearGradient id=\"paint0_linear_622:13631\" x1=\"68\" y1=\"7.74997\" x2=\"1.69701\" y2=\"8.10029\" gradientUnits=\"userSpaceOnUse\">\n                                        <stop stop-color=\"#E323FF\"/>\n                                        <stop offset=\"1\" stop-color=\"#7517F8\"/>\n                                        </linearGradient>\n                                        </defs>\n                                    </svg>\n                                </td>   \n                            </tr>\n                            <tr>\n                                <td class=\"py-2\">From old users</td>\n                                <td class=\"text-gray-500\">1200</td>\n                                <td>\n                                    <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                        <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <path d=\"M0 12.929C8.69077 12.929 7.66833 9.47584 17.8928 9.47584C28.1172 9.47584 25.5611 15.9524 34.2519 15.9524C42.9426 15.9524 44.8455 10.929 51.6334 10.929C58.2217 10.929 59.3092 5 68 5\" stroke=\"url(#paint0_linear_622:13640)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                        <defs>\n                                        <linearGradient id=\"paint0_linear_622:13640\" x1=\"34\" y1=\"5\" x2=\"34\" y2=\"15.9524\" gradientUnits=\"userSpaceOnUse\">\n                                        <stop stop-color=\"#8AFF6C\"/>\n                                        <stop offset=\"1\" stop-color=\"#02C751\"/>\n                                        </linearGradient>\n                                        </defs>\n                                    </svg>\n                                </td>   \n                            </tr>\n                        </tbody>\n                    </table>   \n                </div>\n            </div>\n            <div>\n                <div class=\"lg:h-full py-8 px-6 text-gray-600 rounded-xl border border-gray-200 bg-white\">\n                    <svg class=\"w-40 m-auto\" viewBox=\"0 0 56 56\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M27.9985 2.84071C31.2849 2.84071 34.539 3.488 37.5752 4.74562C40.6113 6.00324 43.3701 7.84657 45.6938 10.1703C48.0176 12.4941 49.861 15.2529 51.1186 18.289C52.3762 21.3252 53.0235 24.5793 53.0235 27.8657C53.0235 31.152 52.3762 34.4061 51.1186 37.4423C49.861 40.4785 48.0176 43.2372 45.6938 45.561C43.3701 47.8848 40.6113 49.7281 37.5752 50.9857C34.539 52.2433 31.2849 52.8906 27.9985 52.8906C24.7122 52.8906 21.4581 52.2433 18.4219 50.9857C15.3857 49.7281 12.627 47.8848 10.3032 45.561C7.97943 43.2372 6.1361 40.4785 4.87848 37.4423C3.62086 34.4061 2.97357 31.152 2.97357 27.8657C2.97357 24.5793 3.62086 21.3252 4.87848 18.289C6.13611 15.2529 7.97943 12.4941 10.3032 10.1703C12.627 7.84656 15.3857 6.00324 18.4219 4.74562C21.4581 3.488 24.7122 2.84071 27.9985 2.84071L27.9985 2.84071Z\" stroke=\"#e4e4f2\" stroke-width=\"3\"/>\n                        <path d=\"M27.301 2.50958C33.0386 2.35225 38.6614 4.13522 43.26 7.57004C47.8585 11.0049 51.1637 15.8907 52.641 21.437C54.1182 26.9834 53.6811 32.8659 51.4002 38.133C49.1194 43.4001 45.1283 47.7437 40.0726 50.4611C35.0169 53.1785 29.1923 54.1108 23.541 53.1071C17.8897 52.1034 12.7423 49.2225 8.93145 44.9305C5.12062 40.6384 2.86926 35.1861 2.54159 29.4558C2.21391 23.7254 3.82909 18.0521 7.12582 13.3536\" stroke=\"url(#paint0_linear_622:13696)\" stroke-width=\"5\" stroke-linecap=\"round\"/>\n                        <path d=\"M13.3279 30.7467C13.3912 29.48 13.8346 28.5047 14.6579 27.8207C15.4939 27.124 16.5896 26.7757 17.9449 26.7757C18.8696 26.7757 19.6612 26.9404 20.3199 27.2697C20.9786 27.5864 21.4726 28.0234 21.8019 28.5807C22.1439 29.1254 22.3149 29.746 22.3149 30.4427C22.3149 31.2407 22.1059 31.9184 21.6879 32.4757C21.2826 33.0204 20.7949 33.3877 20.2249 33.5777V33.6537C20.9596 33.8817 21.5296 34.287 21.9349 34.8697C22.3529 35.4524 22.5619 36.1997 22.5619 37.1117C22.5619 37.8717 22.3846 38.5494 22.0299 39.1447C21.6879 39.74 21.1749 40.2087 20.4909 40.5507C19.8196 40.88 19.0089 41.0447 18.0589 41.0447C16.6276 41.0447 15.4622 40.6837 14.5629 39.9617C13.6636 39.2397 13.1886 38.1757 13.1379 36.7697H15.7219C15.7472 37.3904 15.9562 37.8907 16.3489 38.2707C16.7542 38.638 17.3052 38.8217 18.0019 38.8217C18.6479 38.8217 19.1419 38.6444 19.4839 38.2897C19.8386 37.9224 20.0159 37.4537 20.0159 36.8837C20.0159 36.1237 19.7752 35.579 19.2939 35.2497C18.8126 34.9204 18.0652 34.7557 17.0519 34.7557H16.5009V32.5707H17.0519C18.8506 32.5707 19.7499 31.969 19.7499 30.7657C19.7499 30.221 19.5852 29.7967 19.2559 29.4927C18.9392 29.1887 18.4769 29.0367 17.8689 29.0367C17.2736 29.0367 16.8112 29.2014 16.4819 29.5307C16.1652 29.8474 15.9816 30.2527 15.9309 30.7467H13.3279ZM25.6499 37.9477C26.8659 36.9344 27.8349 36.092 28.5569 35.4207C29.2789 34.7367 29.8806 34.0274 30.3619 33.2927C30.8433 32.558 31.0839 31.836 31.0839 31.1267C31.0839 30.4807 30.9319 29.974 30.6279 29.6067C30.3239 29.2394 29.8553 29.0557 29.2219 29.0557C28.5886 29.0557 28.1009 29.271 27.7589 29.7017C27.4169 30.1197 27.2396 30.696 27.2269 31.4307H24.6429C24.6936 29.9107 25.1433 28.758 25.9919 27.9727C26.8533 27.1874 27.9426 26.7947 29.2599 26.7947C30.7039 26.7947 31.8123 27.181 32.5849 27.9537C33.3576 28.7137 33.7439 29.7207 33.7439 30.9747C33.7439 31.9627 33.4779 32.9064 32.9459 33.8057C32.4139 34.705 31.8059 35.4904 31.1219 36.1617C30.4379 36.8204 29.5449 37.6184 28.4429 38.5557H34.0479V40.7597H24.6619V38.7837L25.6499 37.9477Z\" fill=\"currentColor\"/>\n                        <path d=\"M36.1948 28.8842C36.1948 29.4438 36.2557 29.8634 36.3775 30.1432C36.4992 30.423 36.6967 30.5628 36.9699 30.5628C37.5097 30.5628 37.7796 30.0033 37.7796 28.8842C37.7796 27.7717 37.5097 27.2155 36.9699 27.2155C36.6967 27.2155 36.4992 27.3537 36.3775 27.6302C36.2557 27.9067 36.1948 28.3247 36.1948 28.8842ZM38.456 28.8842C38.456 29.6347 38.3293 30.2024 38.0758 30.5875C37.8257 30.9693 37.457 31.1602 36.9699 31.1602C36.5091 31.1602 36.1504 30.9644 35.8936 30.5727C35.6402 30.181 35.5135 29.6182 35.5135 28.8842C35.5135 28.1371 35.6352 27.5742 35.8788 27.1957C36.1257 26.8172 36.4894 26.6279 36.9699 26.6279C37.4472 26.6279 37.8142 26.8238 38.0709 27.2155C38.3276 27.6071 38.456 28.1634 38.456 28.8842ZM40.5395 31.7774C40.5395 32.3402 40.6003 32.7615 40.7221 33.0413C40.8439 33.3178 41.043 33.456 41.3195 33.456C41.596 33.456 41.8001 33.3194 41.9317 33.0462C42.0634 32.7697 42.1292 32.3468 42.1292 31.7774C42.1292 31.2145 42.0634 30.7982 41.9317 30.5283C41.8001 30.2551 41.596 30.1185 41.3195 30.1185C41.043 30.1185 40.8439 30.2551 40.7221 30.5283C40.6003 30.7982 40.5395 31.2145 40.5395 31.7774ZM42.8056 31.7774C42.8056 32.5245 42.6789 33.0906 42.4254 33.4757C42.1753 33.8575 41.8067 34.0484 41.3195 34.0484C40.8521 34.0484 40.4917 33.8526 40.2383 33.4609C39.9881 33.0693 39.8631 32.5081 39.8631 31.7774C39.8631 31.0302 39.9849 30.4674 40.2284 30.0889C40.4753 29.7104 40.839 29.5211 41.3195 29.5211C41.7869 29.5211 42.1506 29.7153 42.4106 30.1037C42.6739 30.4888 42.8056 31.0467 42.8056 31.7774ZM41.5318 26.7316L37.5278 33.9497H36.8021L40.8061 26.7316H41.5318Z\" fill=\"white\"/>\n                        <path d=\"M23.5776 18.4198H25.5424V22.8407H23.5776V18.4198ZM30.4545 16.455H32.4193V22.8407H30.4545V16.455ZM27.0161 13.5078H28.9809V22.8407H27.0161V13.5078Z\" fill=\"#6A6A9F\"/>\n                        <defs>\n                        <linearGradient id=\"paint0_linear_622:13696\" x1=\"5.54791e-07\" y1=\"42.0001\" x2=\"54.6039\" y2=\"41.9535\" gradientUnits=\"userSpaceOnUse\">\n                        <stop stop-color=\"#E323FF\"/>\n                        <stop offset=\"1\" stop-color=\"#7517F8\"/>\n                        </linearGradient>\n                        </defs>\n                    </svg>\n                    <div class=\"mt-6\">\n                        <h5 class=\"text-xl text-gray-700 text-center\">Ask to customize</h5>\n                        <div class=\"mt-2 flex justify-center gap-4\">\n                            <h3 class=\"text-3xl font-bold text-gray-700\">28</h3>\n                            <div class=\"flex items-end gap-1 text-green-500\">\n                                <svg class=\"w-3\" viewBox=\"0 0 12 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                    <path d=\"M6.00001 0L12 8H-3.05176e-05L6.00001 0Z\" fill=\"currentColor\"/>\n                                </svg>\n                                <span>2%</span>\n                            </div>\n                        </div>\n                        <span class=\"block text-center text-gray-500\">Compared to last week 13</span>\n                    </div>\n                    <table class=\"mt-6 -mb-2 w-full text-gray-600\">\n                        <tbody>\n                            <tr>\n                                <td class=\"py-2\">Tailored ui</td>\n                                <td class=\"text-gray-500\">896</td>\n                                <td>\n                                    <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                        <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <path d=\"M0 7C8.62687 7 7.61194 16 17.7612 16C27.9104 16 25.3731 9 34 9C42.6269 9 44.5157 5 51.2537 5C57.7936 5 59.3731 14.5 68 14.5\" stroke=\"url(#paint0_linear_622:13631)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                        <defs>\n                                        <linearGradient id=\"paint0_linear_622:13631\" x1=\"68\" y1=\"7.74997\" x2=\"1.69701\" y2=\"8.10029\" gradientUnits=\"userSpaceOnUse\">\n                                        <stop stop-color=\"#E323FF\"/>\n                                        <stop offset=\"1\" stop-color=\"#7517F8\"/>\n                                        </linearGradient>\n                                        </defs>\n                                    </svg>\n                                </td>   \n                            </tr>\n                            <tr>\n                                <td class=\"py-2\">Customize</td>\n                                <td class=\"text-gray-500\">1200</td>\n                                <td>\n                                    <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                        <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <path d=\"M0 12.929C8.69077 12.929 7.66833 9.47584 17.8928 9.47584C28.1172 9.47584 25.5611 15.9524 34.2519 15.9524C42.9426 15.9524 44.8455 10.929 51.6334 10.929C58.2217 10.929 59.3092 5 68 5\" stroke=\"url(#paint0_linear_622:13640)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                        <defs>\n                                        <linearGradient id=\"paint0_linear_622:13640\" x1=\"34\" y1=\"5\" x2=\"34\" y2=\"15.9524\" gradientUnits=\"userSpaceOnUse\">\n                                        <stop stop-color=\"#8AFF6C\"/>\n                                        <stop offset=\"1\" stop-color=\"#02C751\"/>\n                                        </linearGradient>\n                                        </defs>\n                                    </svg>\n                                </td>   \n                            </tr>\n                            <tr>\n                                <td class=\"py-2\">Other</td>\n                                <td class=\"text-gray-500\">12</td>\n                                <td>\n                                    <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                        <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                        <path d=\"M0 6C8.62687 6 6.85075 12.75 17 12.75C27.1493 12.75 25.3731 9 34 9C42.6269 9 42.262 13.875 49 13.875C55.5398 13.875 58.3731 6 67 6\" stroke=\"url(#paint0_linear_622:13649)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                        <defs>\n                                        <linearGradient id=\"paint0_linear_622:13649\" x1=\"67\" y1=\"7.96873\" x2=\"1.67368\" y2=\"8.44377\" gradientUnits=\"userSpaceOnUse\">\n                                        <stop stop-color=\"#FFD422\"/>\n                                        <stop offset=\"1\" stop-color=\"#FF7D05\"/>\n                                        </linearGradient>\n                                        </defs>\n                                    </svg>\n                                </td>   \n                            </tr>\n                        </tbody>\n                    </table>   \n                </div>\n            </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </div> ")])])]);
+  var _component_Toast = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Toast");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Sidebar"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Topbar"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"md:col-span-2 lg:col-span-1\" >\n                    <div class=\"h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white\">\n                        <svg class=\"w-40 m-auto opacity-75\" viewBox=\"0 0 146 146\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                            <path d=\"M73.1866 5.7129C81.999 5.7129 90.725 7.44863 98.8666 10.821C107.008 14.1933 114.406 19.1363 120.637 25.3675C126.868 31.5988 131.811 38.9964 135.184 47.138C138.556 55.2796 140.292 64.0057 140.292 72.818C140.292 81.6304 138.556 90.3565 135.184 98.4981C131.811 106.64 126.868 114.037 120.637 120.269C114.406 126.5 107.008 131.443 98.8666 134.815C90.725 138.187 81.999 139.923 73.1866 139.923C64.3742 139.923 55.6481 138.187 47.5066 134.815C39.365 131.443 31.9674 126.5 25.7361 120.269C19.5048 114.037 14.5619 106.64 11.1895 98.4981C7.81717 90.3565 6.08144 81.6304 6.08144 72.818C6.08144 64.0057 7.81717 55.2796 11.1895 47.138C14.5619 38.9964 19.5048 31.5988 25.7361 25.3675C31.9674 19.1363 39.365 14.1933 47.5066 10.821C55.6481 7.44863 64.3742 5.7129 73.1866 5.7129L73.1866 5.7129Z\" stroke=\"#e4e4f2\" stroke-width=\"4.89873\"/>\n                            <path d=\"M73.5 23.4494C79.9414 23.4494 86.3198 24.7181 92.2709 27.1831C98.222 29.6482 103.629 33.2612 108.184 37.816C112.739 42.3707 116.352 47.778 118.817 53.7291C121.282 59.6802 122.551 66.0586 122.551 72.5C122.551 78.9414 121.282 85.3198 118.817 91.2709C116.352 97.222 112.739 102.629 108.184 107.184C103.629 111.739 98.222 115.352 92.2709 117.817C86.3198 120.282 79.9414 121.551 73.5 121.551C67.0586 121.551 60.6802 120.282 54.7291 117.817C48.778 115.352 43.3707 111.739 38.816 107.184C34.2612 102.629 30.6481 97.222 28.1831 91.2709C25.7181 85.3198 24.4494 78.9414 24.4494 72.5C24.4494 66.0586 25.7181 59.6802 28.1831 53.7291C30.6481 47.778 34.2612 42.3707 38.816 37.816C43.3707 33.2612 48.778 29.6481 54.7291 27.1831C60.6802 24.7181 67.0586 23.4494 73.5 23.4494L73.5 23.4494Z\" stroke=\"#e4e4f2\" stroke-width=\"4.89873\"/>\n                            <path d=\"M73 24C84.3364 24 95.3221 27.9307 104.085 35.1225C112.848 42.3142 118.847 52.322 121.058 63.4406C123.27 74.5592 121.558 86.1006 116.214 96.0984C110.87 106.096 102.225 113.932 91.7515 118.27C81.278 122.608 69.6243 123.181 58.7761 119.89C47.9278 116.599 38.5562 109.649 32.258 100.223C25.9598 90.7971 23.1248 79.479 24.2359 68.1972C25.3471 56.9153 30.3357 46.3678 38.3518 38.3518\" stroke=\"url(#paint0_linear_622:13617)\" stroke-width=\"10\" stroke-linecap=\"round\"/>\n                            <path d=\"M73 5.00001C84.365 5.00001 95.5488 7.84852 105.529 13.2852C115.509 18.7218 123.968 26.5732 130.131 36.1217C136.295 45.6702 139.967 56.6112 140.812 67.9448C141.657 79.2783 139.648 90.6429 134.968 101C130.288 111.357 123.087 120.375 114.023 127.232C104.96 134.088 94.3218 138.563 83.0824 140.248C71.8431 141.933 60.3606 140.775 49.6845 136.878C39.0085 132.981 29.4793 126.471 21.9681 117.942\" stroke=\"url(#paint1_linear_622:13617)\" stroke-width=\"10\" stroke-linecap=\"round\"/>\n                            <path d=\"M9.60279 97.5926C6.37325 89.2671 4.81515 80.3871 5.01745 71.4595C5.21975 62.5319 7.1785 53.7316 10.7818 45.561C14.3852 37.3904 19.5626 30.0095 26.0184 23.8398C32.4742 17.6701 40.082 12.8323 48.4075 9.6028\" stroke=\"url(#paint2_linear_622:13617)\" stroke-width=\"10\" stroke-linecap=\"round\"/>\n                            <path d=\"M73 5.00001C86.6504 5.00001 99.9849 9.10831 111.269 16.7904\" stroke=\"url(#paint3_linear_622:13617)\" stroke-width=\"10\" stroke-linecap=\"round\"/>\n                            <circle cx=\"73.5\" cy=\"72.5\" r=\"29\" fill=\"#e4e4f2\" stroke=\"#e4e4f2\"/>\n                            <path d=\"M74 82.8332C68.0167 82.8332 63.1666 77.9831 63.1666 71.9998C63.1666 66.0166 68.0167 61.1665 74 61.1665C79.9832 61.1665 84.8333 66.0166 84.8333 71.9998C84.8333 77.9831 79.9832 82.8332 74 82.8332ZM74 80.6665C76.2985 80.6665 78.5029 79.7534 80.1282 78.1281C81.7535 76.5028 82.6666 74.2984 82.6666 71.9998C82.6666 69.7013 81.7535 67.4969 80.1282 65.8716C78.5029 64.2463 76.2985 63.3332 74 63.3332C71.7014 63.3332 69.497 64.2463 67.8717 65.8716C66.2464 67.4969 65.3333 69.7013 65.3333 71.9998C65.3333 74.2984 66.2464 76.5028 67.8717 78.1281C69.497 79.7534 71.7014 80.6665 74 80.6665ZM70.75 67.6665H77.25L79.9583 71.4582L74 77.4165L68.0416 71.4582L70.75 67.6665ZM71.8658 69.8332L70.8691 71.2307L74 74.3615L77.1308 71.2307L76.1341 69.8332H71.8658Z\" fill=\"#6A6A9F\"/>\n                            <defs>\n                            <linearGradient id=\"paint0_linear_622:13617\" x1=\"45.9997\" y1=\"19\" x2=\"46.0897\" y2=\"124.308\" gradientUnits=\"userSpaceOnUse\">\n                            <stop stop-color=\"#E323FF\"/>\n                            <stop offset=\"1\" stop-color=\"#7517F8\"/>\n                            </linearGradient>\n                            <linearGradient id=\"paint1_linear_622:13617\" x1=\"1.74103e-06\" y1=\"8.70228e-06\" x2=\"6.34739e-08\" y2=\"140.677\" gradientUnits=\"userSpaceOnUse\">\n                            <stop stop-color=\"#4DFFDF\"/>\n                            <stop offset=\"1\" stop-color=\"#4DA1FF\"/>\n                            </linearGradient>\n                            <linearGradient id=\"paint2_linear_622:13617\" x1=\"36.4997\" y1=\"5.07257e-06\" x2=\"36.6213\" y2=\"142.36\" gradientUnits=\"userSpaceOnUse\">\n                            <stop stop-color=\"#FFD422\"/>\n                            <stop offset=\"1\" stop-color=\"#FF7D05\"/>\n                            </linearGradient>\n                            <linearGradient id=\"paint3_linear_622:13617\" x1=\"1.74103e-06\" y1=\"8.70228e-06\" x2=\"6.34739e-08\" y2=\"140.677\" gradientUnits=\"userSpaceOnUse\">\n                            <stop stop-color=\"#4DFFDF\"/>\n                            <stop offset=\"1\" stop-color=\"#4DA1FF\"/>\n                            </linearGradient>\n                            </defs>\n                        </svg>\n                        <div>\n                            <h5 class=\"text-xl text-gray-600 text-center\">Global Activities</h5>\n                            <div class=\"mt-2 flex justify-center gap-4\">\n                                <h3 class=\"text-3xl font-bold text-gray-700\">$23,988</h3>\n                                <div class=\"flex items-end gap-1 text-green-500\">\n                                    <svg class=\"w-3\" viewBox=\"0 0 12 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                    <path d=\"M6.00001 0L12 8H-3.05176e-05L6.00001 0Z\" fill=\"currentColor\"/>\n                                    </svg>\n                                    <span>2%</span>\n                                </div>\n                            </div>\n                            <span class=\"block text-center text-gray-500\">Compared to last week $13,988</span>\n                        </div>\n                        <table class=\"w-full text-gray-600\">\n                            <tbody>\n                                <tr>\n                                    <td class=\"py-2\">Tailored ui</td>\n                                    <td class=\"text-gray-500\">896</td>\n                                    <td>\n                                        <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                            <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <path d=\"M0 7C8.62687 7 7.61194 16 17.7612 16C27.9104 16 25.3731 9 34 9C42.6269 9 44.5157 5 51.2537 5C57.7936 5 59.3731 14.5 68 14.5\" stroke=\"url(#paint0_linear_622:13631)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                            <defs>\n                                            <linearGradient id=\"paint0_linear_622:13631\" x1=\"68\" y1=\"7.74997\" x2=\"1.69701\" y2=\"8.10029\" gradientUnits=\"userSpaceOnUse\">\n                                            <stop stop-color=\"#E323FF\"/>\n                                            <stop offset=\"1\" stop-color=\"#7517F8\"/>\n                                            </linearGradient>\n                                            </defs>\n                                        </svg>\n                                    </td>   \n                                </tr>\n                                <tr>\n                                    <td class=\"py-2\">Customize</td>\n                                    <td class=\"text-gray-500\">1200</td>\n                                    <td>\n                                        <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                            <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <path d=\"M0 12.929C8.69077 12.929 7.66833 9.47584 17.8928 9.47584C28.1172 9.47584 25.5611 15.9524 34.2519 15.9524C42.9426 15.9524 44.8455 10.929 51.6334 10.929C58.2217 10.929 59.3092 5 68 5\" stroke=\"url(#paint0_linear_622:13640)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                            <defs>\n                                            <linearGradient id=\"paint0_linear_622:13640\" x1=\"34\" y1=\"5\" x2=\"34\" y2=\"15.9524\" gradientUnits=\"userSpaceOnUse\">\n                                            <stop stop-color=\"#8AFF6C\"/>\n                                            <stop offset=\"1\" stop-color=\"#02C751\"/>\n                                            </linearGradient>\n                                            </defs>\n                                        </svg>\n                                    </td>   \n                                </tr>\n                                <tr>\n                                    <td class=\"py-2\">Other</td>\n                                    <td class=\"text-gray-500\">12</td>\n                                    <td>\n                                        <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                            <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <path d=\"M0 6C8.62687 6 6.85075 12.75 17 12.75C27.1493 12.75 25.3731 9 34 9C42.6269 9 42.262 13.875 49 13.875C55.5398 13.875 58.3731 6 67 6\" stroke=\"url(#paint0_linear_622:13649)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                            <defs>\n                                            <linearGradient id=\"paint0_linear_622:13649\" x1=\"67\" y1=\"7.96873\" x2=\"1.67368\" y2=\"8.44377\" gradientUnits=\"userSpaceOnUse\">\n                                            <stop stop-color=\"#FFD422\"/>\n                                            <stop offset=\"1\" stop-color=\"#FF7D05\"/>\n                                            </linearGradient>\n                                            </defs>\n                                        </svg>\n                                    </td>   \n                                </tr>\n                            </tbody>\n                        </table> \n                    </div>\n                </div>\n                <div>\n                    <div class=\"h-full py-6 px-6 rounded-xl border border-gray-200 bg-white\">\n                        <h5 class=\"text-xl text-gray-700\">Downloads</h5>\n                        <div class=\"my-8\">\n                            <h1 class=\"text-5xl font-bold text-gray-800\">64,5%</h1>\n                            <span class=\"text-gray-500\">Compared to last week $13,988</span>\n                        </div>\n                        <svg class=\"w-full\" viewBox=\"0 0 218 69\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                            <path d=\"M0 67.5C27.8998 67.5 24.6002 15 52.5 15C80.3998 15 77.1002 29 105 29C132.9 29 128.6 52 156.5 52C184.4 52 189.127 63.8158 217.027 63.8158\" stroke=\"url(#paint0_linear_622:13664)\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n                            <path d=\"M0 67.5C27.2601 67.5 30.7399 31 58 31C85.2601 31 80.7399 2 108 2C135.26 2 134.74 43 162 43C189.26 43 190.74 63.665 218 63.665\" stroke=\"url(#paint1_linear_622:13664)\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n                            <defs>\n                            <linearGradient id=\"paint0_linear_622:13664\" x1=\"217.027\" y1=\"15\" x2=\"7.91244\" y2=\"15\" gradientUnits=\"userSpaceOnUse\">\n                            <stop stop-color=\"#4DFFDF\"/>\n                            <stop offset=\"1\" stop-color=\"#4DA1FF\"/>\n                            </linearGradient>\n                            <linearGradient id=\"paint1_linear_622:13664\" x1=\"218\" y1=\"18.3748\" x2=\"5.4362\" y2=\"18.9795\" gradientUnits=\"userSpaceOnUse\">\n                            <stop stop-color=\"#E323FF\"/>\n                            <stop offset=\"1\" stop-color=\"#7517F8\"/>\n                            </linearGradient>\n                            </defs>\n                        </svg>\n                        <table class=\"mt-6 -mb-2 w-full text-gray-600\">\n                            <tbody>\n                                <tr>\n                                    <td class=\"py-2\">From new users</td>\n                                    <td class=\"text-gray-500\">896</td>\n                                    <td>\n                                        <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                            <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <path d=\"M0 7C8.62687 7 7.61194 16 17.7612 16C27.9104 16 25.3731 9 34 9C42.6269 9 44.5157 5 51.2537 5C57.7936 5 59.3731 14.5 68 14.5\" stroke=\"url(#paint0_linear_622:13631)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                            <defs>\n                                            <linearGradient id=\"paint0_linear_622:13631\" x1=\"68\" y1=\"7.74997\" x2=\"1.69701\" y2=\"8.10029\" gradientUnits=\"userSpaceOnUse\">\n                                            <stop stop-color=\"#E323FF\"/>\n                                            <stop offset=\"1\" stop-color=\"#7517F8\"/>\n                                            </linearGradient>\n                                            </defs>\n                                        </svg>\n                                    </td>   \n                                </tr>\n                                <tr>\n                                    <td class=\"py-2\">From old users</td>\n                                    <td class=\"text-gray-500\">1200</td>\n                                    <td>\n                                        <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                            <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <path d=\"M0 12.929C8.69077 12.929 7.66833 9.47584 17.8928 9.47584C28.1172 9.47584 25.5611 15.9524 34.2519 15.9524C42.9426 15.9524 44.8455 10.929 51.6334 10.929C58.2217 10.929 59.3092 5 68 5\" stroke=\"url(#paint0_linear_622:13640)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                            <defs>\n                                            <linearGradient id=\"paint0_linear_622:13640\" x1=\"34\" y1=\"5\" x2=\"34\" y2=\"15.9524\" gradientUnits=\"userSpaceOnUse\">\n                                            <stop stop-color=\"#8AFF6C\"/>\n                                            <stop offset=\"1\" stop-color=\"#02C751\"/>\n                                            </linearGradient>\n                                            </defs>\n                                        </svg>\n                                    </td>   \n                                </tr>\n                            </tbody>\n                        </table>   \n                    </div>\n                </div>\n                <div>\n                    <div class=\"lg:h-full py-8 px-6 text-gray-600 rounded-xl border border-gray-200 bg-white\">\n                        <svg class=\"w-40 m-auto\" viewBox=\"0 0 56 56\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                            <path d=\"M27.9985 2.84071C31.2849 2.84071 34.539 3.488 37.5752 4.74562C40.6113 6.00324 43.3701 7.84657 45.6938 10.1703C48.0176 12.4941 49.861 15.2529 51.1186 18.289C52.3762 21.3252 53.0235 24.5793 53.0235 27.8657C53.0235 31.152 52.3762 34.4061 51.1186 37.4423C49.861 40.4785 48.0176 43.2372 45.6938 45.561C43.3701 47.8848 40.6113 49.7281 37.5752 50.9857C34.539 52.2433 31.2849 52.8906 27.9985 52.8906C24.7122 52.8906 21.4581 52.2433 18.4219 50.9857C15.3857 49.7281 12.627 47.8848 10.3032 45.561C7.97943 43.2372 6.1361 40.4785 4.87848 37.4423C3.62086 34.4061 2.97357 31.152 2.97357 27.8657C2.97357 24.5793 3.62086 21.3252 4.87848 18.289C6.13611 15.2529 7.97943 12.4941 10.3032 10.1703C12.627 7.84656 15.3857 6.00324 18.4219 4.74562C21.4581 3.488 24.7122 2.84071 27.9985 2.84071L27.9985 2.84071Z\" stroke=\"#e4e4f2\" stroke-width=\"3\"/>\n                            <path d=\"M27.301 2.50958C33.0386 2.35225 38.6614 4.13522 43.26 7.57004C47.8585 11.0049 51.1637 15.8907 52.641 21.437C54.1182 26.9834 53.6811 32.8659 51.4002 38.133C49.1194 43.4001 45.1283 47.7437 40.0726 50.4611C35.0169 53.1785 29.1923 54.1108 23.541 53.1071C17.8897 52.1034 12.7423 49.2225 8.93145 44.9305C5.12062 40.6384 2.86926 35.1861 2.54159 29.4558C2.21391 23.7254 3.82909 18.0521 7.12582 13.3536\" stroke=\"url(#paint0_linear_622:13696)\" stroke-width=\"5\" stroke-linecap=\"round\"/>\n                            <path d=\"M13.3279 30.7467C13.3912 29.48 13.8346 28.5047 14.6579 27.8207C15.4939 27.124 16.5896 26.7757 17.9449 26.7757C18.8696 26.7757 19.6612 26.9404 20.3199 27.2697C20.9786 27.5864 21.4726 28.0234 21.8019 28.5807C22.1439 29.1254 22.3149 29.746 22.3149 30.4427C22.3149 31.2407 22.1059 31.9184 21.6879 32.4757C21.2826 33.0204 20.7949 33.3877 20.2249 33.5777V33.6537C20.9596 33.8817 21.5296 34.287 21.9349 34.8697C22.3529 35.4524 22.5619 36.1997 22.5619 37.1117C22.5619 37.8717 22.3846 38.5494 22.0299 39.1447C21.6879 39.74 21.1749 40.2087 20.4909 40.5507C19.8196 40.88 19.0089 41.0447 18.0589 41.0447C16.6276 41.0447 15.4622 40.6837 14.5629 39.9617C13.6636 39.2397 13.1886 38.1757 13.1379 36.7697H15.7219C15.7472 37.3904 15.9562 37.8907 16.3489 38.2707C16.7542 38.638 17.3052 38.8217 18.0019 38.8217C18.6479 38.8217 19.1419 38.6444 19.4839 38.2897C19.8386 37.9224 20.0159 37.4537 20.0159 36.8837C20.0159 36.1237 19.7752 35.579 19.2939 35.2497C18.8126 34.9204 18.0652 34.7557 17.0519 34.7557H16.5009V32.5707H17.0519C18.8506 32.5707 19.7499 31.969 19.7499 30.7657C19.7499 30.221 19.5852 29.7967 19.2559 29.4927C18.9392 29.1887 18.4769 29.0367 17.8689 29.0367C17.2736 29.0367 16.8112 29.2014 16.4819 29.5307C16.1652 29.8474 15.9816 30.2527 15.9309 30.7467H13.3279ZM25.6499 37.9477C26.8659 36.9344 27.8349 36.092 28.5569 35.4207C29.2789 34.7367 29.8806 34.0274 30.3619 33.2927C30.8433 32.558 31.0839 31.836 31.0839 31.1267C31.0839 30.4807 30.9319 29.974 30.6279 29.6067C30.3239 29.2394 29.8553 29.0557 29.2219 29.0557C28.5886 29.0557 28.1009 29.271 27.7589 29.7017C27.4169 30.1197 27.2396 30.696 27.2269 31.4307H24.6429C24.6936 29.9107 25.1433 28.758 25.9919 27.9727C26.8533 27.1874 27.9426 26.7947 29.2599 26.7947C30.7039 26.7947 31.8123 27.181 32.5849 27.9537C33.3576 28.7137 33.7439 29.7207 33.7439 30.9747C33.7439 31.9627 33.4779 32.9064 32.9459 33.8057C32.4139 34.705 31.8059 35.4904 31.1219 36.1617C30.4379 36.8204 29.5449 37.6184 28.4429 38.5557H34.0479V40.7597H24.6619V38.7837L25.6499 37.9477Z\" fill=\"currentColor\"/>\n                            <path d=\"M36.1948 28.8842C36.1948 29.4438 36.2557 29.8634 36.3775 30.1432C36.4992 30.423 36.6967 30.5628 36.9699 30.5628C37.5097 30.5628 37.7796 30.0033 37.7796 28.8842C37.7796 27.7717 37.5097 27.2155 36.9699 27.2155C36.6967 27.2155 36.4992 27.3537 36.3775 27.6302C36.2557 27.9067 36.1948 28.3247 36.1948 28.8842ZM38.456 28.8842C38.456 29.6347 38.3293 30.2024 38.0758 30.5875C37.8257 30.9693 37.457 31.1602 36.9699 31.1602C36.5091 31.1602 36.1504 30.9644 35.8936 30.5727C35.6402 30.181 35.5135 29.6182 35.5135 28.8842C35.5135 28.1371 35.6352 27.5742 35.8788 27.1957C36.1257 26.8172 36.4894 26.6279 36.9699 26.6279C37.4472 26.6279 37.8142 26.8238 38.0709 27.2155C38.3276 27.6071 38.456 28.1634 38.456 28.8842ZM40.5395 31.7774C40.5395 32.3402 40.6003 32.7615 40.7221 33.0413C40.8439 33.3178 41.043 33.456 41.3195 33.456C41.596 33.456 41.8001 33.3194 41.9317 33.0462C42.0634 32.7697 42.1292 32.3468 42.1292 31.7774C42.1292 31.2145 42.0634 30.7982 41.9317 30.5283C41.8001 30.2551 41.596 30.1185 41.3195 30.1185C41.043 30.1185 40.8439 30.2551 40.7221 30.5283C40.6003 30.7982 40.5395 31.2145 40.5395 31.7774ZM42.8056 31.7774C42.8056 32.5245 42.6789 33.0906 42.4254 33.4757C42.1753 33.8575 41.8067 34.0484 41.3195 34.0484C40.8521 34.0484 40.4917 33.8526 40.2383 33.4609C39.9881 33.0693 39.8631 32.5081 39.8631 31.7774C39.8631 31.0302 39.9849 30.4674 40.2284 30.0889C40.4753 29.7104 40.839 29.5211 41.3195 29.5211C41.7869 29.5211 42.1506 29.7153 42.4106 30.1037C42.6739 30.4888 42.8056 31.0467 42.8056 31.7774ZM41.5318 26.7316L37.5278 33.9497H36.8021L40.8061 26.7316H41.5318Z\" fill=\"white\"/>\n                            <path d=\"M23.5776 18.4198H25.5424V22.8407H23.5776V18.4198ZM30.4545 16.455H32.4193V22.8407H30.4545V16.455ZM27.0161 13.5078H28.9809V22.8407H27.0161V13.5078Z\" fill=\"#6A6A9F\"/>\n                            <defs>\n                            <linearGradient id=\"paint0_linear_622:13696\" x1=\"5.54791e-07\" y1=\"42.0001\" x2=\"54.6039\" y2=\"41.9535\" gradientUnits=\"userSpaceOnUse\">\n                            <stop stop-color=\"#E323FF\"/>\n                            <stop offset=\"1\" stop-color=\"#7517F8\"/>\n                            </linearGradient>\n                            </defs>\n                        </svg>\n                        <div class=\"mt-6\">\n                            <h5 class=\"text-xl text-gray-700 text-center\">Ask to customize</h5>\n                            <div class=\"mt-2 flex justify-center gap-4\">\n                                <h3 class=\"text-3xl font-bold text-gray-700\">28</h3>\n                                <div class=\"flex items-end gap-1 text-green-500\">\n                                    <svg class=\"w-3\" viewBox=\"0 0 12 15\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                        <path d=\"M6.00001 0L12 8H-3.05176e-05L6.00001 0Z\" fill=\"currentColor\"/>\n                                    </svg>\n                                    <span>2%</span>\n                                </div>\n                            </div>\n                            <span class=\"block text-center text-gray-500\">Compared to last week 13</span>\n                        </div>\n                        <table class=\"mt-6 -mb-2 w-full text-gray-600\">\n                            <tbody>\n                                <tr>\n                                    <td class=\"py-2\">Tailored ui</td>\n                                    <td class=\"text-gray-500\">896</td>\n                                    <td>\n                                        <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                            <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <path d=\"M0 7C8.62687 7 7.61194 16 17.7612 16C27.9104 16 25.3731 9 34 9C42.6269 9 44.5157 5 51.2537 5C57.7936 5 59.3731 14.5 68 14.5\" stroke=\"url(#paint0_linear_622:13631)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                            <defs>\n                                            <linearGradient id=\"paint0_linear_622:13631\" x1=\"68\" y1=\"7.74997\" x2=\"1.69701\" y2=\"8.10029\" gradientUnits=\"userSpaceOnUse\">\n                                            <stop stop-color=\"#E323FF\"/>\n                                            <stop offset=\"1\" stop-color=\"#7517F8\"/>\n                                            </linearGradient>\n                                            </defs>\n                                        </svg>\n                                    </td>   \n                                </tr>\n                                <tr>\n                                    <td class=\"py-2\">Customize</td>\n                                    <td class=\"text-gray-500\">1200</td>\n                                    <td>\n                                        <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                            <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <path d=\"M0 12.929C8.69077 12.929 7.66833 9.47584 17.8928 9.47584C28.1172 9.47584 25.5611 15.9524 34.2519 15.9524C42.9426 15.9524 44.8455 10.929 51.6334 10.929C58.2217 10.929 59.3092 5 68 5\" stroke=\"url(#paint0_linear_622:13640)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                            <defs>\n                                            <linearGradient id=\"paint0_linear_622:13640\" x1=\"34\" y1=\"5\" x2=\"34\" y2=\"15.9524\" gradientUnits=\"userSpaceOnUse\">\n                                            <stop stop-color=\"#8AFF6C\"/>\n                                            <stop offset=\"1\" stop-color=\"#02C751\"/>\n                                            </linearGradient>\n                                            </defs>\n                                        </svg>\n                                    </td>   \n                                </tr>\n                                <tr>\n                                    <td class=\"py-2\">Other</td>\n                                    <td class=\"text-gray-500\">12</td>\n                                    <td>\n                                        <svg class=\"w-16 ml-auto\" viewBox=\"0 0 68 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                                            <rect opacity=\"0.4\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"19\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"35\" width=\"14\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <rect opacity=\"0.4\" x=\"51\" width=\"17\" height=\"21\" rx=\"1\" fill=\"#e4e4f2\"/>\n                                            <path d=\"M0 6C8.62687 6 6.85075 12.75 17 12.75C27.1493 12.75 25.3731 9 34 9C42.6269 9 42.262 13.875 49 13.875C55.5398 13.875 58.3731 6 67 6\" stroke=\"url(#paint0_linear_622:13649)\" stroke-width=\"2\" stroke-linejoin=\"round\"/>\n                                            <defs>\n                                            <linearGradient id=\"paint0_linear_622:13649\" x1=\"67\" y1=\"7.96873\" x2=\"1.67368\" y2=\"8.44377\" gradientUnits=\"userSpaceOnUse\">\n                                            <stop stop-color=\"#FFD422\"/>\n                                            <stop offset=\"1\" stop-color=\"#FF7D05\"/>\n                                            </linearGradient>\n                                            </defs>\n                                        </svg>\n                                    </td>   \n                                </tr>\n                            </tbody>\n                        </table>   \n                    </div>\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </div> ")]), _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Toast)])]);
 }
 
 /***/ }),
@@ -20712,7 +20807,7 @@ var _hoisted_1 = {
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "mt-8 text-center"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "https://tailus.io/sources/blocks/stats-cards/preview/images/second_user.webp",
+  src: "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png",
   alt: "",
   "class": "w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
 }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", {
@@ -20951,7 +21046,7 @@ var _hoisted_1 = {
   "class": "sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"px-6 flex items-center justify-between space-x-4 2xl:container\"><h5 hidden class=\"text-2xl text-gray-600 font-medium lg:block\">Dashboard</h5><button class=\"w-12 h-16 -mr-2 border-r lg:hidden\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6 my-auto\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M4 6h16M4 12h16M4 18h16\"></path></svg></button><div class=\"flex space-x-4\"><!--search bar --><div hidden class=\"md:block\"><div class=\"relative flex items-center text-gray-400 focus-within:text-cyan-400\"><span class=\"absolute left-4 h-6 flex items-center pr-3 border-r border-gray-300\"><svg xmlns=\"http://ww50w3.org/2000/svg\" class=\"w-4 fill-current\" viewBox=\"0 0 35.997 36.004\"><path id=\"Icon_awesome-search\" data-name=\"search\" d=\"M35.508,31.127l-7.01-7.01a1.686,1.686,0,0,0-1.2-.492H26.156a14.618,14.618,0,1,0-2.531,2.531V27.3a1.686,1.686,0,0,0,.492,1.2l7.01,7.01a1.681,1.681,0,0,0,2.384,0l1.99-1.99a1.7,1.7,0,0,0,.007-2.391Zm-20.883-7.5a9,9,0,1,1,9-9A8.995,8.995,0,0,1,14.625,23.625Z\"></path></svg></span><input type=\"search\" name=\"leadingIcon\" id=\"leadingIcon\" placeholder=\"Search here\" class=\"w-full pl-14 pr-4 py-2.5 rounded-xl text-sm text-gray-600 outline-none border border-gray-300 focus:border-cyan-300 transition\"></div></div><!--/search bar --><button aria-label=\"search\" class=\"w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200 md:hidden\"><svg xmlns=\"http://ww50w3.org/2000/svg\" class=\"w-4 mx-auto fill-current text-gray-600\" viewBox=\"0 0 35.997 36.004\"><path id=\"Icon_awesome-search\" data-name=\"search\" d=\"M35.508,31.127l-7.01-7.01a1.686,1.686,0,0,0-1.2-.492H26.156a14.618,14.618,0,1,0-2.531,2.531V27.3a1.686,1.686,0,0,0,.492,1.2l7.01,7.01a1.681,1.681,0,0,0,2.384,0l1.99-1.99a1.7,1.7,0,0,0,.007-2.391Zm-20.883-7.5a9,9,0,1,1,9-9A8.995,8.995,0,0,1,14.625,23.625Z\"></path></svg></button><button aria-label=\"chat\" class=\"w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5 m-auto text-gray-600\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z\"></path></svg></button><button aria-label=\"notification\" class=\"w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5 m-auto text-gray-600\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z\"></path></svg></button></div></div>", 1);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"px-6 flex items-center justify-between space-x-4\"><h5 hidden class=\"text-2xl text-gray-600 font-medium lg:block\">Dashboard</h5><button class=\"w-12 h-16 -mr-2 border-r lg:hidden\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6 my-auto\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M4 6h16M4 12h16M4 18h16\"></path></svg></button><div class=\"flex space-x-4\"><!--search bar --><div hidden class=\"md:block\"><div class=\"relative flex items-center text-gray-400 focus-within:text-cyan-400\"><span class=\"absolute left-4 h-6 flex items-center pr-3 border-r border-gray-300\"><svg xmlns=\"http://ww50w3.org/2000/svg\" class=\"w-4 fill-current\" viewBox=\"0 0 35.997 36.004\"><path id=\"Icon_awesome-search\" data-name=\"search\" d=\"M35.508,31.127l-7.01-7.01a1.686,1.686,0,0,0-1.2-.492H26.156a14.618,14.618,0,1,0-2.531,2.531V27.3a1.686,1.686,0,0,0,.492,1.2l7.01,7.01a1.681,1.681,0,0,0,2.384,0l1.99-1.99a1.7,1.7,0,0,0,.007-2.391Zm-20.883-7.5a9,9,0,1,1,9-9A8.995,8.995,0,0,1,14.625,23.625Z\"></path></svg></span><input type=\"search\" name=\"leadingIcon\" id=\"leadingIcon\" placeholder=\"Search here\" class=\"w-full pl-14 pr-4 py-2.5 rounded-xl text-sm text-gray-600 outline-none border border-gray-300 focus:border-cyan-300 transition\"></div></div><!--/search bar --><button aria-label=\"search\" class=\"w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200 md:hidden\"><svg xmlns=\"http://ww50w3.org/2000/svg\" class=\"w-4 mx-auto fill-current text-gray-600\" viewBox=\"0 0 35.997 36.004\"><path id=\"Icon_awesome-search\" data-name=\"search\" d=\"M35.508,31.127l-7.01-7.01a1.686,1.686,0,0,0-1.2-.492H26.156a14.618,14.618,0,1,0-2.531,2.531V27.3a1.686,1.686,0,0,0,.492,1.2l7.01,7.01a1.681,1.681,0,0,0,2.384,0l1.99-1.99a1.7,1.7,0,0,0,.007-2.391Zm-20.883-7.5a9,9,0,1,1,9-9A8.995,8.995,0,0,1,14.625,23.625Z\"></path></svg></button><button aria-label=\"chat\" class=\"w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5 m-auto text-gray-600\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z\"></path></svg></button><button aria-label=\"notification\" class=\"w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5 m-auto text-gray-600\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z\"></path></svg></button></div></div>", 1);
 
 var _hoisted_3 = [_hoisted_2];
 function render(_ctx, _cache) {
@@ -21585,6 +21680,77 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Forms/UserForm.vue?vue&type=template&id=1dc6d8d0":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Forms/UserForm.vue?vue&type=template&id=1dc6d8d0 ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "first_name"
+}, "First name:", -1
+/* HOISTED */
+);
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "last_name"
+}, "Last name:", -1
+/* HOISTED */
+);
+
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "email"
+}, "Email:", -1
+/* HOISTED */
+);
+
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  type: "submit"
+}, "Submit", -1
+/* HOISTED */
+);
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
+    onSubmit: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $setup.submit && $setup.submit.apply($setup, arguments);
+    }, ["prevent"]))
+  }, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    id: "first_name",
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $setup.form.first_name = $event;
+    })
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.first_name]]), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    id: "last_name",
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $setup.form.last_name = $event;
+    })
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.last_name]]), _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    id: "email",
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $setup.form.email = $event;
+    })
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.email]]), _hoisted_4], 32
+  /* HYDRATE_EVENTS */
+  );
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Users.vue?vue&type=template&id=7bbfca2f&scoped=true":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Users.vue?vue&type=template&id=7bbfca2f&scoped=true ***!
@@ -21604,13 +21770,17 @@ var _withScopeId = function _withScopeId(n) {
 };
 
 var _hoisted_1 = {
-  "class": "table-header"
+  "class": "card"
 };
-
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Products ");
-
+var _hoisted_2 = {
+  "class": "orders-subtable"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
+
+  var _component_FileUpload = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("FileUpload");
+
+  var _component_Toolbar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Toolbar");
 
   var _component_Column = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Column");
 
@@ -21618,21 +21788,46 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_DataTable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DataTable");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <DataTable :value=\"users\" responsiveLayout=\"scroll\">\n            <Column v-for=\"col of columns\" :field=\"col.field\" :header=\"col.header\" :key=\"col.field\"></Column>\n        </DataTable> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DataTable, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <DataTable :value=\"users\" responsiveLayout=\"scroll\">\n            <Column v-for=\"col of columns\" :field=\"col.field\" :header=\"col.header\" :key=\"col.field\"></Column>\n        </DataTable> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DataTable, {
     value: $props.users,
-    responsiveLayout: "scroll",
-    "class": "p-datatable-sm",
+    "class": "p-datatable-sm p-datatable-customersssssssssssssss",
     stripedRows: "",
+    responsiveLayout: "stack",
+    responsiveLayouttttttttt: "scroll",
     paginator: true,
     rows: 10,
     paginatorTemplate: "CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown",
     rowsPerPageOptions: [10, 20, 30],
-    currentPageReportTemplate: "Toplam {totalRecords},  {first} ile {last} arası"
+    currentPageReportTemplate: "Toplam {totalRecords},  {first} ile {last} arası",
+    sortMode: "multiple",
+    removableSort: "",
+    resizableColumns: true,
+    selectionMode: "multiple",
+    metaKeySelection: true,
+    selection: $setup.selection,
+    "onUpdate:selection": _cache[1] || (_cache[1] = function ($event) {
+      return $setup.selection = $event;
+    }),
+    expandedRows: $setup.expandedRows,
+    "onUpdate:expandedRows": _cache[2] || (_cache[2] = function ($event) {
+      return $setup.expandedRows = $event;
+    }),
+    dataKey: "id",
+    onRowSelect: $setup.onRowSelect,
+    lazy: false,
+    editMode: "row",
+    editingRows: $setup.editingRows,
+    "onUpdate:editingRows": _cache[3] || (_cache[3] = function ($event) {
+      return $setup.editingRows = $event;
+    }),
+    onRowEditSave: $setup.onRowEditSave,
+    scrollHeight: "flex",
+    rowGroupMode: "subheader",
+    groupRowsBy: "representative.name",
+    ref: "dt"
   }, {
     header: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
-        icon: "pi pi-refresh"
-      })])];
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div style=\"text-align:left\">\n                    <MultiSelect :modelValue=\"selectedColumns\" :options=\"users\" optionLabel=\"header\" @update:modelValue=\"onToggle\"\n                        placeholder=\"Select Columns\" style=\"width: 20em\"/>\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"table-header\">\n                    Products\n                    <Button icon=\"pi pi-refresh\" />\n                </div> ")];
     }),
     footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" In total there are " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.users ? $props.users.length : 0) + " users. ", 1
@@ -21646,13 +21841,106 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "p-button-text"
       })];
     }),
+    paginatorend: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+        type: "button",
+        icon: "pi pi-cloud",
+        "class": "p-button-text"
+      })];
+    }),
+    expansion: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (slotProps) {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, "Orders for " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(slotProps.data.name), 1
+      /* TEXT */
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DataTable, {
+        value: slotProps.data.orders,
+        responsiveLayout: "scroll"
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "id",
+            header: "Id",
+            sortable: ""
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "name",
+            header: "name",
+            sortable: ""
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "date",
+            header: "Date",
+            sortable: ""
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            headerStyle: "width:4rem"
+          }, {
+            body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+                icon: "pi pi-search"
+              })];
+            }),
+            _: 1
+            /* STABLE */
+
+          })];
+        }),
+        _: 2
+        /* DYNAMIC */
+
+      }, 1032
+      /* PROPS, DYNAMIC_SLOTS */
+      , ["value"])])];
+    }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Toolbar, {
+        "class": "mb-4"
+      }, {
+        start: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+            label: "Yeni",
+            icon: "pi pi-plus",
+            "class": "p-button-success mr-5",
+            onClick: _ctx.openNew
+          }, null, 8
+          /* PROPS */
+          , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+            label: "Sil",
+            icon: "pi pi-trash",
+            "class": "p-button-danger",
+            onClick: _ctx.confirmDeleteSelected,
+            disabled: !_ctx.selectedProducts || !_ctx.selectedProducts.length
+          }, null, 8
+          /* PROPS */
+          , ["onClick", "disabled"])];
+        }),
+        end: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_FileUpload, {
+            mode: "basic",
+            accept: "image/*",
+            maxFileSize: 1000000,
+            label: "Import",
+            chooseLabel: "Import",
+            "class": "mr-2 inline-block"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+            label: "Export",
+            icon: "pi pi-upload",
+            "class": "p-button-help",
+            onClick: _cache[0] || (_cache[0] = function ($event) {
+              return $setup.exportCSV($event);
+            })
+          })];
+        }),
+        _: 1
+        /* STABLE */
+
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+        selectionMode: "multiple",
+        headerStyle: "width: 3em"
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
         field: "name",
-        header: "Name"
+        header: "Name",
+        sortable: true
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
         field: "email",
-        header: "email"
+        header: "email",
+        sortable: true
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
         field: "rating",
         header: "Reviews"
@@ -21674,7 +21962,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["value"])])]);
+  , ["value", "selection", "expandedRows", "onRowSelect", "editingRows", "onRowEditSave"])])]);
 }
 
 /***/ }),
@@ -21993,6 +22281,9 @@ var _window$document$getE;
  // import Dialog from 'primevue/dialog';
 
 
+ // import 'primevue/resources/themes/md-light-indigo/theme.css'
+// import 'primevue/resources/primevue.min.css'
+// import 'primeicons/primeicons.css'
 
 var appName = ((_window$document$getE = window.document.getElementsByTagName('title')[0]) === null || _window$document$getE === void 0 ? void 0 : _window$document$getE.innerText) || 'Laravel';
 (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.createInertiaApp)({
@@ -22134,6 +22425,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.p-datatable {\n    position: relati
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/fileupload/FileUpload.vue?vue&type=style&index=0&id=24eab66e&lang=css":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/fileupload/FileUpload.vue?vue&type=style&index=0&id=24eab66e&lang=css ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p-fileupload-content {\n    position: relative;\n}\n.p-fileupload-row {\n    display: flex;\n    align-items: center;\n}\n.p-fileupload-row > div {\n    flex: 1 1 auto;\n    width: 25%;\n}\n.p-fileupload-row > div:last-child {\n    text-align: right;\n}\n.p-fileupload-content .p-progressbar {\n    width: 100%;\n    position: absolute;\n    top: 0;\n    left: 0;\n}\n.p-button.p-fileupload-choose {\n    position: relative;\n    overflow: hidden;\n}\n.p-button.p-fileupload-choose input[type=file] {\n    display: none;\n}\n.p-fileupload-choose.p-fileupload-choose-selected input[type=file] {\n    display: none;\n}\n.p-fileupload-filename {\n    word-break: break-all;\n}\n.p-fluid .p-fileupload .p-button {\n    width: auto;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/rating/Rating.vue?vue&type=style&index=0&id=2cce964e&lang=css":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/rating/Rating.vue?vue&type=style&index=0&id=2cce964e&lang=css ***!
@@ -22152,6 +22467,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "\n.p-rating-icon {\n    cursor: pointer;\n}\n.p-rating.p-rating-readonly .p-rating-icon {\n    cursor: default;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/toolbar/Toolbar.vue?vue&type=style&index=0&id=20b6a2e6&lang=css":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/toolbar/Toolbar.vue?vue&type=style&index=0&id=20b6a2e6&lang=css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p-toolbar {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    flex-wrap: wrap;\n}\n.p-toolbar-group-left,\n.p-toolbar-group-right {\n    display: flex;\n    align-items: center;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -30505,6 +30844,166 @@ script.render = render;
 
 /***/ }),
 
+/***/ "./node_modules/primevue/message/message.esm.js":
+/*!******************************************************!*\
+  !*** ./node_modules/primevue/message/message.esm.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ script)
+/* harmony export */ });
+/* harmony import */ var primevue_ripple__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! primevue/ripple */ "./node_modules/primevue/ripple/ripple.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+
+var script = {
+    name: 'Message',
+    emits: ['close'],
+    props: {
+        severity: {
+            type: String,
+            default: 'info'
+        },
+        closable: {
+            type: Boolean,
+            default: true
+        },
+        sticky: {
+            type: Boolean,
+            default: true
+        },
+        life: {
+            type: Number,
+            default: 3000
+        },
+        icon: {
+            type: String,
+            default: null
+        },
+    },
+    timeout: null,
+    data() {
+        return {
+            visible: true
+        }
+    },
+    mounted() {
+        if (!this.sticky) {
+            setTimeout(() => {
+                this.visible = false;
+            }, this.life);
+        }
+    },
+    methods: {
+        close(event) {
+            this.visible = false;
+            this.$emit('close', event);
+        }
+    },
+    computed: {
+        containerClass() {
+            return 'p-message p-component p-message-' + this.severity;
+        },
+        iconClass() {
+            return ['p-message-icon pi', this.icon ? this.icon : {
+                'pi-info-circle': this.severity === 'info',
+                'pi-check': this.severity === 'success',
+                'pi-exclamation-triangle': this.severity === 'warn',
+                'pi-times-circle': this.severity === 'error'
+            }];
+        }
+    },
+    directives: {
+        'ripple': primevue_ripple__WEBPACK_IMPORTED_MODULE_0__["default"]
+    }
+};
+
+const _hoisted_1 = { class: "p-message-wrapper" };
+const _hoisted_2 = { class: "p-message-text" };
+const _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_1__.createElementVNode)("i", { class: "p-message-close-icon pi pi-times" }, null, -1);
+const _hoisted_4 = [
+  _hoisted_3
+];
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _directive_ripple = (0,vue__WEBPACK_IMPORTED_MODULE_1__.resolveDirective)("ripple");
+
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_1__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_1__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_1__.Transition, {
+    name: "p-message",
+    appear: ""
+  }, {
+    default: (0,vue__WEBPACK_IMPORTED_MODULE_1__.withCtx)(() => [
+      (0,vue__WEBPACK_IMPORTED_MODULE_1__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_1__.createElementVNode)("div", {
+        class: (0,vue__WEBPACK_IMPORTED_MODULE_1__.normalizeClass)($options.containerClass),
+        role: "alert"
+      }, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_1__.createElementVNode)("div", _hoisted_1, [
+          (0,vue__WEBPACK_IMPORTED_MODULE_1__.createElementVNode)("span", {
+            class: (0,vue__WEBPACK_IMPORTED_MODULE_1__.normalizeClass)($options.iconClass)
+          }, null, 2),
+          (0,vue__WEBPACK_IMPORTED_MODULE_1__.createElementVNode)("div", _hoisted_2, [
+            (0,vue__WEBPACK_IMPORTED_MODULE_1__.renderSlot)(_ctx.$slots, "default")
+          ]),
+          ($props.closable)
+            ? (0,vue__WEBPACK_IMPORTED_MODULE_1__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_1__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_1__.createElementBlock)("button", {
+                key: 0,
+                class: "p-message-close p-link",
+                onClick: _cache[0] || (_cache[0] = $event => ($options.close($event))),
+                type: "button"
+              }, _hoisted_4)), [
+                [_directive_ripple]
+              ])
+            : (0,vue__WEBPACK_IMPORTED_MODULE_1__.createCommentVNode)("", true)
+        ])
+      ], 2), [
+        [vue__WEBPACK_IMPORTED_MODULE_1__.vShow, $data.visible]
+      ])
+    ]),
+    _: 3
+  }))
+}
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z = "\n.p-message-wrapper {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.p-message-close {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n}\n.p-message-close.p-link {\n    margin-left: auto;\n    overflow: hidden;\n    position: relative;\n}\n.p-message-enter-from {\n    opacity: 0;\n}\n.p-message-enter-active {\n    -webkit-transition: opacity .3s;\n    transition: opacity .3s;\n}\n.p-message.p-message-leave-from {\n    max-height: 1000px;\n}\n.p-message.p-message-leave-to {\n    max-height: 0;\n    opacity: 0;\n    margin: 0 !important;\n}\n.p-message-leave-active {\n    overflow: hidden;\n    -webkit-transition: max-height .3s cubic-bezier(0, 1, 0, 1), opacity .3s, margin .15s;\n    transition: max-height .3s cubic-bezier(0, 1, 0, 1), opacity .3s, margin .15s;\n}\n.p-message-leave-active .p-message-close {\n    display: none;\n}\n";
+styleInject(css_248z);
+
+script.render = render;
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/primevue/overlayeventbus/overlayeventbus.esm.js":
 /*!**********************************************************************!*\
   !*** ./node_modules/primevue/overlayeventbus/overlayeventbus.esm.js ***!
@@ -31213,6 +31712,141 @@ function styleInject(css, ref) {
 }
 
 var css_248z = "\n.p-paginator {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.p-paginator-left-content {\n\tmargin-right: auto;\n}\n.p-paginator-right-content {\n\tmargin-left: auto;\n}\n.p-paginator-page,\n.p-paginator-next,\n.p-paginator-last,\n.p-paginator-first,\n.p-paginator-prev,\n.p-paginator-current {\n    cursor: pointer;\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    line-height: 1;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n    overflow: hidden;\n    position: relative;\n}\n.p-paginator-element:focus {\n    z-index: 1;\n    position: relative;\n}\n";
+styleInject(css_248z);
+
+script.render = render;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/primevue/progressbar/progressbar.esm.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/primevue/progressbar/progressbar.esm.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ script)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var script = {
+    name: 'ProgressBar',
+    props: {
+        value: {
+            type: Number,
+            default: null
+        },
+        mode: {
+            type: String,
+            default: 'determinate'
+        },
+        showValue: {
+            type: Boolean,
+            default: true
+        }
+    },
+    computed: {
+        containerClass() {
+            return [
+                'p-progressbar p-component',
+                {
+                    'p-progressbar-determinate': this.determinate,
+                    'p-progressbar-indeterminate': this.indeterminate
+                }
+            ];
+        },
+        progressStyle() {
+            return {
+                width: this.value + '%',
+                display: 'flex'
+            };
+        },
+        indeterminate() {
+            return this.mode === 'indeterminate';
+        },
+        determinate() {
+            return this.mode === 'determinate';
+        }
+    }
+};
+
+const _hoisted_1 = ["aria-valuenow"];
+const _hoisted_2 = {
+  key: 0,
+  class: "p-progressbar-label"
+};
+const _hoisted_3 = {
+  key: 1,
+  class: "p-progressbar-indeterminate-container"
+};
+const _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", { class: "p-progressbar-value p-progressbar-value-animate" }, null, -1);
+const _hoisted_5 = [
+  _hoisted_4
+];
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    role: "progressbar",
+    class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($options.containerClass),
+    "aria-valuemin": "0",
+    "aria-valuenow": $props.value,
+    "aria-valuemax": "100"
+  }, [
+    ($options.determinate)
+      ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+          key: 0,
+          class: "p-progressbar-value p-progressbar-value-animate",
+          style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)($options.progressStyle)
+        }, [
+          (($props.value != null && $props.value !== 0) && $props.showValue)
+            ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default", {}, () => [
+                  (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.value + '%'), 1)
+                ])
+              ]))
+            : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("", true)
+        ], 4))
+      : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("", true),
+    ($options.indeterminate)
+      ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, _hoisted_5))
+      : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("", true)
+  ], 10, _hoisted_1))
+}
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z = "\n.p-progressbar {\n    position: relative;\n    overflow: hidden;\n}\n.p-progressbar-determinate .p-progressbar-value {\n    height: 100%;\n    width: 0%;\n    position: absolute;\n    display: none;\n    border: 0 none;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    overflow: hidden;\n}\n.p-progressbar-determinate .p-progressbar-label {\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n}\n.p-progressbar-determinate .p-progressbar-value-animate {\n    -webkit-transition: width 1s ease-in-out;\n    transition: width 1s ease-in-out;\n}\n.p-progressbar-indeterminate .p-progressbar-value::before {\n      content: '';\n      position: absolute;\n      background-color: inherit;\n      top: 0;\n      left: 0;\n      bottom: 0;\n      will-change: left, right;\n      -webkit-animation: p-progressbar-indeterminate-anim 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;\n              animation: p-progressbar-indeterminate-anim 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;\n}\n.p-progressbar-indeterminate .p-progressbar-value::after {\n    content: '';\n    position: absolute;\n    background-color: inherit;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    will-change: left, right;\n    -webkit-animation: p-progressbar-indeterminate-anim-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;\n            animation: p-progressbar-indeterminate-anim-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;\n    -webkit-animation-delay: 1.15s;\n            animation-delay: 1.15s;\n}\n@-webkit-keyframes p-progressbar-indeterminate-anim {\n0% {\n    left: -35%;\n    right: 100%;\n}\n60% {\n    left: 100%;\n    right: -90%;\n}\n100% {\n    left: 100%;\n    right: -90%;\n}\n}\n@keyframes p-progressbar-indeterminate-anim {\n0% {\n    left: -35%;\n    right: 100%;\n}\n60% {\n    left: 100%;\n    right: -90%;\n}\n100% {\n    left: 100%;\n    right: -90%;\n}\n}\n@-webkit-keyframes p-progressbar-indeterminate-anim-short {\n0% {\n    left: -200%;\n    right: 100%;\n}\n60% {\n    left: 107%;\n    right: -8%;\n}\n100% {\n    left: 107%;\n    right: -8%;\n}\n}\n@keyframes p-progressbar-indeterminate-anim-short {\n0% {\n    left: -200%;\n    right: 100%;\n}\n60% {\n    left: 107%;\n    right: -8%;\n}\n100% {\n    left: 107%;\n    right: -8%;\n}\n}\n";
 styleInject(css_248z);
 
 script.render = render;
@@ -34579,6 +35213,36 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/fileupload/FileUpload.vue?vue&type=style&index=0&id=24eab66e&lang=css":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/fileupload/FileUpload.vue?vue&type=style&index=0&id=24eab66e&lang=css ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_9_use_1_vue_loader_dist_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_vue_loader_dist_index_js_ruleSet_0_use_0_FileUpload_vue_vue_type_style_index_0_id_24eab66e_lang_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../vue-loader/dist/stylePostLoader.js!../../postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../vue-loader/dist/index.js??ruleSet[0].use[0]!./FileUpload.vue?vue&type=style&index=0&id=24eab66e&lang=css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/fileupload/FileUpload.vue?vue&type=style&index=0&id=24eab66e&lang=css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_vue_loader_dist_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_vue_loader_dist_index_js_ruleSet_0_use_0_FileUpload_vue_vue_type_style_index_0_id_24eab66e_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_vue_loader_dist_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_vue_loader_dist_index_js_ruleSet_0_use_0_FileUpload_vue_vue_type_style_index_0_id_24eab66e_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/rating/Rating.vue?vue&type=style&index=0&id=2cce964e&lang=css":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/rating/Rating.vue?vue&type=style&index=0&id=2cce964e&lang=css ***!
@@ -34606,6 +35270,36 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_vue_loader_dist_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_vue_loader_dist_index_js_ruleSet_0_use_0_Rating_vue_vue_type_style_index_0_id_2cce964e_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/toolbar/Toolbar.vue?vue&type=style&index=0&id=20b6a2e6&lang=css":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/toolbar/Toolbar.vue?vue&type=style&index=0&id=20b6a2e6&lang=css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_9_use_1_vue_loader_dist_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_vue_loader_dist_index_js_ruleSet_0_use_0_Toolbar_vue_vue_type_style_index_0_id_20b6a2e6_lang_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../vue-loader/dist/stylePostLoader.js!../../postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../vue-loader/dist/index.js??ruleSet[0].use[0]!./Toolbar.vue?vue&type=style&index=0&id=20b6a2e6&lang=css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/toolbar/Toolbar.vue?vue&type=style&index=0&id=20b6a2e6&lang=css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_vue_loader_dist_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_vue_loader_dist_index_js_ruleSet_0_use_0_Toolbar_vue_vue_type_style_index_0_id_20b6a2e6_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_vue_loader_dist_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_vue_loader_dist_index_js_ruleSet_0_use_0_Toolbar_vue_vue_type_style_index_0_id_20b6a2e6_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -39582,6 +40276,496 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/primevue/fileupload/FileUpload.vue":
+/*!*********************************************************!*\
+  !*** ./node_modules/primevue/fileupload/FileUpload.vue ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _FileUpload_vue_vue_type_template_id_24eab66e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FileUpload.vue?vue&type=template&id=24eab66e */ "./node_modules/primevue/fileupload/FileUpload.vue?vue&type=template&id=24eab66e");
+/* harmony import */ var _FileUpload_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FileUpload.vue?vue&type=script&lang=js */ "./node_modules/primevue/fileupload/FileUpload.vue?vue&type=script&lang=js");
+/* harmony import */ var _FileUpload_vue_vue_type_style_index_0_id_24eab66e_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FileUpload.vue?vue&type=style&index=0&id=24eab66e&lang=css */ "./node_modules/primevue/fileupload/FileUpload.vue?vue&type=style&index=0&id=24eab66e&lang=css");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_FileUpload_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_FileUpload_vue_vue_type_template_id_24eab66e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"node_modules/primevue/fileupload/FileUpload.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/fileupload/FileUpload.vue?vue&type=script&lang=js":
+/*!********************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/fileupload/FileUpload.vue?vue&type=script&lang=js ***!
+  \********************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var primevue_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! primevue/button */ "./node_modules/primevue/button/button.esm.js");
+/* harmony import */ var primevue_progressbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primevue/progressbar */ "./node_modules/primevue/progressbar/progressbar.esm.js");
+/* harmony import */ var primevue_message__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! primevue/message */ "./node_modules/primevue/message/message.esm.js");
+/* harmony import */ var primevue_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primevue/utils */ "./node_modules/primevue/utils/utils.esm.js");
+/* harmony import */ var primevue_ripple__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/ripple */ "./node_modules/primevue/ripple/ripple.esm.js");
+
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+    name: 'FileUpload',
+    emits: ['select', 'uploader', 'before-upload', 'progress', 'upload', 'error', 'before-send', 'clear', 'remove'],
+    props: {
+        name: {
+            type: String,
+            default: null
+        },
+        url: {
+            type: String,
+            default: null
+        },
+        mode: {
+            type: String,
+            default: 'advanced'
+        },
+		multiple: {
+			type: Boolean,
+			default: false
+		},
+        accept: {
+            type: String,
+            default: null
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        auto: {
+            type: Boolean,
+            default: false
+        },
+        maxFileSize: {
+            type: Number,
+            default: null
+        },
+        invalidFileSizeMessage: {
+            type: String,
+            default: '{0}: Invalid file size, file size should be smaller than {1}.'
+        },
+        invalidFileTypeMessage: {
+            type: String,
+            default: '{0}: Invalid file type, allowed file types: {1}.'
+        },
+        fileLimit: {
+            type: Number,
+            default: null
+        },
+        invalidFileLimitMessage: {
+            type: String,
+            default: 'Maximum number of files exceeded, limit is {0} at most.'
+        },
+        withCredentials: {
+            type: Boolean,
+            default: false
+        },
+        previewWidth: {
+            type: Number,
+            default: 50
+        },
+        chooseLabel: {
+            type: String,
+            default: null
+        },
+        uploadLabel: {
+            type: String,
+            default: null
+        },
+        cancelLabel: {
+            type: String,
+            default: null
+        },
+        customUpload: {
+            type: Boolean,
+            default: false
+        },
+        showUploadButton: {
+            type: Boolean,
+            default: true
+        },
+        showCancelButton: {
+            type: Boolean,
+            default: true
+        },
+        chooseIcon: {
+            type: String,
+            default: 'pi pi-plus'
+        },
+        uploadIcon: {
+            type: String,
+            default: 'pi pi-upload'
+        },
+        cancelIcon: {
+            type: String,
+            default: 'pi pi-times'
+        },
+        style: null,
+        class: null
+    },
+    duplicateIEEvent: false,
+    data() {
+        return {
+            uploadedFileCount: 0,
+            files: [],
+            messages: [],
+            focused: false,
+            progress: null
+        }
+    },
+    methods: {
+        onFileSelect(event) {
+            if (event.type !== 'drop' && this.isIE11() && this.duplicateIEEvent) {
+                this.duplicateIEEvent = false;
+                return;
+            }
+
+            this.messages = [];
+            this.files = this.files || [];
+            let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+            for (let file of files) {
+                if (!this.isFileSelected(file)) {
+                    if (this.validate(file)) {
+                        if (this.isImage(file)) {
+                            file.objectURL = window.URL.createObjectURL(file);
+                        }
+                        this.files.push(file);
+                    }
+                }
+            }
+
+            this.$emit('select', {originalEvent: event, files: this.files});
+
+            if (this.fileLimit) {
+                this.checkFileLimit();
+            }
+
+            if (this.auto && this.hasFiles && !this.isFileLimitExceeded()) {
+                this.upload();
+            }
+
+            if (event.type !== 'drop' && this.isIE11()) {
+                this.clearIEInput();
+            }
+            else {
+                this.clearInputElement();
+            }
+        },
+        choose() {
+            this.$refs.fileInput.click();
+        },
+        upload() {
+            if (this.customUpload) {
+                if (this.fileLimit) {
+                    this.uploadedFileCount += this.files.length;
+                }
+
+                this.$emit('uploader', {files: this.files});
+                this.clear()
+            }
+            else {
+                let xhr = new XMLHttpRequest();
+                let formData = new FormData();
+
+                this.$emit('before-upload', {
+                    'xhr': xhr,
+                    'formData': formData
+                });
+
+                for (let file of this.files) {
+                    formData.append(this.name, file, file.name);
+                }
+
+                xhr.upload.addEventListener('progress', (event) => {
+                    if (event.lengthComputable) {
+                        this.progress = Math.round((event.loaded * 100) / event.total);
+                    }
+
+                    this.$emit('progress', {
+                        originalEvent: event,
+                        progress: this.progress
+                    });
+                });
+
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === 4) {
+                        this.progress = 0;
+
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            if (this.fileLimit) {
+                                this.uploadedFileCount += this.files.length;
+                            }
+
+                            this.$emit('upload', {
+                                xhr: xhr,
+                                files: this.files
+                            });
+                        }
+                        else {
+                            this.$emit('error', {
+                                xhr: xhr,
+                                files: this.files
+                            });
+                        }
+
+                        this.clear();
+                    }
+                };
+
+                xhr.open('POST', this.url, true);
+
+                this.$emit('before-send', {
+                    'xhr': xhr,
+                    'formData': formData
+                });
+
+                xhr.withCredentials = this.withCredentials;
+
+                xhr.send(formData);
+            }
+        },
+        clear() {
+            this.files = [];
+            this.messages = null;
+            this.$emit('clear');
+
+            if (this.isAdvanced) {
+                this.clearInputElement();
+            }
+        },
+        onFocus() {
+            this.focused = true;
+        },
+        onBlur() {
+            this.focused = false;
+        },
+        isFileSelected(file) {
+            if (this.files && this.files.length) {
+                for (let sFile of this.files) {
+                    if ((sFile.name + sFile.type + sFile.size) === (file.name + file.type + file.size))
+                        return true;
+                }
+            }
+
+            return false;
+        },
+        isIE11() {
+            return !!window['MSInputMethodContext'] && !!document['documentMode'];
+        },
+        validate(file) {
+            if (this.accept && !this.isFileTypeValid(file)) {
+                this.messages.push(this.invalidFileTypeMessage.replace('{0}', file.name).replace('{1}', this.accept))
+                return false;
+            }
+
+            if (this.maxFileSize && file.size > this.maxFileSize) {
+                this.messages.push(this.invalidFileSizeMessage.replace('{0}', file.name).replace('{1}', this.formatSize(this.maxFileSize)));
+                return false;
+            }
+
+            return true;
+        },
+        isFileTypeValid(file) {
+            let acceptableTypes = this.accept.split(',').map(type => type.trim());
+            for(let type of acceptableTypes) {
+                let acceptable = this.isWildcard(type) ? this.getTypeClass(file.type) === this.getTypeClass(type)
+                    : file.type == type || this.getFileExtension(file).toLowerCase() === type.toLowerCase();
+
+                if (acceptable) {
+                    return true;
+                }
+            }
+
+            return false;
+        },
+        getTypeClass(fileType) {
+            return fileType.substring(0, fileType.indexOf('/'));
+        },
+        isWildcard(fileType){
+            return fileType.indexOf('*') !== -1;
+        },
+        getFileExtension(file) {
+            return '.' + file.name.split('.').pop();
+        },
+        isImage(file) {
+            return /^image\//.test(file.type);
+        },
+        onDragEnter(event) {
+            if (!this.disabled) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        },
+        onDragOver(event) {
+            if (!this.disabled) {
+                primevue_utils__WEBPACK_IMPORTED_MODULE_3__.DomHandler.addClass(this.$refs.content, 'p-fileupload-highlight');
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        },
+        onDragLeave() {
+            if (!this.disabled) {
+                primevue_utils__WEBPACK_IMPORTED_MODULE_3__.DomHandler.removeClass(this.$refs.content, 'p-fileupload-highlight');
+            }
+        },
+        onDrop(event) {
+            if (!this.disabled) {
+                primevue_utils__WEBPACK_IMPORTED_MODULE_3__.DomHandler.removeClass(this.$refs.content, 'p-fileupload-highlight');
+                event.stopPropagation();
+                event.preventDefault();
+
+                const files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+                const allowDrop = this.multiple || (files && files.length === 1);
+
+                if (allowDrop) {
+                    this.onFileSelect(event);
+                }
+            }
+        },
+        onBasicUploaderClick() {
+            if (this.hasFiles)
+                this.upload();
+            else
+                this.$refs.fileInput.click();
+        },
+        remove(index) {
+            this.clearInputElement();
+            let removedFile = this.files.splice(index, 1)[0];
+            this.files = [...this.files];
+            this.$emit('remove', {
+                file: removedFile,
+                files: this.files
+            });
+        },
+        clearInputElement() {
+            this.$refs.fileInput.value = '';
+        },
+        clearIEInput() {
+            if (this.$refs.fileInput) {
+                this.duplicateIEEvent = true; //IE11 fix to prevent onFileChange trigger again
+                this.$refs.fileInput.value = '';
+            }
+        },
+        formatSize(bytes) {
+            if (bytes === 0) {
+                return '0 B';
+            }
+            let k = 1000,
+            dm = 3,
+            sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+            i = Math.floor(Math.log(bytes) / Math.log(k));
+
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        },
+        isFileLimitExceeded() {
+            if (this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount && this.focused) {
+                this.focused = false;
+            }
+
+            return this.fileLimit && this.fileLimit < this.files.length + this.uploadedFileCount;
+        },
+        checkFileLimit() {
+            if (this.isFileLimitExceeded()) {
+                this.messages.push(this.invalidFileLimitMessage.replace('{0}', this.fileLimit.toString()))
+            }
+        },
+        onMessageClose() {
+            this.messages = null;
+        }
+    },
+    computed: {
+        isAdvanced() {
+            return this.mode === 'advanced';
+        },
+        isBasic() {
+            return this.mode === 'basic';
+        },
+        advancedChooseButtonClass() {
+            return ['p-button p-component p-fileupload-choose', this.class, {
+                    'p-disabled': this.disabled,
+                    'p-focus': this.focused
+                }
+            ];
+        },
+        basicChooseButtonClass() {
+            return ['p-button p-component p-fileupload-choose', this.class, {
+                'p-fileupload-choose-selected': this.hasFiles,
+                'p-disabled': this.disabled,
+                'p-focus': this.focused
+            }];
+        },
+        advancedChooseIconClass() {
+            return ['p-button-icon p-button-icon-left pi-fw', this.chooseIcon];
+        },
+        basicChooseButtonIconClass() {
+            return ['p-button-icon p-button-icon-left',
+                !this.hasFiles || this.auto ? this.uploadIcon : this.chooseIcon
+            ];
+        },
+        basicChooseButtonLabel() {
+            return this.auto ? this.chooseButtonLabel : (this.hasFiles ? this.files.map(f => f.name).join(', ') : this.chooseButtonLabel);
+        },
+        hasFiles() {
+            return this.files && this.files.length > 0;
+        },
+        chooseDisabled() {
+            return this.disabled || (this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount);
+        },
+        uploadDisabled() {
+            return this.disabled || !this.hasFiles || (this.fileLimit && this.fileLimit < this.files.length);
+        },
+        cancelDisabled() {
+            return this.disabled || !this.hasFiles;
+        },
+        chooseButtonLabel() {
+            return this.chooseLabel || this.$primevue.config.locale.choose;
+        },
+        uploadButtonLabel() {
+            return this.uploadLabel || this.$primevue.config.locale.upload;
+        },
+        cancelButtonLabel() {
+            return this.cancelLabel || this.$primevue.config.locale.cancel;
+        }
+    },
+    components: {
+        'FileUploadButton': primevue_button__WEBPACK_IMPORTED_MODULE_0__["default"],
+        'FileUploadProgressBar': primevue_progressbar__WEBPACK_IMPORTED_MODULE_1__["default"],
+        'FileUploadMessage': primevue_message__WEBPACK_IMPORTED_MODULE_2__["default"]
+    },
+    directives: {
+        'ripple': primevue_ripple__WEBPACK_IMPORTED_MODULE_4__["default"]
+    }
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/primevue/rating/Rating.vue":
 /*!*************************************************!*\
   !*** ./node_modules/primevue/rating/Rating.vue ***!
@@ -39683,6 +40867,56 @@ __webpack_require__.r(__webpack_exports__);
             return (this.disabled || this.readonly) ? null : '0';
         }
     }
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/primevue/toolbar/Toolbar.vue":
+/*!***************************************************!*\
+  !*** ./node_modules/primevue/toolbar/Toolbar.vue ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Toolbar_vue_vue_type_template_id_20b6a2e6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Toolbar.vue?vue&type=template&id=20b6a2e6 */ "./node_modules/primevue/toolbar/Toolbar.vue?vue&type=template&id=20b6a2e6");
+/* harmony import */ var _Toolbar_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Toolbar.vue?vue&type=script&lang=js */ "./node_modules/primevue/toolbar/Toolbar.vue?vue&type=script&lang=js");
+/* harmony import */ var _Toolbar_vue_vue_type_style_index_0_id_20b6a2e6_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Toolbar.vue?vue&type=style&index=0&id=20b6a2e6&lang=css */ "./node_modules/primevue/toolbar/Toolbar.vue?vue&type=style&index=0&id=20b6a2e6&lang=css");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Toolbar_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Toolbar_vue_vue_type_template_id_20b6a2e6__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"node_modules/primevue/toolbar/Toolbar.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/toolbar/Toolbar.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/toolbar/Toolbar.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+    name: 'Toolbar'
 });
 
 
@@ -40216,6 +41450,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Forms/UserForm.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/Pages/Forms/UserForm.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _UserForm_vue_vue_type_template_id_1dc6d8d0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserForm.vue?vue&type=template&id=1dc6d8d0 */ "./resources/js/Pages/Forms/UserForm.vue?vue&type=template&id=1dc6d8d0");
+/* harmony import */ var _UserForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserForm.vue?vue&type=script&lang=js */ "./resources/js/Pages/Forms/UserForm.vue?vue&type=script&lang=js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UserForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UserForm_vue_vue_type_template_id_1dc6d8d0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Pages/Forms/UserForm.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Users.vue":
 /*!**************************************!*\
   !*** ./resources/js/Pages/Users.vue ***!
@@ -40602,6 +41864,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Forms/UserForm.vue?vue&type=script&lang=js":
+/*!***********************************************************************!*\
+  !*** ./resources/js/Pages/Forms/UserForm.vue?vue&type=script&lang=js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_UserForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_UserForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./UserForm.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Forms/UserForm.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Users.vue?vue&type=script&lang=js":
 /*!**************************************************************!*\
   !*** ./resources/js/Pages/Users.vue?vue&type=script&lang=js ***!
@@ -40954,6 +42232,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Forms/UserForm.vue?vue&type=template&id=1dc6d8d0":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/Pages/Forms/UserForm.vue?vue&type=template&id=1dc6d8d0 ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_UserForm_vue_vue_type_template_id_1dc6d8d0__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_UserForm_vue_vue_type_template_id_1dc6d8d0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./UserForm.vue?vue&type=template&id=1dc6d8d0 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Forms/UserForm.vue?vue&type=template&id=1dc6d8d0");
+
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Users.vue?vue&type=template&id=7bbfca2f&scoped=true":
 /*!********************************************************************************!*\
   !*** ./resources/js/Pages/Users.vue?vue&type=template&id=7bbfca2f&scoped=true ***!
@@ -41015,6 +42309,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/primevue/fileupload/FileUpload.vue?vue&type=style&index=0&id=24eab66e&lang=css":
+/*!*****************************************************************************************************!*\
+  !*** ./node_modules/primevue/fileupload/FileUpload.vue?vue&type=style&index=0&id=24eab66e&lang=css ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _style_loader_dist_cjs_js_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_vue_loader_dist_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_vue_loader_dist_index_js_ruleSet_0_use_0_FileUpload_vue_vue_type_style_index_0_id_24eab66e_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../style-loader/dist/cjs.js!../../css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../vue-loader/dist/stylePostLoader.js!../../postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../vue-loader/dist/index.js??ruleSet[0].use[0]!./FileUpload.vue?vue&type=style&index=0&id=24eab66e&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/fileupload/FileUpload.vue?vue&type=style&index=0&id=24eab66e&lang=css");
+
+
+/***/ }),
+
 /***/ "./node_modules/primevue/rating/Rating.vue?vue&type=style&index=0&id=2cce964e&lang=css":
 /*!*********************************************************************************************!*\
   !*** ./node_modules/primevue/rating/Rating.vue?vue&type=style&index=0&id=2cce964e&lang=css ***!
@@ -41024,6 +42331,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_loader_dist_cjs_js_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_vue_loader_dist_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_vue_loader_dist_index_js_ruleSet_0_use_0_Rating_vue_vue_type_style_index_0_id_2cce964e_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../style-loader/dist/cjs.js!../../css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../vue-loader/dist/stylePostLoader.js!../../postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../vue-loader/dist/index.js??ruleSet[0].use[0]!./Rating.vue?vue&type=style&index=0&id=2cce964e&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/rating/Rating.vue?vue&type=style&index=0&id=2cce964e&lang=css");
+
+
+/***/ }),
+
+/***/ "./node_modules/primevue/toolbar/Toolbar.vue?vue&type=style&index=0&id=20b6a2e6&lang=css":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/primevue/toolbar/Toolbar.vue?vue&type=style&index=0&id=20b6a2e6&lang=css ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _style_loader_dist_cjs_js_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_vue_loader_dist_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_vue_loader_dist_index_js_ruleSet_0_use_0_Toolbar_vue_vue_type_style_index_0_id_20b6a2e6_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../style-loader/dist/cjs.js!../../css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../vue-loader/dist/stylePostLoader.js!../../postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../vue-loader/dist/index.js??ruleSet[0].use[0]!./Toolbar.vue?vue&type=style&index=0&id=20b6a2e6&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/toolbar/Toolbar.vue?vue&type=style&index=0&id=20b6a2e6&lang=css");
 
 
 /***/ }),
@@ -41275,6 +42595,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/primevue/fileupload/FileUpload.vue?vue&type=script&lang=js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/primevue/fileupload/FileUpload.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _vue_loader_dist_index_js_ruleSet_0_use_0_FileUpload_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _vue_loader_dist_index_js_ruleSet_0_use_0_FileUpload_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../vue-loader/dist/index.js??ruleSet[0].use[0]!./FileUpload.vue?vue&type=script&lang=js */ "./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/fileupload/FileUpload.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./node_modules/primevue/rating/Rating.vue?vue&type=script&lang=js":
 /*!*************************************************************************!*\
   !*** ./node_modules/primevue/rating/Rating.vue?vue&type=script&lang=js ***!
@@ -41287,6 +42623,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* reexport safe */ _vue_loader_dist_index_js_ruleSet_0_use_0_Rating_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
 /* harmony import */ var _vue_loader_dist_index_js_ruleSet_0_use_0_Rating_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../vue-loader/dist/index.js??ruleSet[0].use[0]!./Rating.vue?vue&type=script&lang=js */ "./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/rating/Rating.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./node_modules/primevue/toolbar/Toolbar.vue?vue&type=script&lang=js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/primevue/toolbar/Toolbar.vue?vue&type=script&lang=js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _vue_loader_dist_index_js_ruleSet_0_use_0_Toolbar_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _vue_loader_dist_index_js_ruleSet_0_use_0_Toolbar_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../vue-loader/dist/index.js??ruleSet[0].use[0]!./Toolbar.vue?vue&type=script&lang=js */ "./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/toolbar/Toolbar.vue?vue&type=script&lang=js");
  
 
 /***/ }),
@@ -41483,6 +42835,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/primevue/fileupload/FileUpload.vue?vue&type=template&id=24eab66e":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/primevue/fileupload/FileUpload.vue?vue&type=template&id=24eab66e ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_vue_loader_dist_index_js_ruleSet_0_use_0_FileUpload_vue_vue_type_template_id_24eab66e__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_vue_loader_dist_index_js_ruleSet_0_use_0_FileUpload_vue_vue_type_template_id_24eab66e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../vue-loader/dist/index.js??ruleSet[0].use[0]!./FileUpload.vue?vue&type=template&id=24eab66e */ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/fileupload/FileUpload.vue?vue&type=template&id=24eab66e");
+
+
+/***/ }),
+
 /***/ "./node_modules/primevue/rating/Rating.vue?vue&type=template&id=2cce964e":
 /*!*******************************************************************************!*\
   !*** ./node_modules/primevue/rating/Rating.vue?vue&type=template&id=2cce964e ***!
@@ -41495,6 +42863,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_vue_loader_dist_index_js_ruleSet_0_use_0_Rating_vue_vue_type_template_id_2cce964e__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_vue_loader_dist_index_js_ruleSet_0_use_0_Rating_vue_vue_type_template_id_2cce964e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../vue-loader/dist/index.js??ruleSet[0].use[0]!./Rating.vue?vue&type=template&id=2cce964e */ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/rating/Rating.vue?vue&type=template&id=2cce964e");
+
+
+/***/ }),
+
+/***/ "./node_modules/primevue/toolbar/Toolbar.vue?vue&type=template&id=20b6a2e6":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/primevue/toolbar/Toolbar.vue?vue&type=template&id=20b6a2e6 ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_vue_loader_dist_index_js_ruleSet_0_use_0_Toolbar_vue_vue_type_template_id_20b6a2e6__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_vue_loader_dist_index_js_ruleSet_0_use_0_Toolbar_vue_vue_type_template_id_20b6a2e6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../vue-loader/dist/index.js??ruleSet[0].use[0]!./Toolbar.vue?vue&type=template&id=20b6a2e6 */ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/toolbar/Toolbar.vue?vue&type=template&id=20b6a2e6");
 
 
 /***/ }),
@@ -42963,6 +44347,209 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/fileupload/FileUpload.vue?vue&type=template&id=24eab66e":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/fileupload/FileUpload.vue?vue&type=template&id=24eab66e ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+const _hoisted_1 = {
+  key: 0,
+  class: "p-fileupload p-fileupload-advanced p-component"
+}
+const _hoisted_2 = { class: "p-fileupload-buttonbar" }
+const _hoisted_3 = ["multiple", "accept", "disabled"]
+const _hoisted_4 = { class: "p-button-label" }
+const _hoisted_5 = {
+  key: 1,
+  class: "p-fileupload-files"
+}
+const _hoisted_6 = ["alt", "src", "width"]
+const _hoisted_7 = { class: "p-fileupload-filename" }
+const _hoisted_8 = {
+  key: 2,
+  class: "p-fileupload-empty"
+}
+const _hoisted_9 = {
+  key: 1,
+  class: "p-fileupload p-fileupload-basic p-component"
+}
+const _hoisted_10 = { class: "p-button-label" }
+const _hoisted_11 = ["accept", "disabled", "multiple"]
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_FileUploadButton = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("FileUploadButton")
+  const _component_FileUploadProgressBar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("FileUploadProgressBar")
+  const _component_FileUploadMessage = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("FileUploadMessage")
+  const _directive_ripple = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveDirective)("ripple")
+
+  return ($options.isAdvanced)
+    ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
+            class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($options.advancedChooseButtonClass),
+            style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)($props.style),
+            onClick: _cache[1] || (_cache[1] = (...args) => ($options.choose && $options.choose(...args))),
+            onKeydown: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)((...args) => ($options.choose && $options.choose(...args)), ["enter"])),
+            onFocus: _cache[3] || (_cache[3] = (...args) => ($options.onFocus && $options.onFocus(...args))),
+            onBlur: _cache[4] || (_cache[4] = (...args) => ($options.onBlur && $options.onBlur(...args))),
+            tabindex: "0"
+          }, [
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+              ref: "fileInput",
+              type: "file",
+              onChange: _cache[0] || (_cache[0] = (...args) => ($options.onFileSelect && $options.onFileSelect(...args))),
+              multiple: $props.multiple,
+              accept: $props.accept,
+              disabled: $options.chooseDisabled
+            }, null, 40 /* PROPS, HYDRATE_EVENTS */, _hoisted_3),
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+              class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($options.advancedChooseIconClass)
+            }, null, 2 /* CLASS */),
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.chooseButtonLabel), 1 /* TEXT */)
+          ], 38 /* CLASS, STYLE, HYDRATE_EVENTS */)), [
+            [_directive_ripple]
+          ]),
+          ($props.showUploadButton)
+            ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_FileUploadButton, {
+                key: 0,
+                label: $options.uploadButtonLabel,
+                icon: $props.uploadIcon,
+                onClick: $options.upload,
+                disabled: $options.uploadDisabled
+              }, null, 8 /* PROPS */, ["label", "icon", "onClick", "disabled"]))
+            : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
+          ($props.showCancelButton)
+            ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_FileUploadButton, {
+                key: 1,
+                label: $options.cancelButtonLabel,
+                icon: $props.cancelIcon,
+                onClick: $options.clear,
+                disabled: $options.cancelDisabled
+              }, null, 8 /* PROPS */, ["label", "icon", "onClick", "disabled"]))
+            : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
+        ]),
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+          ref: "content",
+          class: "p-fileupload-content",
+          onDragenter: _cache[5] || (_cache[5] = (...args) => ($options.onDragEnter && $options.onDragEnter(...args))),
+          onDragover: _cache[6] || (_cache[6] = (...args) => ($options.onDragOver && $options.onDragOver(...args))),
+          onDragleave: _cache[7] || (_cache[7] = (...args) => ($options.onDragLeave && $options.onDragLeave(...args))),
+          onDrop: _cache[8] || (_cache[8] = (...args) => ($options.onDrop && $options.onDrop(...args)))
+        }, [
+          ($options.hasFiles)
+            ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_FileUploadProgressBar, {
+                key: 0,
+                value: $data.progress
+              }, null, 8 /* PROPS */, ["value"]))
+            : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
+          ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.messages, (msg) => {
+            return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_FileUploadMessage, {
+              severity: "error",
+              key: msg,
+              onClose: $options.onMessageClose
+            }, {
+              default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(msg), 1 /* TEXT */)
+              ]),
+              _: 2 /* DYNAMIC */
+            }, 1032 /* PROPS, DYNAMIC_SLOTS */, ["onClose"]))
+          }), 128 /* KEYED_FRAGMENT */)),
+          ($options.hasFiles)
+            ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [
+                ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.files, (file, index) => {
+                  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+                    class: "p-fileupload-row",
+                    key: file.name + file.type + file.size
+                  }, [
+                    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [
+                      ($options.isImage(file))
+                        ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", {
+                            key: 0,
+                            role: "presentation",
+                            alt: file.name,
+                            src: file.objectURL,
+                            width: $props.previewWidth
+                          }, null, 8 /* PROPS */, _hoisted_6))
+                        : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
+                    ]),
+                    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(file.name), 1 /* TEXT */),
+                    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatSize(file.size)), 1 /* TEXT */),
+                    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [
+                      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_FileUploadButton, {
+                        type: "button",
+                        icon: "pi pi-times",
+                        onClick: $event => ($options.remove(index))
+                      }, null, 8 /* PROPS */, ["onClick"])
+                    ])
+                  ]))
+                }), 128 /* KEYED_FRAGMENT */))
+              ]))
+            : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
+          (_ctx.$slots.empty && !$options.hasFiles)
+            ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "empty")
+              ]))
+            : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
+        ], 544 /* HYDRATE_EVENTS, NEED_PATCH */)
+      ]))
+    : ($options.isBasic)
+      ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [
+          ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.messages, (msg) => {
+            return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_FileUploadMessage, {
+              severity: "error",
+              key: msg,
+              onClose: $options.onMessageClose
+            }, {
+              default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(msg), 1 /* TEXT */)
+              ]),
+              _: 2 /* DYNAMIC */
+            }, 1032 /* PROPS, DYNAMIC_SLOTS */, ["onClose"]))
+          }), 128 /* KEYED_FRAGMENT */)),
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
+            class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($options.basicChooseButtonClass),
+            style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)($props.style),
+            onMouseup: _cache[12] || (_cache[12] = (...args) => ($options.onBasicUploaderClick && $options.onBasicUploaderClick(...args))),
+            onKeydown: _cache[13] || (_cache[13] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)((...args) => ($options.choose && $options.choose(...args)), ["enter"])),
+            onFocus: _cache[14] || (_cache[14] = (...args) => ($options.onFocus && $options.onFocus(...args))),
+            onBlur: _cache[15] || (_cache[15] = (...args) => ($options.onBlur && $options.onBlur(...args))),
+            tabindex: "0"
+          }, [
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+              class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($options.basicChooseButtonIconClass)
+            }, null, 2 /* CLASS */),
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.basicChooseButtonLabel), 1 /* TEXT */),
+            (!$options.hasFiles)
+              ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("input", {
+                  key: 0,
+                  ref: "fileInput",
+                  type: "file",
+                  accept: $props.accept,
+                  disabled: $props.disabled,
+                  multiple: $props.multiple,
+                  onChange: _cache[9] || (_cache[9] = (...args) => ($options.onFileSelect && $options.onFileSelect(...args))),
+                  onFocus: _cache[10] || (_cache[10] = (...args) => ($options.onFocus && $options.onFocus(...args))),
+                  onBlur: _cache[11] || (_cache[11] = (...args) => ($options.onBlur && $options.onBlur(...args)))
+                }, null, 40 /* PROPS, HYDRATE_EVENTS */, _hoisted_11))
+              : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
+          ], 38 /* CLASS, STYLE, HYDRATE_EVENTS */)), [
+            [_directive_ripple]
+          ])
+        ]))
+      : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/rating/Rating.vue?vue&type=template&id=2cce964e":
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/rating/Rating.vue?vue&type=template&id=2cce964e ***!
@@ -43002,6 +44589,40 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 42 /* CLASS, PROPS, HYDRATE_EVENTS */, _hoisted_2))
     }), 128 /* KEYED_FRAGMENT */))
   ], 2 /* CLASS */))
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/toolbar/Toolbar.vue?vue&type=template&id=20b6a2e6":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./node_modules/primevue/toolbar/Toolbar.vue?vue&type=template&id=20b6a2e6 ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+const _hoisted_1 = {
+  class: "p-toolbar p-component",
+  role: "toolbar"
+}
+const _hoisted_2 = { class: "p-toolbar-group-left" }
+const _hoisted_3 = { class: "p-toolbar-group-right" }
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "start")
+    ]),
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "end")
+    ])
+  ]))
 }
 
 /***/ }),
@@ -43251,6 +44872,7 @@ var map = {
 	"./Auth/VerifyEmail.vue": "./resources/js/Pages/Auth/VerifyEmail.vue",
 	"./Customers.vue": "./resources/js/Pages/Customers.vue",
 	"./Dashboard.vue": "./resources/js/Pages/Dashboard.vue",
+	"./Forms/UserForm.vue": "./resources/js/Pages/Forms/UserForm.vue",
 	"./Users.vue": "./resources/js/Pages/Users.vue",
 	"./Welcome.vue": "./resources/js/Pages/Welcome.vue",
 	"./datatable.vue": "./resources/js/Pages/datatable.vue",

@@ -12,6 +12,10 @@ import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
 
+// import 'primevue/resources/themes/md-light-indigo/theme.css'
+// import 'primevue/resources/primevue.min.css'
+// import 'primeicons/primeicons.css'
+
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
 createInertiaApp({
