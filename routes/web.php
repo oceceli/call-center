@@ -26,7 +26,11 @@ require __DIR__.'/auth.php';
 
 
 Route::get('/users', function() {
-    return Inertia::render('Users', ['users' => User::all()]);
+    return Inertia::render('Users', [
+        'users' => cache()->rememberForever('users', function() {
+            return User::all();
+        })
+    ]);
 })->name('users');
 
 
