@@ -1,6 +1,5 @@
 <?php
 
-use App\Enum\CallStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -27,7 +26,7 @@ return new class extends Migration
 
             // sahipsiz customerları model helper ile bulurum
 
-            $table->enum('status', [CallStatus::Queued, CallStatus::Positive, CallStatus::Negative, CallStatus::Busy])->default(CallStatus::Queued);
+            $table->enum('status', ['queued', 'positive', 'negative', 'busy'])->default('queued');
             $table->smallInteger('score')->default(0);
 
             $table->timestamps();
