@@ -1,23 +1,26 @@
 <script setup>
-import Sidebar from './Partials/Sidebar.vue'
-import Topbar from './Partials/Topbar.vue'
+import Sidebar from "./Partials/Sidebar.vue";
+import Topbar from "./Partials/Topbar.vue";
 </script>
-<template>
-    <div>
-        <!-- component -->
-<Sidebar></Sidebar>
-<div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-    <Topbar></Topbar>
 
-    <div class="px-6 pt-6 2xl:container">
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div>sadfkj</div>
-            <div>sadfkj</div>
-            <div>sadfkj</div>
-            <div>sadfkj</div>
-            <div>sadfkj</div>
-            <div>sadfkj</div>
-            <!-- <div class="md:col-span-2 lg:col-span-1" >
+
+<template>
+  <div class="h-screen">
+
+    <div>
+        <Sidebar></Sidebar>
+    </div>
+    <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
+
+      <div>
+          <Topbar></Topbar>
+      </div>
+
+      <div class="bg-red-200 px-6 pt-6 bg-gray-50">
+        <div class="p-6 bg-white rounded-lg shadow">
+          <slot />
+        </div>
+        <!-- <div class="md:col-span-2 lg:col-span-1" >
                 <div class="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
                     <svg class="w-40 m-auto opacity-75" viewBox="0 0 146 146" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M73.1866 5.7129C81.999 5.7129 90.725 7.44863 98.8666 10.821C107.008 14.1933 114.406 19.1363 120.637 25.3675C126.868 31.5988 131.811 38.9964 135.184 47.138C138.556 55.2796 140.292 64.0057 140.292 72.818C140.292 81.6304 138.556 90.3565 135.184 98.4981C131.811 106.64 126.868 114.037 120.637 120.269C114.406 126.5 107.008 131.443 98.8666 134.815C90.725 138.187 81.999 139.923 73.1866 139.923C64.3742 139.923 55.6481 138.187 47.5066 134.815C39.365 131.443 31.9674 126.5 25.7361 120.269C19.5048 114.037 14.5619 106.64 11.1895 98.4981C7.81717 90.3565 6.08144 81.6304 6.08144 72.818C6.08144 64.0057 7.81717 55.2796 11.1895 47.138C14.5619 38.9964 19.5048 31.5988 25.7361 25.3675C31.9674 19.1363 39.365 14.1933 47.5066 10.821C55.6481 7.44863 64.3742 5.7129 73.1866 5.7129L73.1866 5.7129Z" stroke="#e4e4f2" stroke-width="4.89873"/>
@@ -279,9 +282,10 @@ import Topbar from './Partials/Topbar.vue'
                     </table>   
                 </div>
             </div> -->
-        </div>
+        <!-- </div> -->
+      </div>
+
     </div>
-</div>
-    </div>
+  </div>
 </template>
 

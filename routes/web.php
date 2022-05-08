@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,7 +26,7 @@ require __DIR__.'/auth.php';
 
 
 Route::get('/users', function() {
-    return Inertia::render('Users');
+    return Inertia::render('Users', ['users' => User::all()]);
 })->name('users');
 
 
