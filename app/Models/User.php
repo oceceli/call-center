@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -21,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'img_url',
+        'is_active',
     ];
 
     /**
@@ -46,4 +49,26 @@ class User extends Authenticatable
     public function customers() {
         return $this->hasMany(Customer::class);
     }
+
+
+
+    public function getImgUrlAttribute($value) {
+        if($value)
+            return '/storage/' . $value;
+    }
+
+    public function setNameAttribute($value) {
+        $this->attributes['name'] = ucwords($value);
+    }
+
+
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function($obj) {
+            Storage::disk('public')->delete(str_replace('/storage/', '', $obj->img_url));
+        });
+    }
+
+
 }

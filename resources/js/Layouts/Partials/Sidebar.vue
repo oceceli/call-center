@@ -8,9 +8,13 @@
         </div> -->
 
         <div class="mt-8 text-center">
-            <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png" alt="" class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28">
-            <h5 class="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">Cynthia J. Watts</h5>
-            <span class="hidden text-gray-400 lg:block">Admin</span>
+            <img v-if="user.img_url" :src="user.img_url" alt="" class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28">
+            <span v-else class="cursor-default">
+                <user-avatar customClass="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28" :userName="user.name" />
+            </span>
+
+            <h5 class="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">{{ user.name }}</h5>
+            <span class="hidden text-gray-400 lg:block">{{ user.role }}</span>!!!!
         </div>
 
         <ul class="space-y-2 tracking-wide mt-8">
@@ -79,4 +83,12 @@
 
 <script setup>
     import NavLink from "../Partials/NavLink.vue";
+    import { usePage } from '@inertiajs/inertia-vue3'
+    import { computed } from "@vue/runtime-core";
+    import UserAvatar from "../../Components/UserAvatar.vue";
+
+    const user = computed(() => {
+        return usePage().props.value.auth.user;
+    });
+    
 </script>

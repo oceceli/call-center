@@ -9,7 +9,7 @@
             </button>
             <div class="flex space-x-4">
                 <!--search bar -->
-                <div hidden class="md:block">
+                <!-- <div hidden class="md:block">
                     <div class="relative flex items-center text-gray-400 focus-within:text-cyan-400">
                         <span class="absolute left-4 h-6 flex items-center pr-3 border-r border-gray-300">
                         <svg xmlns="http://ww50w3.org/2000/svg" class="w-4 fill-current" viewBox="0 0 35.997 36.004">
@@ -18,7 +18,7 @@
                         </span>
                         <input type="search" name="leadingIcon" id="leadingIcon" placeholder="Arama" class="w-full pl-14 pr-4 py-2.5 rounded-xl text-sm text-gray-600 outline-none border border-gray-300 focus:border-cyan-300 transition">
                     </div>
-                </div>
+                </div> -->
                 <!--/search bar -->
                 <button aria-label="search" class="w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200 md:hidden">
                     <svg xmlns="http://ww50w3.org/2000/svg" class="w-4 mx-auto fill-current text-gray-600" viewBox="0 0 35.997 36.004">

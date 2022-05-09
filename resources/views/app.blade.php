@@ -10,11 +10,11 @@
         {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"> --}}
 
         <!-- Styles -->
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="{{ mix('css/prime-theme.css') }}">
         
         <link rel="stylesheet" href="{{ mix('css/primeicons.css') }}">
         <link rel="stylesheet" href="{{ mix('css/primevue.min.css') }}">
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         {{-- <link href="https://unpkg.com/primeflex@^3/primeflex.min.css" rel="stylesheet" /> --}}
         
         
