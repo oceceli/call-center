@@ -5,7 +5,7 @@
       
       <div class="flex flex-col">
         <label class="leading-loose">Ad Soyad</label>
-        <input :disabled="disableForm" v-model="form.name" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" autocomplete="off" placeholder="Ad Soyad">
+        <input :disabled="disableFormFields" v-model="form.name" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="off" placeholder="Ad Soyad">
         <div v-if="form.errors.name">
           <small class="text-xs text-red-500">{{ form.errors.name }}</small>
         </div>
@@ -13,7 +13,7 @@
 
       <div class="flex flex-col">
         <label class="leading-loose">E-posta</label>
-        <input :disabled="disableForm" v-model="form.email" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" autocomplete="off" placeholder="Eposta">
+        <input :disabled="disableFormFields" v-model="form.email" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="off" placeholder="Eposta">
         <div v-if="form.errors.email">
           <small class="text-xs text-red-500">{{ form.errors.email }}</small>
         </div>
@@ -21,14 +21,14 @@
 
       <div class="flex flex-col">
         <label class="leading-loose">Şifre</label>
-        <input :disabled="disableForm" v-model="form.password" type="password" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" autocomplete="new-password" placeholder="Şifre">
+        <input :disabled="disableFormFields" v-model="form.password" type="password" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="new-password" placeholder="Şifre">
         <div v-if="form.errors.password">
           <small class="text-xs text-red-500">{{ form.errors.password }}</small>
         </div>
       </div>
       <div class="flex flex-col">
         <label class="leading-loose">Şifre Tekrar</label>
-        <input :disabled="disableForm" v-model="form.password_confirmation" type="password" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" autocomplete="new-password" placeholder="Şifre">
+        <input :disabled="disableFormFields" v-model="form.password_confirmation" type="password" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="new-password" placeholder="Şifre">
         <div v-if="form.errors.password">
           <small class="text-xs text-red-500">{{ form.errors.password }}</small>
         </div>
@@ -46,7 +46,7 @@
             </span>
           </div>
 
-          <input :disabled="disableForm" name="img_url" @change="form.img_url = $event.target.files[0]" type="file" class="absolute opacity-0 h-full w-full" />
+          <input :disabled="disableFormFields" name="img_url" @change="form.img_url = $event.target.files[0]" type="file" class="absolute opacity-0 h-full w-full" />
           <div v-if="form.img_url">
             {{ form.img_url.name }}
           </div>
@@ -63,15 +63,25 @@
           </div>
         </div>
       </div>
+
+      <div class="flex flex-col gap-3">
+        <label class="leading-loose">Aktif</label>
+        <InputSwitch v-model="form.is_active" />
+        <div v-if="form.errors.is_active">
+          <small class="text-xs text-red-500">{{ form.errors.is_active }}</small>
+        </div>
+        <p class="text-xs text-gray-400">Deaktif durumdaki kullanıcılar sisteme giriş yapamazlar</p>
+      </div>
+
     </div>
 
 
     <div class="pt-4 flex items-center space-x-4">
-      <button @click.prevent="$emit('close')" :disabled="disableForm" :class="{'disabled cursor-not-allowed bg-gray-800': disableForm}"  class="flex justify-center items-center w-full text-gray-900 px-4 py-3 border hover:bg-neutral-300 bg-neutral-200 rounded-md focus:outline-none">
+      <button @click.prevent="$emit('close')" :disabled="disableFormFields" :class="{'disabled cursor-not-allowed bg-gray-800': disableFormFields}"  class="flex justify-center items-center w-full text-gray-900 px-4 py-3 border hover:bg-neutral-300 bg-neutral-200 rounded-md focus:outline-none">
         <i class="pi pi-angle-left pr-2"></i>
         Geri Dön
       </button>
-      <button :disabled="disableForm" :class="{'disabled cursor-not-allowed bg-cyan-800': disableForm}" type="submit" class="bg-cyan-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:bg-cyan-600">
+      <button :disabled="disableFormFields" :class="{'disabled cursor-not-allowed bg-cyan-800': disableFormFields}" type="submit" class="bg-cyan-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:bg-cyan-600">
         <i class="pi pi-check pr-2"></i>
         Kaydet
       </button>
@@ -88,6 +98,7 @@
 import { onMounted, onUpdated, reactive, ref } from "vue";
 import { Inertia, Method } from "@inertiajs/inertia";
 import UserAvatar from "../../Components/UserAvatar.vue";
+import InputSwitch from 'primevue/inputswitch';
 
 
 import { useForm } from '@inertiajs/inertia-vue3'
@@ -99,6 +110,7 @@ export default {
   },
   components: {
     UserAvatar,
+    InputSwitch,
   },
   emits: ['close'],
   setup(props, {emit}) {
@@ -109,11 +121,11 @@ export default {
       password: null,
       password_confirmation: null,
       img_url: null,
-      is_active: false,
+      is_active: true,
     });
 
     const editMode = ref(false);
-    const disableForm = ref(false);
+    const disableFormFields = ref(false);
     const toast = useToast();
 
     onMounted(() => {
@@ -121,7 +133,7 @@ export default {
         editMode.value = true;
         form.name = props.editUserObject.name;
         form.email = props.editUserObject.email;
-        form.is_active = props.editUserObject.is_active;
+        form.is_active = Boolean(props.editUserObject.is_active);
       } else {
         console.log('UserForm: editUserObject create modunda açıldı');
       }
@@ -129,7 +141,7 @@ export default {
 
 
     function submit() {
-      disableForm.value = true;
+      disableFormFields.value = true;
       
       if(editMode.value) {
         form._method = 'patch',
@@ -139,7 +151,7 @@ export default {
             toast.add({severity: 'success', summary: 'Başarılı', detail: 'Kullanıcı düzenlendi!', life: 3000})
           },
           onFinish: () => {
-            disableForm.value = false;
+            disableFormFields.value = false;
           }
         });
       }
@@ -150,7 +162,7 @@ export default {
             toast.add({severity: 'success', summary: 'Başarılı', detail: 'Kullanıcı eklendi!', life: 3000})
           },
           onFinish: () => {
-            disableForm.value = false;
+            disableFormFields.value = false;
           }
         });
       }
@@ -158,7 +170,7 @@ export default {
       // emit('close');
     }
 
-    return { form, submit, editMode, disableForm};
+    return { form, submit, editMode, disableFormFields};
   },
 };
 </script>

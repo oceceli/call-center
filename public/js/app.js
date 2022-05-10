@@ -20201,8 +20201,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
 /* harmony import */ var _Components_UserAvatar_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Components/UserAvatar.vue */ "./resources/js/Components/UserAvatar.vue");
-/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
-/* harmony import */ var primevue_usetoast__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/usetoast */ "./node_modules/primevue/usetoast/usetoast.esm.js");
+/* harmony import */ var primevue_inputswitch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primevue/inputswitch */ "./node_modules/primevue/inputswitch/inputswitch.esm.js");
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var primevue_usetoast__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/usetoast */ "./node_modules/primevue/usetoast/usetoast.esm.js");
+
 
 
 
@@ -20213,36 +20215,37 @@ __webpack_require__.r(__webpack_exports__);
     editUserObject: Object
   },
   components: {
-    UserAvatar: _Components_UserAvatar_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    UserAvatar: _Components_UserAvatar_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    InputSwitch: primevue_inputswitch__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   emits: ['close'],
   setup: function setup(props, _ref) {
     var emit = _ref.emit;
-    var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_3__.useForm)({
+    var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_4__.useForm)({
       _method: 'post',
       name: null,
       email: null,
       password: null,
       password_confirmation: null,
       img_url: null,
-      is_active: false
+      is_active: true
     });
     var editMode = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
-    var disableForm = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
-    var toast = (0,primevue_usetoast__WEBPACK_IMPORTED_MODULE_4__.useToast)();
+    var disableFormFields = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
+    var toast = (0,primevue_usetoast__WEBPACK_IMPORTED_MODULE_5__.useToast)();
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
       if (props.editUserObject) {
         editMode.value = true;
         form.name = props.editUserObject.name;
         form.email = props.editUserObject.email;
-        form.is_active = props.editUserObject.is_active;
+        form.is_active = Boolean(props.editUserObject.is_active);
       } else {
         console.log('UserForm: editUserObject create modunda açıldı');
       }
     });
 
     function submit() {
-      disableForm.value = true;
+      disableFormFields.value = true;
 
       if (editMode.value) {
         form._method = 'patch', form.post(route('users.update', {
@@ -20258,7 +20261,7 @@ __webpack_require__.r(__webpack_exports__);
             });
           },
           onFinish: function onFinish() {
-            disableForm.value = false;
+            disableFormFields.value = false;
           }
         });
       } else {
@@ -20273,7 +20276,7 @@ __webpack_require__.r(__webpack_exports__);
             });
           },
           onFinish: function onFinish() {
-            disableForm.value = false;
+            disableFormFields.value = false;
           }
         });
       } // emit('close');
@@ -20284,7 +20287,7 @@ __webpack_require__.r(__webpack_exports__);
       form: form,
       submit: submit,
       editMode: editMode,
-      disableForm: disableForm
+      disableFormFields: disableFormFields
     };
   }
 });
@@ -20353,6 +20356,10 @@ __webpack_require__.r(__webpack_exports__);
     var toast = (0,primevue_usetoast__WEBPACK_IMPORTED_MODULE_9__.useToast)();
     var confirm = (0,primevue_useconfirm__WEBPACK_IMPORTED_MODULE_10__.useConfirm)();
 
+    var rowClass = function rowClass(data) {
+      return data.is_active == '0' ? 'bg-gray-100' : null;
+    };
+
     var clearFilters = function clearFilters() {
       filters.value['global'].value = '';
       console.log('Filtreler temizlendi');
@@ -20402,7 +20409,8 @@ __webpack_require__.r(__webpack_exports__);
       openCrudForm: openCrudForm,
       editUserObject: editUserObject,
       closeCrudForm: closeCrudForm,
-      deleteUser: deleteUser
+      deleteUser: deleteUser,
+      rowClass: rowClass
     };
   }
 });
@@ -22084,46 +22092,71 @@ var _hoisted_34 = {
   "class": "text-xs text-red-500"
 };
 var _hoisted_35 = {
+  "class": "flex flex-col gap-3"
+};
+
+var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "leading-loose"
+}, "Aktif", -1
+/* HOISTED */
+);
+
+var _hoisted_37 = {
+  key: 0
+};
+var _hoisted_38 = {
+  "class": "text-xs text-red-500"
+};
+
+var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  "class": "text-xs text-gray-400"
+}, "Deaktif durumdaki kullanıcılar sisteme giriş yapamazlar", -1
+/* HOISTED */
+);
+
+var _hoisted_40 = {
   "class": "pt-4 flex items-center space-x-4"
 };
-var _hoisted_36 = ["disabled"];
+var _hoisted_41 = ["disabled"];
 
-var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "pi pi-angle-left pr-2"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Geri Dön ");
+var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Geri Dön ");
 
-var _hoisted_39 = [_hoisted_37, _hoisted_38];
-var _hoisted_40 = ["disabled"];
+var _hoisted_44 = [_hoisted_42, _hoisted_43];
+var _hoisted_45 = ["disabled"];
 
-var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "pi pi-check pr-2"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Kaydet ");
+var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Kaydet ");
 
-var _hoisted_43 = [_hoisted_41, _hoisted_42];
+var _hoisted_48 = [_hoisted_46, _hoisted_47];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_user_avatar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("user-avatar");
 
+  var _component_InputSwitch = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputSwitch");
+
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
-    onSubmit: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+    onSubmit: _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $setup.submit && $setup.submit.apply($setup, arguments);
     }, ["prevent"])),
     autocomplete: "off",
     "class": "divide-y divide-gray-200"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    disabled: $setup.disableForm,
+    disabled: $setup.disableFormFields,
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.form.name = $event;
     }),
     type: "text",
-    "class": "px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600",
+    "class": "px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300",
     autocomplete: "off",
     placeholder: "Ad Soyad"
   }, null, 8
@@ -22131,12 +22164,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   , _hoisted_4), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.name]]), $setup.form.errors.name ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.name), 1
   /* TEXT */
   )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    disabled: $setup.disableForm,
+    disabled: $setup.disableFormFields,
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $setup.form.email = $event;
     }),
     type: "text",
-    "class": "px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600",
+    "class": "px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300",
     autocomplete: "off",
     placeholder: "Eposta"
   }, null, 8
@@ -22144,12 +22177,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   , _hoisted_9), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.email]]), $setup.form.errors.email ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.email), 1
   /* TEXT */
   )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    disabled: $setup.disableForm,
+    disabled: $setup.disableFormFields,
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $setup.form.password = $event;
     }),
     type: "password",
-    "class": "px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600",
+    "class": "px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300",
     autocomplete: "new-password",
     placeholder: "Şifre"
   }, null, 8
@@ -22157,12 +22190,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   , _hoisted_14), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.password]]), $setup.form.errors.password ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.password), 1
   /* TEXT */
   )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    disabled: $setup.disableForm,
+    disabled: $setup.disableFormFields,
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $setup.form.password_confirmation = $event;
     }),
     type: "password",
-    "class": "px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600",
+    "class": "px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300",
     autocomplete: "new-password",
     placeholder: "Şifre"
   }, null, 8
@@ -22186,7 +22219,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8
   /* PROPS */
   , ["userName"])]))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    disabled: $setup.disableForm,
+    disabled: $setup.disableFormFields,
     name: "img_url",
     onChange: _cache[4] || (_cache[4] = function ($event) {
       return $setup.form.img_url = $event.target.files[0];
@@ -22207,25 +22240,34 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , _hoisted_31)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.form.errors.img_url ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.img_url), 1
   /* TEXT */
-  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [_hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputSwitch, {
+    modelValue: $setup.form.is_active,
+    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+      return $setup.form.is_active = $event;
+    })
+  }, null, 8
+  /* PROPS */
+  , ["modelValue"]), $setup.form.errors.is_active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.is_active), 1
+  /* TEXT */
+  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_39])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return _ctx.$emit('close');
     }, ["prevent"])),
-    disabled: $setup.disableForm,
+    disabled: $setup.disableFormFields,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
-      'disabled cursor-not-allowed bg-gray-800': $setup.disableForm
+      'disabled cursor-not-allowed bg-gray-800': $setup.disableFormFields
     }, "flex justify-center items-center w-full text-gray-900 px-4 py-3 border hover:bg-neutral-300 bg-neutral-200 rounded-md focus:outline-none"])
-  }, _hoisted_39, 10
+  }, _hoisted_44, 10
   /* CLASS, PROPS */
-  , _hoisted_36), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    disabled: $setup.disableForm,
+  , _hoisted_41), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    disabled: $setup.disableFormFields,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
-      'disabled cursor-not-allowed bg-cyan-800': $setup.disableForm
+      'disabled cursor-not-allowed bg-cyan-800': $setup.disableFormFields
     }, "bg-cyan-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:bg-cyan-600"]),
     type: "submit"
-  }, _hoisted_43, 10
+  }, _hoisted_48, 10
   /* CLASS, PROPS */
-  , _hoisted_40)])], 32
+  , _hoisted_45)])], 32
   /* HYDRATE_EVENTS */
   );
 }
@@ -22300,6 +22342,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_DataTable, {
     value: $props.users,
     "class": "p-datatable-sm text-sm",
+    rowClass: $setup.rowClass,
     dataKey: "id",
     responsiveLayout: "stack",
     resizableColumns: true,
@@ -22448,7 +22491,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* STABLE */
 
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
-        header: "Kullanıcı Ekle",
+        header: $setup.editUserObject ? 'Kullanıcı Düzenle' : 'Kullanıcı Ekle',
         visible: $setup.visibleCrudForm,
         "onUpdate:visible": _cache[3] || (_cache[3] = function ($event) {
           return $setup.visibleCrudForm = $event;
@@ -22477,14 +22520,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       }, 8
       /* PROPS */
-      , ["visible"])];
+      , ["header", "visible"])];
     }),
     _: 1
     /* STABLE */
 
   }, 8
   /* PROPS */
-  , ["value", "loading", "filters"]);
+  , ["value", "rowClass", "loading", "filters"]);
 }
 
 /***/ }),
@@ -32461,6 +32504,145 @@ function styleInject(css, ref) {
 }
 
 var css_248z = "\n.p-inputnumber {\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n}\n.p-inputnumber-button {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-flex: 0;\n        -ms-flex: 0 0 auto;\n            flex: 0 0 auto;\n}\n.p-inputnumber-buttons-stacked .p-button.p-inputnumber-button .p-button-label,\n.p-inputnumber-buttons-horizontal .p-button.p-inputnumber-button .p-button-label {\n    display: none;\n}\n.p-inputnumber-buttons-stacked .p-button.p-inputnumber-button-up {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n    border-bottom-right-radius: 0;\n    padding: 0;\n}\n.p-inputnumber-buttons-stacked .p-inputnumber-input {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n}\n.p-inputnumber-buttons-stacked .p-button.p-inputnumber-button-down {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n    border-bottom-left-radius: 0;\n    padding: 0;\n}\n.p-inputnumber-buttons-stacked .p-inputnumber-button-group {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n.p-inputnumber-buttons-stacked .p-inputnumber-button-group .p-button.p-inputnumber-button {\n    -webkit-box-flex: 1;\n        -ms-flex: 1 1 auto;\n            flex: 1 1 auto;\n}\n.p-inputnumber-buttons-horizontal .p-button.p-inputnumber-button-up {\n    -webkit-box-ordinal-group: 4;\n        -ms-flex-order: 3;\n            order: 3;\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n}\n.p-inputnumber-buttons-horizontal .p-inputnumber-input {\n    -webkit-box-ordinal-group: 3;\n        -ms-flex-order: 2;\n            order: 2;\n    border-radius: 0;\n}\n.p-inputnumber-buttons-horizontal .p-button.p-inputnumber-button-down {\n    -webkit-box-ordinal-group: 2;\n        -ms-flex-order: 1;\n            order: 1;\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n}\n.p-inputnumber-buttons-vertical {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n.p-inputnumber-buttons-vertical .p-button.p-inputnumber-button-up {\n    -webkit-box-ordinal-group: 2;\n        -ms-flex-order: 1;\n            order: 1;\n    border-bottom-left-radius: 0;\n    border-bottom-right-radius: 0;\n    width: 100%;\n}\n.p-inputnumber-buttons-vertical .p-inputnumber-input {\n    -webkit-box-ordinal-group: 3;\n        -ms-flex-order: 2;\n            order: 2;\n    border-radius: 0;\n    text-align: center;\n}\n.p-inputnumber-buttons-vertical .p-button.p-inputnumber-button-down {\n    -webkit-box-ordinal-group: 4;\n        -ms-flex-order: 3;\n            order: 3;\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n    width: 100%;\n}\n.p-inputnumber-input {\n    -webkit-box-flex: 1;\n        -ms-flex: 1 1 auto;\n            flex: 1 1 auto;\n}\n.p-fluid .p-inputnumber {\n    width: 100%;\n}\n.p-fluid .p-inputnumber .p-inputnumber-input {\n    width: 1%;\n}\n.p-fluid .p-inputnumber-buttons-vertical .p-inputnumber-input {\n    width: 100%;\n}\n";
+styleInject(css_248z);
+
+script.render = render;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/primevue/inputswitch/inputswitch.esm.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/primevue/inputswitch/inputswitch.esm.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ script)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var script = {
+    name: 'InputSwitch',
+    inheritAttrs: false,
+    emits: ['click', 'update:modelValue', 'change', 'input'],
+    props: {
+        modelValue: {
+            type: null,
+            default: false
+        },
+        class: null,
+        style: null,
+        trueValue: {
+            type: null,
+            default: true
+        },
+        falseValue: {
+            type: null,
+            default: false
+        }
+    },
+    data() {
+        return {
+            focused: false
+        }
+    },
+    methods: {
+        onClick(event) {
+            if (!this.$attrs.disabled) {
+                const newValue = this.checked ? this.falseValue : this.trueValue;
+                this.$emit('click', event);
+                this.$emit('update:modelValue', newValue);
+                this.$emit('change', event);
+                this.$emit('input', newValue);
+                this.$refs.input.focus();
+            }
+            event.preventDefault();
+        },
+        onFocus() {
+            this.focused = true;
+        },
+        onBlur() {
+            this.focused = false;
+        }
+    },
+    computed: {
+        containerClass() {
+            return [
+                'p-inputswitch p-component', this.class,
+                {
+                    'p-inputswitch-checked': this.checked,
+					'p-disabled': this.$attrs.disabled,
+                    'p-focus': this.focused
+                }
+            ];
+        },
+        checked() {
+            return this.modelValue === this.trueValue;
+        }
+    }
+};
+
+const _hoisted_1 = { class: "p-hidden-accessible" };
+const _hoisted_2 = ["checked", "aria-checked"];
+const _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", { class: "p-inputswitch-slider" }, null, -1);
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($options.containerClass),
+    onClick: _cache[3] || (_cache[3] = $event => ($options.onClick($event))),
+    style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)($props.style)
+  }, [
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
+        ref: "input",
+        type: "checkbox",
+        checked: $options.checked
+      }, _ctx.$attrs, {
+        onFocus: _cache[0] || (_cache[0] = $event => ($options.onFocus($event))),
+        onBlur: _cache[1] || (_cache[1] = $event => ($options.onBlur($event))),
+        onKeydown: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)((0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($event => ($options.onClick($event)), ["prevent"]), ["enter"])),
+        role: "switch",
+        "aria-checked": $options.checked
+      }), null, 16, _hoisted_2)
+    ]),
+    _hoisted_3
+  ], 6))
+}
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z = "\n.p-inputswitch {\n    position: relative;\n    display: inline-block;\n}\n.p-inputswitch-slider {\n    position: absolute;\n    cursor: pointer;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n}\n.p-inputswitch-slider:before {\n    position: absolute;\n    content: \"\";\n    top: 50%;\n}\n";
 styleInject(css_248z);
 
 script.render = render;

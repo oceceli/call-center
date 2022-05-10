@@ -44,13 +44,14 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email,'. $user->id,
             'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
             'img_url' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg,webp|max:2048',
-            'is_active' => 'nullable|boolean'
+            'is_active' => 'required|boolean'
         ]);
 
         
         $userData = [
             'name' => $request->name,
             'email' => $request->email,
+            'is_active' => $request->is_active,
         ];
         
         if($request->password)
@@ -60,10 +61,6 @@ class RegisteredUserController extends Controller
         if($request->img_url) {
             $image_path = $this->setImage($request);
             $userData['img_url'] = $image_path;
-        }
-
-        if($request->is_active) {
-            $userData['is_active'] = $request->is_active;
         }
 
 
@@ -88,7 +85,7 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'img_url' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg,webp|max:2048',
-            'is_active' => 'nullable|boolean'
+            'is_active' => 'required|boolean'
         ]);
         
         

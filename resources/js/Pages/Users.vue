@@ -1,5 +1,8 @@
 <template>
-  <DataTable :value="users" class="p-datatable-sm text-sm"
+  <DataTable :value="users" 
+    class="p-datatable-sm text-sm"
+    :rowClass="rowClass"
+
     dataKey="id"
     responsiveLayout="stack"
 
@@ -91,7 +94,7 @@
     </template>
 
 
-    <Dialog header="Kullanıcı Ekle" v-model:visible="visibleCrudForm" :style="{width: '50vw'}"
+    <Dialog :header="editUserObject ? 'Kullanıcı Düzenle' : 'Kullanıcı Ekle'" v-model:visible="visibleCrudForm" :style="{width: '50vw'}"
     closeOnEscape
     modal
     maximizable
@@ -147,6 +150,10 @@ export default {
     const toast = useToast();
     const confirm = useConfirm();
 
+    const rowClass = (data) => {
+        return data.is_active == '0' ? 'bg-gray-100' : null;
+    };
+
     const clearFilters = () => {
         filters.value['global'].value = '';
         console.log('Filtreler temizlendi');
@@ -194,6 +201,7 @@ export default {
     editUserObject,
     closeCrudForm,
     deleteUser,
+    rowClass,
     };
   },   
 

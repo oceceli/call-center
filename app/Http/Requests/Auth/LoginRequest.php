@@ -53,6 +53,14 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        // kullanıcı, admin tarafından deaktif edilmiş olabilir
+        if(! Auth::user()->is_active) {
+            Auth::logout();
+            throw ValidationException::withMessages([
+                'email' => trans('Hesabınız deaktif durumdadır, lütfen aktifleştirmesi için yöneticinize başvurunuz.'),
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 
