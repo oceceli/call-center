@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CustomerController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,9 +34,10 @@ Route::group(['auth', 'verified'], function () {
     Route::patch('/users/{user}', [RegisteredUserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [RegisteredUserController::class, 'destroy'])->name('users.destroy');
     
-    Route::get('/customers', function() {
-        return Inertia::render('Customers');
-    })->name('customers');
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customers');
+    Route::post('/customers', [CustomerController::class, 'store'])->name('customers.post');
+    Route::patch('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update');
+    Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
     
     Route::get('/test', function() {
         return Inertia::render('test');

@@ -16,20 +16,25 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
+            
             $table->string('name');
             $table->string('surname');
             $table->string('phone');
-            
+
+            $table->boolean('is_active');
+
+            $table->string('email')->nullable();
             $table->string('city')->nullable();
             $table->string('source')->nullable();
             $table->string('category')->nullable();
 
-            // sahipsiz customerları model helper ile bulurum
-
-            $table->enum('status', ['queued', 'positive', 'negative', 'busy'])->default('queued');
-            $table->smallInteger('score')->default(0);
-
+            $table->enum('status', ['QUEUED', 'POSITIVE', 'BUSY'])->nullable()->default('QUEUED');
+            $table->smallInteger('score')->nullable()->default(0);
+            $table->string('note')->nullable();
+            
             $table->timestamps();
+            
+            // sahipsiz customerları model helper ile bulurum
         });
     }
 

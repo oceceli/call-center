@@ -61,12 +61,12 @@
     <Column field="email" header="E-posta" sortable></Column>
     <Column field="!!!!!!!" header="Atandı" sortable footer="Toplam: 300 !!!!"></Column>
     <Column field="!!!!!!" header="Arandı" sortable footer="Toplam: 520 !!!!"></Column>
-    <Column field="!!!!!!" header="İşlem">
-        <template #body="field">
+    <Column header="İşlem">
+        <template #body="content">
             <span class="p-buttonset text-xs">
                 <Button label="Atama" icon="pi pi-link" class="p-button-primary p-button-raised p-button-sm" badge="8" badgeClass="p-badge-primary" :loading="buttonsLoading"></Button>
-                <Button label="" icon="pi pi-user-edit" class=" p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openCrudForm(field.data)"></Button>
-                <Button label="" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" @click="deleteUser($event, field.data.id)" :loading="buttonsLoading"></Button>
+                <Button label="" icon="pi pi-user-edit" class=" p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openCrudForm(content.data)"></Button>
+                <Button label="" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" @click="deleteUser($event, content.data.id)" :loading="buttonsLoading"></Button>
             </span>
         </template>
     </Column>
@@ -148,7 +148,7 @@ export default {
     const editUserObject = ref(null)
     const filters = ref({'global': {value: '', matchMode: FilterMatchMode.CONTAINS}});
     const toast = useToast();
-    const confirm = useConfirm();
+    
 
     const rowClass = (data) => {
         return data.is_active == '0' ? 'bg-gray-100' : null;
@@ -168,6 +168,7 @@ export default {
         visibleCrudForm.value = false;
     };
 
+    const confirm = useConfirm();
     const deleteUser = (event, userId) => {
         confirm.require({
             target: event.currentTarget,
@@ -187,7 +188,7 @@ export default {
             }
         });
 
-        
+ 
     };
 
 

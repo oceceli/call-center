@@ -3,8 +3,7 @@
 namespace App\Enum;
 
 enum CallStatus: string {
-    case Queued = "queued";
-    case Positive = "positive";
-    case Negative = "negative";
-    case Busy = "busy";
+    case Queued = "QUEUED";
+    case Positive = "POSITIVE";
+    case Busy = "BUSY";
 }

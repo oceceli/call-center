@@ -1,34 +1,34 @@
 <template>
 
-  <form @submit.prevent="submit" autocomplete="off" class="divide-y divide-gray-200">
+  <form @submit.prevent="submit" autocomplete="off" class="divide-y divide-gray-200 border-t border-dashed pt-3">
     <div class="text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7 pb-4">
       
       <div class="flex flex-col">
-        <label class="leading-loose">Ad Soyad</label>
-        <input :disabled="disableFormFields" v-model="form.name" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="off" placeholder="Ad Soyad">
+        <label class="leading-loose">Ad Soyad <span class="text-red-500">*</span></label>
+        <input :disabled="disableFormFields" v-model="form.name" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-cyan-500 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="off" placeholder="Ad Soyad">
         <div v-if="form.errors.name">
           <small class="text-xs text-red-500">{{ form.errors.name }}</small>
         </div>
       </div>
 
       <div class="flex flex-col">
-        <label class="leading-loose">E-posta</label>
-        <input :disabled="disableFormFields" v-model="form.email" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="off" placeholder="Eposta">
+        <label class="leading-loose">E-posta <span class="text-red-500">*</span></label>
+        <input :disabled="disableFormFields" v-model="form.email" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-cyan-500 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="off" placeholder="Eposta">
         <div v-if="form.errors.email">
           <small class="text-xs text-red-500">{{ form.errors.email }}</small>
         </div>
       </div>
 
       <div class="flex flex-col">
-        <label class="leading-loose">Şifre</label>
-        <input :disabled="disableFormFields" v-model="form.password" type="password" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="new-password" placeholder="Şifre">
+        <label class="leading-loose">Şifre <span class="text-red-500">{{ editUserObject ? '' : '*' }}</span></label>
+        <input :disabled="disableFormFields" v-model="form.password" type="password" class="px-4 py-2 border focus:ring-gray-500 focus:border-cyan-500 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="new-password" placeholder="Şifre">
         <div v-if="form.errors.password">
           <small class="text-xs text-red-500">{{ form.errors.password }}</small>
         </div>
       </div>
       <div class="flex flex-col">
-        <label class="leading-loose">Şifre Tekrar</label>
-        <input :disabled="disableFormFields" v-model="form.password_confirmation" type="password" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="new-password" placeholder="Şifre">
+        <label class="leading-loose">Şifre Tekrar <span class="text-red-500">{{ editUserObject ? '' : '*' }}</span></label>
+        <input :disabled="disableFormFields" v-model="form.password_confirmation" type="password" class="px-4 py-2 border focus:ring-gray-500 focus:border-cyan-500 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="new-password" placeholder="Şifre">
         <div v-if="form.errors.password">
           <small class="text-xs text-red-500">{{ form.errors.password }}</small>
         </div>
@@ -77,7 +77,7 @@
 
 
     <div class="pt-4 flex items-center space-x-4">
-      <button @click.prevent="$emit('close')" :disabled="disableFormFields" :class="{'disabled cursor-not-allowed bg-gray-800': disableFormFields}"  class="flex justify-center items-center w-full text-gray-900 px-4 py-3 border hover:bg-neutral-300 bg-neutral-200 rounded-md focus:outline-none">
+      <button @click.prevent="$emit('close')" :disabled="disableFormFields" :class="{'disabled cursor-not-allowed bg-gray-800': disableFormFields}"  class="flex justify-center items-center w-full text-cyan-500 px-4 py-3 border hover:bg-neutral-100 rounded-md focus:outline-none">
         <i class="pi pi-angle-left pr-2"></i>
         Geri Dön
       </button>
