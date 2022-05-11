@@ -14,8 +14,8 @@ import ConfirmPopup from 'primevue/confirmpopup';
         <Topbar></Topbar>
 
         <div class="flex-1 flex flex-col overflow-auto">
-            <div class="px-6 pt-6 bg-gray-50 flex-1 shadow">
-                <div class="px-3 bg-white rounded-lg shadow-md mb-6 border border-dashed border-cyan-300 hover:border-cyan-500">
+            <div class="md:px-6 md:pt-6 bg-gray-50 flex-1 shadow">
+                <div class="md:px-3 bg-white md:rounded-lg shadow-md mb-6 md:border border-dashed border-cyan-300 hover:border-cyan-500">
                     <slot />
                 </div>
             </div>

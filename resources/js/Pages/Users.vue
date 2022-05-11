@@ -151,7 +151,7 @@ export default {
     
 
     const rowClass = (data) => {
-        return data.is_active == '0' ? 'bg-gray-100' : null;
+        return data.is_active == '0' ? 'bg-red-100' : null;
     };
 
     const clearFilters = () => {

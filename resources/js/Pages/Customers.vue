@@ -3,7 +3,9 @@
     class="p-datatable-sm  text-sm"
     :rowClass="rowClass"
     dataKey="id"
-  
+
+    
+
     :rowHover="true"
     responsiveLayout="stack"
 
@@ -15,8 +17,8 @@
     :loading="tableLoading"
 
     :paginator="true" 
-    :rows="10" 
-    :rowsPerPageOptions="[10,20,30]"
+    :rows="50" 
+    :rowsPerPageOptions="[10,20,30,50]"
     paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
     currentPageReportTemplate="{first} ile {last} arası gösteriliyor"
 
