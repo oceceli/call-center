@@ -77,11 +77,11 @@
 
 
     <div class="pt-4 flex items-center space-x-4">
-      <button @click.prevent="$emit('close')" :disabled="disableFormFields" :class="{'disabled cursor-not-allowed bg-gray-800': disableFormFields}"  class="flex justify-center items-center w-full text-cyan-500 px-4 py-3 border hover:bg-neutral-100 rounded-md focus:outline-none">
+      <button @click.prevent="$emit('close')" :disabled="disableFormFields" :class="{'disabled cursor-none bg-gray-100': disableFormFields}"  class="flex justify-center items-center w-full text-cyan-500 px-4 py-3 border hover:bg-neutral-100 rounded-md focus:outline-none">
         <i class="pi pi-angle-left pr-2"></i>
         Geri Dön
       </button>
-      <button :disabled="disableFormFields" :class="{'disabled cursor-not-allowed bg-cyan-800': disableFormFields}" type="submit" class="bg-cyan-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:bg-cyan-600">
+      <button :disabled="disableFormFields" :class="{'disabled cursor-none bg-cyan-800': disableFormFields}" type="submit" class="bg-cyan-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:bg-cyan-600">
         <i class="pi pi-check pr-2"></i>
         Kaydet
       </button>
@@ -134,6 +134,7 @@ export default {
         form.name = props.editUserObject.name;
         form.email = props.editUserObject.email;
         form.is_active = Boolean(props.editUserObject.is_active);
+        form.defaults();
       } else {
         console.log('UserForm: editUserObject create modunda açıldı');
       }
@@ -141,9 +142,15 @@ export default {
 
 
     function submit() {
-      disableFormFields.value = true;
+      
       
       if(editMode.value) {
+        if(! form.isDirty) {
+          emit('close');
+          toast.add({severity: 'info', summary: 'Değişiklik yapılmadı', detail: 'Herhangi bir değişiklik yapılmadı.', life: 3000});
+          return;
+        }
+        disableFormFields.value = true;
         form._method = 'patch',
         form.post(route('users.update', {'user': props.editUserObject.id}), {
           onSuccess: () => {
@@ -156,6 +163,11 @@ export default {
         });
       }
       else {
+        if(! form.isDirty) {
+          toast.add({severity: 'error', summary: 'Form boş', detail: 'Lütfen gerekli alanları doldurunuz!', life: 3000})
+          return;
+        }
+        disableFormFields.value = true;
         form.post(route('users.post'), {
           onSuccess: () => {
             emit('close');

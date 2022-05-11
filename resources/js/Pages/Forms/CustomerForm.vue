@@ -60,33 +60,33 @@
           </div>
         </div>
       </div>
-
-      <div class="flex flex-col w-full">
-        <label class="leading-loose">Not</label>
-        <textarea :disabled="disableFormFields" v-model="form.note" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-cyan-500 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="off" placeholder="Tüm kullanıcılar görebilir"></textarea>
-        <div v-if="form.errors.note">
-          <small class="text-xs text-red-500">{{ form.errors.note }}</small>
-        </div>
-      </div>
-
+      
       <div class="flex flex-col gap-3">
         <label class="leading-loose">Aktif</label>
         <InputSwitch v-model="form.is_active" />
         <div v-if="form.errors.is_active">
           <small class="text-xs text-red-500">{{ form.errors.is_active }}</small>
         </div>
-        <p class="text-xs text-gray-400">Deaktif olarak işaretlenen müşteriler normal kullanıcılar tarafından görüntülenemez, aranamaz veya oy verilemezler</p>
+        <p class="text-xs text-gray-400">Deaktif olarak işaretlenen müşteriler; temsilciler tarafından görüntülenemez, aranamaz veya oy verilemezler</p>
+      </div>
+
+      <div class="flex flex-col w-full">
+        <label class="leading-loose">Not</label>
+        <textarea :disabled="disableFormFields" v-model="form.note" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-cyan-500 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="off" placeholder="İlgili kullanıcılar görebilir"></textarea>
+        <div v-if="form.errors.note">
+          <small class="text-xs text-red-500">{{ form.errors.note }}</small>
+        </div>
       </div>
 
     </div>
 
 
     <div class="pt-4 flex items-center space-x-4">
-      <button @click.prevent="$emit('close')" :disabled="disableFormFields" :class="{'disabled cursor-not-allowed bg-gray-800': disableFormFields}"  class="flex justify-center items-center w-full text-cyan-500 px-4 py-3 border hover:bg-neutral-100  rounded-md focus:outline-none">
+      <button @click.prevent="$emit('close')" :disabled="disableFormFields" :class="{'disabled cursor-none bg-neutral-100': disableFormFields}"  class="flex justify-center items-center w-full text-cyan-500 px-4 py-3 border hover:bg-neutral-100  rounded-md focus:outline-none">
         <i class="pi pi-angle-left pr-2"></i>
         Geri Dön
       </button>
-      <button :disabled="disableFormFields" :class="{'disabled cursor-not-allowed bg-cyan-800': disableFormFields}" type="submit" class="bg-cyan-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:bg-cyan-600">
+      <button :disabled="disableFormFields" :class="{'disabled cursor-none bg-cyan-800': disableFormFields}" type="submit" class="bg-cyan-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:bg-cyan-600">
         <i class="pi pi-check pr-2"></i>
         Kaydet
       </button>
@@ -150,30 +150,49 @@ export default {
         form.city = props.editCustomerObject.city;
         form.source = props.editCustomerObject.source;
         form.category = props.editCustomerObject.category;
-        form.note = props.editCustomerObject.note;
+        form.note = props.editCustomerObject.note.full;
         form.is_active = Boolean(props.editCustomerObject.is_active);
+        // form.isDirty false olması için form.defaults() gerekli.
+        // aksi takdirde veritabanına gereksiz istek atmış oluruz submit ederken
+        form.defaults();
       } else {
-        console.log('UserForm: editCustomerObject create modunda açıldı');
+        console.log('CustomerForm: editCustomerObject create modunda açıldı');
       }
     });
 
+    
+
+    
 
     function submit() {
-      disableFormFields.value = true;
       
       if(editMode.value) {
+        if(! form.isDirty) {
+          emit('close');
+          toast.add({severity: 'info', summary: 'Değişiklik yapılmadı', detail: 'Herhangi bir değişiklik yapılmadı.', life: 3000});
+          // disableFormFields.value = false;
+          return;
+        }
+        disableFormFields.value = true;
         form._method = 'patch',
         form.post(route('customers.update', {'customer': props.editCustomerObject.id}), {
           onSuccess: () => {
             emit('close');
-            toast.add({severity: 'success', summary: 'Başarılı', detail: 'Düzenleme başarılı!', life: 3000})
+            toast.add({severity: 'success', summary: 'Başarılı', detail: 'Düzenleme başarılı!', life: 3000});
           },
           onFinish: () => {
             disableFormFields.value = false;
           }
         });
       }
+
       else {
+        if(! form.isDirty) {
+          toast.add({severity: 'error', summary: 'Form boş', detail: 'Lütfen gerekli alanları doldurunuz!', life: 3000})
+          // disableFormFields.value = false;
+          return;
+        }
+        disableFormFields.value = true;
         form.post(route('customers.post'), {
           onSuccess: () => {
             emit('close');

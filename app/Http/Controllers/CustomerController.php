@@ -41,7 +41,7 @@ class CustomerController extends Controller
 
             "name" => 'required|max:50',
             "surname" => 'required|max:50',
-            "phone" => 'required|numeric|digits_between:11,14',
+            "phone" => 'required|numeric|digits_between:10,14',
             "is_active" => 'required|boolean',
             
             "email" => 'nullable|email',

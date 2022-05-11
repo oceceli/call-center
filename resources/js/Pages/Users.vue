@@ -64,7 +64,7 @@
     <Column header="İşlem">
         <template #body="content">
             <span class="p-buttonset text-xs">
-                <Button label="Atama" icon="pi pi-link" class="p-button-primary p-button-raised p-button-sm" badge="8" badgeClass="p-badge-primary" :loading="buttonsLoading"></Button>
+                <Button v-if="content.data.is_active" label="Atama" icon="pi pi-link" class="p-button-primary p-button-raised p-button-sm" badge="8" badgeClass="p-badge-primary" :loading="buttonsLoading"></Button>
                 <Button label="" icon="pi pi-user-edit" class=" p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openCrudForm(content.data)"></Button>
                 <Button label="" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" @click="deleteUser($event, content.data.id)" :loading="buttonsLoading"></Button>
             </span>
@@ -172,7 +172,7 @@ export default {
     const deleteUser = (event, userId) => {
         confirm.require({
             target: event.currentTarget,
-            message: 'Silmek istiyor musunuz?',
+            message: 'Emin misiniz?',
             icon: 'pi pi-exclamation-triangle',
             acceptLabel: 'Evet',
             rejectLabel: 'Vazgeç',

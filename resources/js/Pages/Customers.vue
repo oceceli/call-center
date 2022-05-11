@@ -1,9 +1,10 @@
 <template>
-    <DataTable :value="customers" 
-    class="p-datatable-sm text-sm"
-  
-
+    <DataTable :value="customers"  
+    class="p-datatable-sm  text-sm"
+    :rowClass="rowClass"
     dataKey="id"
+  
+    :rowHover="true"
     responsiveLayout="stack"
 
     :resizableColumns="true"
@@ -20,11 +21,10 @@
     currentPageReportTemplate="{first} ile {last} arası gösteriliyor"
 
     v-model:filters="filters"
-    :globalFilterFields="['name', 'surname', 'email', 'phone', 'city', 'source', 'category', 'status', 'score', 'note']"
+    :globalFilterFields="['name', 'surname', 'email', 'phone', 'city', 'source', 'category', 'status.tr', 'score', 'note']"
     filterDisplay="menu"
     
     >
-    <!-- !!!!!!! rowClass ekle status bazında boyama yap -->
     <template #header>
         <div class="flex items-center justify-between py-3">
             <div>
@@ -48,23 +48,54 @@
     <Column field="name" header="Müşteri Ad" sortable :exportable="true"></Column>
     <Column field="surname" header="Soyad" sortable :exportable="true"></Column>
     
-    <Column field="email" header="E-posta" sortable>
-      <template #body="{data}">
-        <a class="text-cyan-600" :href="'mailto:' + data.email">{{ data.email }}</a>
-      </template>
-    </Column>
     <Column field="phone" header="Telefon" sortable>
       <template #body="{data}">
-        <a class="text-cyan-600" :href="'tel:' + data.phone">{{ data.phone }}</a>
+        <a v-if="data.is_active" class="text-cyan-600 hover:text-cyan-500" :href="'tel:' + data.phone">
+          <i class="pi pi-phone pr-1"></i> 
+          {{ data.phone }}
+        </a>
+        <span v-else>
+          {{ data.phone }}
+        </span>
       </template>
     </Column>
+    
+    <Column field="email" header="E-posta" sortable>
+      <template #body="{data}">
+        <a v-if="data.is_active" class="text-cyan-600 hover:text-cyan-500" :href="'mailto:' + data.email">
+          <i class="pi pi-at pr-1"></i> 
+          {{ data.email }}
+        </a>
+        <span v-else>
+          {{ data.email }}
+        </span>
+      </template>
+    </Column>
+
     <Column field="city" header="Şehir" sortable></Column>
     <Column field="source" header="Kaynak" sortable></Column>
     <Column field="category" header="Kategori" sortable></Column>
+    <Column field="is_active" header="Aktif" sortable></Column>
 
-    <Column field="status" header="Durum" sortable></Column>
+    <Column field="status.enum" header="Durum" sortable>
+      <template #body="{data}">
+        <div v-if="data.is_active" :class="data.status.class">
+          <i :class="data.status.icon"></i>
+          {{ data.status.tr }}
+        </div>
+        <span v-else>
+          {{ data.status.tr }}
+        </span>
+      </template>
+    </Column>
+
     <Column field="score" header="Puan" sortable></Column>
-    <Column field="note" header="Not" sortable></Column>
+    
+    <Column field="note" header="Not">
+      <template #body="{data}">
+        {{ data.note.sliced }}
+      </template>
+    </Column>
 
 
     <Column header="İşlem">
@@ -108,10 +139,6 @@
     :breakpoints="{'960px': '75vw', '640px': '100vw'}"
     >
         <CustomerForm @close="closeCrudForm" :editCustomerObject="editCustomerObject"></CustomerForm>
-        <!-- <template #footer>
-            <Button label="No" icon="pi pi-times"  class="p-button-text"/>
-            <Button label="Yes" icon="pi pi-check"  autofocus />
-        </template> -->
     </Dialog>
 
   </DataTable>
@@ -171,12 +198,23 @@ export default {
         visibleCrudForm.value = false;
     };
 
+    const rowClass = (row) => {
+      if(!row.is_active) {
+        return 'bg-slate-100 text-gray-400 cursor-not-allowed';
+      }
+      if(row.status.enum == 'BUSY') {
+        return 'bg-red-50 text-gray-400 hover:bg-red-100';
+      } else if(row.status.enum == 'POSITIVE') {
+        return 'bg-lime-50 text-gray-400 hover:bg-lime-100';
+      }
+    };
+
     const toast = useToast();
     const confirm = useConfirm();
     const deleteCustomer = (event, customerId) => {
         confirm.require({
             target: event.currentTarget,
-            message: 'Bu müşteri ile ilgili tüm veriler silinecek. Devam etmek istiyor musunuz?',
+            message: 'Emin misiniz?',
             icon: 'pi pi-exclamation-triangle',
             acceptLabel: 'Evet',
             rejectLabel: 'Vazgeç',
@@ -208,6 +246,8 @@ export default {
       buttonsLoading,
 
       deleteCustomer,
+
+      rowClass,
     };
   },
 

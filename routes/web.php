@@ -23,6 +23,7 @@ use Inertia\Inertia;
 
 require __DIR__.'/auth.php';
 
+
 Route::group(['auth', 'verified'], function () {
 
     Route::get('/', function () {
