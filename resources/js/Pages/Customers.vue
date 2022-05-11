@@ -104,7 +104,7 @@
         <template #body="content">
             <span class="p-buttonset text-xs">
                 <!-- <Button label="Atama" icon="pi pi-link" class="p-button-primary p-button-raised p-button-sm" badge="8" badgeClass="p-badge-primary" :loading="buttonsLoading"></Button> -->
-                <Button label="" icon="pi pi-eye" class="p-button-primary p-button-raised p-button-sm" :loading="buttonsLoading" @click="openShowModal(content.data)"></Button>
+                <Button label="" icon="pi pi-eye" class="p-button-primary p-button-raised p-button-sm" :loading="buttonsLoading" @click="openDetailsModal(content.data)"></Button>
                 <Button label="" icon="pi pi-user-edit" class=" p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openCrudForm(content.data)"></Button>
                 <Button label="" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" @click="deleteCustomer($event, content.data.id)" :loading="buttonsLoading"></Button>
             </span>
@@ -142,6 +142,16 @@
     >
         <CustomerForm @close="closeCrudForm" :editCustomerObject="editCustomerObject"></CustomerForm>
     </Dialog>
+    
+    
+    <Dialog header="Müşteri ve Görüşme Detayları" v-model:visible="visibleDetailsModal" :style="{width: '50vw'}"
+    closeOnEscape
+    modal
+    maximizable
+    :breakpoints="{'960px': '75vw', '640px': '100vw'}"
+    >
+        <CustomerDetails :customer="customerObject" />
+    </Dialog>
 
   </DataTable>
 </template>
@@ -152,6 +162,7 @@
 <script>
 import AppLayout from '../Layouts/App.vue';
 import CustomerForm from "./Forms/CustomerForm.vue";
+import CustomerDetails from "./Details/CustomerDetails.vue";
 import UserAvatar from "../Components/UserAvatar.vue";
 
 import DataTable from "primevue/datatable/DataTable.vue";
@@ -176,6 +187,7 @@ export default {
     CustomerForm,
     UserAvatar,
     useToast,
+    CustomerDetails,
   },
 
 
@@ -184,21 +196,34 @@ export default {
     const tableLoading = ref(false); // !!!!!
     const buttonsLoading = ref(false); // !!!!
     const filters = ref({'global': {value: '', matchMode: FilterMatchMode.CONTAINS}});
+
     const visibleCrudForm = ref(false);
+    const visibleDetailsModal = ref(false);
+
+    const customerObject = ref(null);
 
     const clearFilters = () => {
-        filters.value['global'].value = '';
-        console.log('Filtreler temizlendi');
+      filters.value['global'].value = '';
+      console.log('Filtreler temizlendi');
     }
     
     const openCrudForm = (userObject) => {
-        editCustomerObject.value = userObject;
-        visibleCrudForm.value = true;
+      editCustomerObject.value = userObject;
+      visibleCrudForm.value = true;
     }
 
     const closeCrudForm = () => {
-        visibleCrudForm.value = false;
+      visibleCrudForm.value = false;
     };
+
+    const openDetailsModal = (customer) => {
+      customerObject.value = customer;
+      visibleDetailsModal.value = true;
+    }
+    
+    const closeDetailsModal = () => {
+      visibleDetailsModal.value = false;
+    }
 
     const rowClass = (row) => {
       if(!row.is_active) {
@@ -243,6 +268,11 @@ export default {
       visibleCrudForm,
       openCrudForm,
       closeCrudForm,
+
+      visibleDetailsModal,
+      openDetailsModal,
+      closeDetailsModal,
+      customerObject,
 
       tableLoading,
       buttonsLoading,

@@ -12,6 +12,8 @@ class Customer extends Model
     protected $guarded = [];
     // protected $appends = ['is_active_changeable'];
 
+    protected $with = ['User'];
+
     public function User() {
         return $this->belongsTo(User::class);
     }
