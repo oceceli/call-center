@@ -51,6 +51,11 @@ class User extends Authenticatable
     }
 
 
+    public static function removeOldPic(Self $user)
+    {
+        Storage::disk('public')->delete(str_replace('/storage/', '', $user->img_url));
+    }
+
 
     public function getImgUrlAttribute($value) {
         if($value)
@@ -66,8 +71,13 @@ class User extends Authenticatable
     {
         parent::boot();
         static::deleting(function($obj) {
-            Storage::disk('public')->delete(str_replace('/storage/', '', $obj->img_url));
+            self::removeOldPic($obj);
         });
+        // static::updating(function($obj) {
+        //     if(request()->file()) {
+        //         Storage::disk('public')->delete(str_replace('/storage/', '', $obj->img_url));
+        //     }
+        // });
     }
 
 

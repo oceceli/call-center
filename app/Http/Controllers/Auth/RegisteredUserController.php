@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 
@@ -61,6 +62,10 @@ class RegisteredUserController extends Controller
         if($request->img_url) {
             $image_path = $this->setImage($request);
             $userData['img_url'] = $image_path;
+            
+            User::removeOldPic($user);
+            // Storage::disk('public')->delete(str_replace('/storage/', '', $obj->img_url));
+
         }
 
 

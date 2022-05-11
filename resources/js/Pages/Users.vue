@@ -25,7 +25,7 @@
     
     >
     <template #header>
-        <div class="flex items-center justify-between py-3">
+        <div class="flex items-center justify-between py-3 pl-2 md:pl-0">
             <div>
                 <Button type="button" @click="openCrudForm(null)" icon="pi pi-plus" label="Ekle" class="p-button-outlined p-button-sm"/>
                 <!-- <Button icon="pi pi-refresh p-button-sm" style="float: left"/> -->
@@ -47,11 +47,11 @@
     </template>
     
 
-    <Column field="name" header="Temsilci" sortable :exportable="false"></Column>
+    <Column field="name" header="Kullanıcı" sortable :exportable="false"></Column>
     <Column field="img_url" header="Görsel" >
         <template #body="field">
             <a v-if="field.data.img_url" target="_blank" :href="field.data.img_url">
-                <img :src="field.data.img_url" class="rounded h-10 cursor-pointer" alt="user-avatar">
+                <img :src="field.data.img_url" class="rounded h-10 cursor-pointer hover:scale-110 ease-in-out duration-100" alt="user-avatar">
             </a >
             <span v-else class="cursor-default">
                 <user-avatar :userName="field.data.name" />

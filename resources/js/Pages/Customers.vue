@@ -17,7 +17,7 @@
     :loading="tableLoading"
 
     :paginator="true" 
-    :rows="50" 
+    :rows="20" 
     :rowsPerPageOptions="[10,20,30,50]"
     paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
     currentPageReportTemplate="{first} ile {last} arası gösteriliyor"
@@ -28,7 +28,7 @@
     
     >
     <template #header>
-        <div class="flex items-center justify-between py-3">
+        <div class="flex items-center justify-between py-3 pl-2 md:pl-0">
             <div>
                 <Button type="button" @click="openCrudForm(null)" icon="pi pi-plus" label="Ekle" class="p-button-outlined p-button-sm"/>
             </div>
