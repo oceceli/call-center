@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\CallStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id')->nullable()->constrained()->onDelete('set null');
 
-            $table->enum('status', ['QUEUED', 'POSITIVE', 'UNANSWERED', 'BUSY'])->nullable()->default('QUEUED');
+            $table->enum('status', [CallStatus::POSITIVE->value, CallStatus::UNANSWERED->value, CallStatus::BUSY->value])->nullable();
             $table->smallInteger('score')->nullable()->default(0);
             $table->text('note')->nullable();
 

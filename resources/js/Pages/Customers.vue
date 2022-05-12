@@ -68,7 +68,7 @@
     
     <Column field="email" header="E-posta" sortable>
       <template #body="{data}">
-        <a v-if="data.is_active" class="text-cyan-600 hover:text-cyan-500" :href="'mailto:' + data.email">
+        <a v-if="data.is_active && data.email" class="text-cyan-600 hover:text-cyan-500" :href="'mailto:' + data.email">
           <i class="pi pi-at pr-1"></i> 
           {{ data.email }}
         </a>
@@ -105,24 +105,24 @@
 
     <!-- <Column field="call.score" header="Puan" sortable></Column> -->
     
-    <!-- <Column field="call?.note" header="Not">
+    <Column field="call?.note" header="Not">
       <template #body="{data}">
         {{ data.call?.note.sliced }}
       </template>
-    </Column> -->
+    </Column>
 
 
     <Column header="İşlem">
         <template #body="content">
             <span class="p-buttonset text-xs">
-                <!-- <Button label="Atama" icon="pi pi-link" class="p-button-primary p-button-raised p-button-sm" badge="8" badgeClass="p-badge-primary" :loading="buttonsLoading"></Button> -->
-                <Button label="" icon="pi pi-eye" class="p-button-primary p-button-raised p-button-sm" :loading="buttonsLoading" @click="openDetailsModal(content.data)"></Button>
-                <Button label="" icon="pi pi-user-edit" class=" p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openCrudForm(content.data)"></Button>
+                <Button v-if="content.data.is_active" label="İşlem" icon="pi pi-phone" class="p-button-primary p-button-raised p-button-sm" :loading="buttonsLoading" @click="openCallCustomerModal(content.data)"></Button>
+                <Button label="" icon="pi pi-eye" class="p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openDetailsModal(content.data)"></Button>
+                <Button label="" icon="pi pi-user-edit" class="p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openCrudForm(content.data)"></Button>
                 <Button label="" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" @click="deleteCustomer($event, content.data.id)" :loading="buttonsLoading"></Button>
             </span>
         </template>
     </Column>
-
+    
 
     <template #paginatorstart>
         <!-- <Button type="button" icon="pi pi-refresh" class="p-button-text" /> -->
@@ -164,6 +164,17 @@
     >
         <CustomerDetails :customer="customerObject" />
     </Dialog>
+    
+    
+    <Dialog header="Arama/Değerlendirme" v-model:visible="visibleCallCustomer" :style="{width: '50vw'}"
+    closeOnEscape
+    modal
+    maximizable
+    :breakpoints="{'960px': '75vw', '640px': '100vw'}"
+    >
+        <CallCustomer @close="closeCallCustomerModal" :customer="customerObject" />
+    </Dialog>
+
 
   </DataTable>
 </template>
@@ -173,6 +184,7 @@
 
 <script>
 import AppLayout from '../Layouts/App.vue';
+import CallCustomer from "./Forms/CallCustomer.vue";
 import CustomerForm from "./Forms/CustomerForm.vue";
 import CustomerDetails from "./Details/CustomerDetails.vue";
 import UserAvatar from "../Components/UserAvatar.vue";
@@ -200,6 +212,7 @@ export default {
     UserAvatar,
     useToast,
     CustomerDetails,
+    CallCustomer,
   },
 
 
@@ -211,6 +224,8 @@ export default {
 
     const visibleCrudForm = ref(false);
     const visibleDetailsModal = ref(false);
+
+    const visibleCallCustomer = ref(false);
 
     const customerObject = ref(null);
 
@@ -233,8 +248,18 @@ export default {
       visibleDetailsModal.value = true;
     }
     
-    const closeDetailsModal = () => {
-      visibleDetailsModal.value = false;
+    // const closeDetailsModal = () => {
+    //   visibleDetailsModal.value = false;
+    // }
+    
+    const openCallCustomerModal = (customer) => {
+      customerObject.value = customer;
+      visibleCallCustomer.value = true;
+    }
+    
+    const closeCallCustomerModal = () => {
+      customerObject.value = null;
+      visibleCallCustomer.value = false;
     }
 
     const rowClass = (row) => {
@@ -260,7 +285,7 @@ export default {
             accept: () => {
                 Inertia.delete(route('customers.destroy', {'customer': customerId}), {
                     onSuccess: () => {
-                        toast.add({severity: 'success', summary: 'Silindi', detail: 'Müşteri ile ilgili veriler silindi!', life: 3000})
+                        toast.add({severity: 'info', summary: 'Silindi', detail: 'Müşteri ile ilgili veriler silindi', life: 3000})
                     },
                 });
             },
@@ -283,13 +308,18 @@ export default {
 
       visibleDetailsModal,
       openDetailsModal,
-      closeDetailsModal,
+      // closeDetailsModal,
       customerObject,
 
       tableLoading,
       buttonsLoading,
 
       deleteCustomer,
+
+      openCallCustomerModal,
+      closeCallCustomerModal,
+      visibleCallCustomer,
+
 
       rowClass,
     };

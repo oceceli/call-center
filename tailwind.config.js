@@ -14,6 +14,10 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            backgroundImage: {
+                'svg-call': "url('/images/svg/call.svg')",
+                'astronaut': "url('/images/astronaut.webp')",
+            }
         },
     },
     

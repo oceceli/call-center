@@ -18,7 +18,7 @@ class CallFactory extends Factory
     {
         return [
             'customer_id' => rand(1, 50),
-            'status' => $this->faker->randomElement(['queued', 'positive', 'unanswered', 'busy']),
+            'status' => $this->faker->randomElement(['positive', 'unanswered', 'busy']),
             'score' => random_int(1, 10),
             'note' => $this->faker->sentence(5),
         ];

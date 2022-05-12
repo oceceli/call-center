@@ -67,16 +67,16 @@
         <div v-if="form.errors.is_active">
           <small class="text-xs text-red-500">{{ form.errors.is_active }}</small>
         </div>
-        <p class="text-xs text-gray-400">Deaktif olarak işaretlenen müşteriler; temsilciler tarafından görüntülenemez, aranamaz veya oy verilemezler</p>
+        <p class="text-xs text-gray-400">Deaktif olarak işaretlenen müşteriler üzerinde oylama işlemi yapılamaz.</p>
       </div>
 
-      <div class="flex flex-col w-full">
+      <!-- <div class="flex flex-col w-full">
         <label class="leading-loose">Not</label>
         <textarea :disabled="disableFormFields" v-model="form.note" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-cyan-500 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="off" placeholder="İlgili kullanıcılar görebilir"></textarea>
         <div v-if="form.errors.note">
           <small class="text-xs text-red-500">{{ form.errors.note }}</small>
         </div>
-      </div>
+      </div> -->
 
     </div>
 
@@ -150,7 +150,7 @@ export default {
         form.city = props.editCustomerObject.city;
         form.source = props.editCustomerObject.source;
         form.category = props.editCustomerObject.category;
-        form.note = props.editCustomerObject.call?.note.full;
+        // form.note = props.editCustomerObject.call?.note.full;
         form.is_active = Boolean(props.editCustomerObject.is_active);
         // form.isDirty false olması için form.defaults() gerekli.
         // aksi takdirde veritabanına gereksiz istek atmış oluruz submit ederken

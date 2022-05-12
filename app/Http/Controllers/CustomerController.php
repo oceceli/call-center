@@ -48,9 +48,9 @@ class CustomerController extends Controller
             "city" => 'nullable|max:50',
             "source" => 'nullable|max:50',
             "category" => 'nullable|max:50',
-            "status" => 'nullable|in:QUEUED,POSITIVE,BUSY',
-            "score" => 'nullable|integer|between:1,10',
-            "note" => 'nullable|max:255',
+            // "status" => 'nullable|in:POSITIVE,UNANSWERED,BUSY',
+            // "score" => 'nullable|integer|between:1,10',
+            // "note" => 'nullable|max:255',
         ], [], [
             "name" => 'Ad',
             "surname" => 'Soyad',
@@ -60,9 +60,9 @@ class CustomerController extends Controller
             "city" => 'Şehir',
             "source" => 'Kaynak',
             "category" => 'Kategori',
-            "status" => 'İletişim Durumu',
-            "score" => 'Puanlama',
-            "note" => 'Not',
+            // "status" => 'İletişim Durumu',
+            // "score" => 'Puanlama',
+            // "note" => 'Not',
         ]);
     }
 }

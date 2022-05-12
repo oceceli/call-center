@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CallController;
 use App\Http\Controllers\CustomerController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,10 @@ Route::group(['auth', 'verified'], function () {
     Route::post('/customers', [CustomerController::class, 'store'])->name('customers.post');
     Route::patch('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update');
     Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+
+    Route::post('/call/{customer}', [CallController::class, 'store'])->name('call.post');
+    Route::patch('/call/{call}', [CallController::class, 'update'])->name('call.update');
+    Route::delete('/call/{call}', [CallController::class, 'destroy'])->name('call.destroy');
     
     Route::get('/test', function() {
         return Inertia::render('test');

@@ -20300,17 +20300,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Layouts_App_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Layouts/App.vue */ "./resources/js/Layouts/App.vue");
-/* harmony import */ var _Forms_CustomerForm_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Forms/CustomerForm.vue */ "./resources/js/Pages/Forms/CustomerForm.vue");
-/* harmony import */ var _Details_CustomerDetails_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Details/CustomerDetails.vue */ "./resources/js/Pages/Details/CustomerDetails.vue");
-/* harmony import */ var _Components_UserAvatar_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Components/UserAvatar.vue */ "./resources/js/Components/UserAvatar.vue");
-/* harmony import */ var primevue_datatable_DataTable_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/datatable/DataTable.vue */ "./node_modules/primevue/datatable/DataTable.vue");
-/* harmony import */ var primevue_column_Column_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/column/Column.vue */ "./node_modules/primevue/column/Column.vue");
-/* harmony import */ var primevue_button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/button */ "./node_modules/primevue/button/button.esm.js");
-/* harmony import */ var primevue_api__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/api */ "./node_modules/primevue/api/api.esm.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
-/* harmony import */ var primevue_usetoast__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! primevue/usetoast */ "./node_modules/primevue/usetoast/usetoast.esm.js");
-/* harmony import */ var primevue_useconfirm__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! primevue/useconfirm */ "./node_modules/primevue/useconfirm/useconfirm.esm.js");
+/* harmony import */ var _Forms_CallCustomer_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Forms/CallCustomer.vue */ "./resources/js/Pages/Forms/CallCustomer.vue");
+/* harmony import */ var _Forms_CustomerForm_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Forms/CustomerForm.vue */ "./resources/js/Pages/Forms/CustomerForm.vue");
+/* harmony import */ var _Details_CustomerDetails_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Details/CustomerDetails.vue */ "./resources/js/Pages/Details/CustomerDetails.vue");
+/* harmony import */ var _Components_UserAvatar_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Components/UserAvatar.vue */ "./resources/js/Components/UserAvatar.vue");
+/* harmony import */ var primevue_datatable_DataTable_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/datatable/DataTable.vue */ "./node_modules/primevue/datatable/DataTable.vue");
+/* harmony import */ var primevue_column_Column_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/column/Column.vue */ "./node_modules/primevue/column/Column.vue");
+/* harmony import */ var primevue_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/button */ "./node_modules/primevue/button/button.esm.js");
+/* harmony import */ var primevue_api__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primevue/api */ "./node_modules/primevue/api/api.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var primevue_usetoast__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! primevue/usetoast */ "./node_modules/primevue/usetoast/usetoast.esm.js");
+/* harmony import */ var primevue_useconfirm__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! primevue/useconfirm */ "./node_modules/primevue/useconfirm/useconfirm.esm.js");
+
 
 
 
@@ -20329,29 +20331,31 @@ __webpack_require__.r(__webpack_exports__);
     customers: Object
   },
   components: {
-    DataTable: primevue_datatable_DataTable_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    Column: primevue_column_Column_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    Button: primevue_button__WEBPACK_IMPORTED_MODULE_6__["default"],
-    CustomerForm: _Forms_CustomerForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    UserAvatar: _Components_UserAvatar_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    useToast: primevue_usetoast__WEBPACK_IMPORTED_MODULE_10__.useToast,
-    CustomerDetails: _Details_CustomerDetails_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    DataTable: primevue_datatable_DataTable_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    Column: primevue_column_Column_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    Button: primevue_button__WEBPACK_IMPORTED_MODULE_7__["default"],
+    CustomerForm: _Forms_CustomerForm_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    UserAvatar: _Components_UserAvatar_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    useToast: primevue_usetoast__WEBPACK_IMPORTED_MODULE_11__.useToast,
+    CustomerDetails: _Details_CustomerDetails_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    CallCustomer: _Forms_CallCustomer_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   setup: function setup() {
-    var editCustomerObject = (0,vue__WEBPACK_IMPORTED_MODULE_8__.ref)(null);
-    var tableLoading = (0,vue__WEBPACK_IMPORTED_MODULE_8__.ref)(false); // !!!!!
+    var editCustomerObject = (0,vue__WEBPACK_IMPORTED_MODULE_9__.ref)(null);
+    var tableLoading = (0,vue__WEBPACK_IMPORTED_MODULE_9__.ref)(false); // !!!!!
 
-    var buttonsLoading = (0,vue__WEBPACK_IMPORTED_MODULE_8__.ref)(false); // !!!!
+    var buttonsLoading = (0,vue__WEBPACK_IMPORTED_MODULE_9__.ref)(false); // !!!!
 
-    var filters = (0,vue__WEBPACK_IMPORTED_MODULE_8__.ref)({
+    var filters = (0,vue__WEBPACK_IMPORTED_MODULE_9__.ref)({
       'global': {
         value: '',
-        matchMode: primevue_api__WEBPACK_IMPORTED_MODULE_7__.FilterMatchMode.CONTAINS
+        matchMode: primevue_api__WEBPACK_IMPORTED_MODULE_8__.FilterMatchMode.CONTAINS
       }
     });
-    var visibleCrudForm = (0,vue__WEBPACK_IMPORTED_MODULE_8__.ref)(false);
-    var visibleDetailsModal = (0,vue__WEBPACK_IMPORTED_MODULE_8__.ref)(false);
-    var customerObject = (0,vue__WEBPACK_IMPORTED_MODULE_8__.ref)(null);
+    var visibleCrudForm = (0,vue__WEBPACK_IMPORTED_MODULE_9__.ref)(false);
+    var visibleDetailsModal = (0,vue__WEBPACK_IMPORTED_MODULE_9__.ref)(false);
+    var visibleCallCustomer = (0,vue__WEBPACK_IMPORTED_MODULE_9__.ref)(false);
+    var customerObject = (0,vue__WEBPACK_IMPORTED_MODULE_9__.ref)(null);
 
     var clearFilters = function clearFilters() {
       filters.value['global'].value = '';
@@ -20370,10 +20374,19 @@ __webpack_require__.r(__webpack_exports__);
     var openDetailsModal = function openDetailsModal(customer) {
       customerObject.value = customer;
       visibleDetailsModal.value = true;
+    }; // const closeDetailsModal = () => {
+    //   visibleDetailsModal.value = false;
+    // }
+
+
+    var openCallCustomerModal = function openCallCustomerModal(customer) {
+      customerObject.value = customer;
+      visibleCallCustomer.value = true;
     };
 
-    var closeDetailsModal = function closeDetailsModal() {
-      visibleDetailsModal.value = false;
+    var closeCallCustomerModal = function closeCallCustomerModal() {
+      customerObject.value = null;
+      visibleCallCustomer.value = false;
     };
 
     var rowClass = function rowClass(row) {
@@ -20390,8 +20403,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
 
-    var toast = (0,primevue_usetoast__WEBPACK_IMPORTED_MODULE_10__.useToast)();
-    var confirm = (0,primevue_useconfirm__WEBPACK_IMPORTED_MODULE_11__.useConfirm)();
+    var toast = (0,primevue_usetoast__WEBPACK_IMPORTED_MODULE_11__.useToast)();
+    var confirm = (0,primevue_useconfirm__WEBPACK_IMPORTED_MODULE_12__.useConfirm)();
 
     var deleteCustomer = function deleteCustomer(event, customerId) {
       confirm.require({
@@ -20401,14 +20414,14 @@ __webpack_require__.r(__webpack_exports__);
         acceptLabel: 'Evet',
         rejectLabel: 'Vazgeç',
         accept: function accept() {
-          _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_9__.Inertia["delete"](route('customers.destroy', {
+          _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_10__.Inertia["delete"](route('customers.destroy', {
             'customer': customerId
           }), {
             onSuccess: function onSuccess() {
               toast.add({
-                severity: 'success',
+                severity: 'info',
                 summary: 'Silindi',
-                detail: 'Müşteri ile ilgili veriler silindi!',
+                detail: 'Müşteri ile ilgili veriler silindi',
                 life: 3000
               });
             }
@@ -20428,11 +20441,14 @@ __webpack_require__.r(__webpack_exports__);
       closeCrudForm: closeCrudForm,
       visibleDetailsModal: visibleDetailsModal,
       openDetailsModal: openDetailsModal,
-      closeDetailsModal: closeDetailsModal,
+      // closeDetailsModal,
       customerObject: customerObject,
       tableLoading: tableLoading,
       buttonsLoading: buttonsLoading,
       deleteCustomer: deleteCustomer,
+      openCallCustomerModal: openCallCustomerModal,
+      closeCallCustomerModal: closeCallCustomerModal,
+      visibleCallCustomer: visibleCallCustomer,
       rowClass: rowClass
     };
   }
@@ -20484,8 +20500,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _vue_reactivity__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @vue/reactivity */ "./node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js");
 /* harmony import */ var primevue_rating__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! primevue/rating */ "./node_modules/primevue/rating/rating.esm.js");
 /* harmony import */ var _Components_ListItem_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Components/ListItem.vue */ "./resources/js/Components/ListItem.vue");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -20495,9 +20513,201 @@ __webpack_require__.r(__webpack_exports__);
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
+    var props = __props;
+
+    var test = function test() {
+      var _props$customer$call, _props$customer$call2, _props$customer$call3;
+
+      if (props.customer.call && ((_props$customer$call = props.customer.call) === null || _props$customer$call === void 0 ? void 0 : _props$customer$call.status["enum"]) == "POSITIVE") {
+        return 'bg-lime-50';
+      } else if (((_props$customer$call2 = props.customer.call) === null || _props$customer$call2 === void 0 ? void 0 : _props$customer$call2.status["enum"]) == 'BUSY') {
+        return 'bg-red-50';
+      } else if (((_props$customer$call3 = props.customer.call) === null || _props$customer$call3 === void 0 ? void 0 : _props$customer$call3.status["enum"]) == 'UNANSWERED') {
+        return 'bg-orange-50';
+      } else {
+        return 'bg-gray-50';
+      }
+    };
+
     var __returned__ = {
+      props: props,
+      test: test,
+      ref: _vue_reactivity__WEBPACK_IMPORTED_MODULE_2__.ref,
       Rating: primevue_rating__WEBPACK_IMPORTED_MODULE_0__["default"],
       ListItem: _Components_ListItem_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Forms/CallCustomer.vue?vue&type=script&setup=true&lang=js":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Forms/CallCustomer.vue?vue&type=script&setup=true&lang=js ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Components_ListItem_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Components/ListItem.vue */ "./resources/js/Components/ListItem.vue");
+/* harmony import */ var primevue_rating__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primevue/rating */ "./node_modules/primevue/rating/rating.esm.js");
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var primevue_selectbutton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primevue/selectbutton */ "./node_modules/primevue/selectbutton/selectbutton.esm.js");
+/* harmony import */ var _vue_reactivity__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @vue/reactivity */ "./node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js");
+/* harmony import */ var primevue_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/button */ "./node_modules/primevue/button/button.esm.js");
+/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var primevue_usetoast__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/usetoast */ "./node_modules/primevue/usetoast/usetoast.esm.js");
+/* harmony import */ var primevue_useconfirm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/useconfirm */ "./node_modules/primevue/useconfirm/useconfirm.esm.js");
+
+
+
+
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    customer: Object
+  },
+  emits: ['close'],
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose,
+        emit = _ref.emit;
+    expose();
+    var props = __props;
+    var editMode = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_8__.ref)(false);
+    (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_9__.onMounted)(function () {
+      if (props.customer.call) {
+        editMode.value = true;
+        form.score = props.customer.call.score;
+        form.note = props.customer.call.note.full;
+        form.status.value = props.customer.call.status["enum"];
+        form.defaults();
+      }
+    });
+    var toast = (0,primevue_usetoast__WEBPACK_IMPORTED_MODULE_6__.useToast)();
+    var confirm = (0,primevue_useconfirm__WEBPACK_IMPORTED_MODULE_7__.useConfirm)();
+    var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_2__.useForm)({
+      _method: 'post',
+      status: {
+        value: null
+      },
+      score: null,
+      note: null
+    });
+    var customerStatusOptions = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_8__.ref)([{
+      name: 'Görüşme sağlandı',
+      value: "POSITIVE",
+      icon: 'pi pi-check text-green-500'
+    }, {
+      name: 'Ulaşılamadı',
+      value: "UNANSWERED",
+      icon: 'pi pi-ban text-yellow-500'
+    }, {
+      name: 'Meşgul',
+      value: "BUSY",
+      icon: 'pi pi-times text-red-500'
+    }]);
+
+    var submit = function submit() {
+      if (!form.isDirty) {
+        emit('close');
+        return;
+      }
+
+      form.status = form.status.value;
+
+      if (editMode.value) {
+        form._method = 'patch';
+        form.post(route('call.update', {
+          'call': props.customer.call.id
+        }), {
+          onSuccess: function onSuccess() {
+            toast.add({
+              severity: 'success',
+              summary: 'Kaydedildi',
+              detail: 'Değerlendirme kaydedildi',
+              life: 3000
+            });
+          }
+        });
+      } else {
+        form.post(route('call.post', {
+          'customer': props.customer.id
+        }), {
+          onSuccess: function onSuccess() {
+            toast.add({
+              severity: 'success',
+              summary: 'Kaydedildi',
+              detail: 'Değerlendirme kaydedildi',
+              life: 3000
+            });
+          }
+        });
+      }
+
+      emit('close');
+    };
+
+    var deleteCall = function deleteCall() {
+      confirm.require({
+        target: event.currentTarget,
+        message: 'Değerlendirme kaldırılacak, emin misiniz?',
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Evet',
+        rejectLabel: 'Vazgeç',
+        accept: function accept() {
+          var _props$customer$call;
+
+          _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_5__.Inertia["delete"](route('call.destroy', {
+            'call': (_props$customer$call = props.customer.call) === null || _props$customer$call === void 0 ? void 0 : _props$customer$call.id
+          }), {
+            onSuccess: function onSuccess() {
+              toast.add({
+                severity: 'info',
+                summary: 'Silindi',
+                detail: 'Değerlendirme kaldırıldı',
+                life: 3000
+              });
+            }
+          });
+          emit('close');
+        }
+      });
+    };
+
+    var __returned__ = {
+      props: props,
+      emit: emit,
+      editMode: editMode,
+      toast: toast,
+      confirm: confirm,
+      form: form,
+      customerStatusOptions: customerStatusOptions,
+      submit: submit,
+      deleteCall: deleteCall,
+      ListItem: _Components_ListItem_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+      Rating: primevue_rating__WEBPACK_IMPORTED_MODULE_1__["default"],
+      useForm: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_2__.useForm,
+      SelectButton: primevue_selectbutton__WEBPACK_IMPORTED_MODULE_3__["default"],
+      ref: _vue_reactivity__WEBPACK_IMPORTED_MODULE_8__.ref,
+      Button: primevue_button__WEBPACK_IMPORTED_MODULE_4__["default"],
+      onMounted: _vue_runtime_core__WEBPACK_IMPORTED_MODULE_9__.onMounted,
+      Inertia: _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_5__.Inertia,
+      useToast: primevue_usetoast__WEBPACK_IMPORTED_MODULE_6__.useToast,
+      useConfirm: primevue_useconfirm__WEBPACK_IMPORTED_MODULE_7__.useConfirm
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -20563,8 +20773,6 @@ __webpack_require__.r(__webpack_exports__);
     var toast = (0,primevue_usetoast__WEBPACK_IMPORTED_MODULE_5__.useToast)();
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
       if (props.editCustomerObject) {
-        var _props$editCustomerOb;
-
         editMode.value = true;
         form.name = props.editCustomerObject.name;
         form.surname = props.editCustomerObject.surname;
@@ -20572,8 +20780,8 @@ __webpack_require__.r(__webpack_exports__);
         form.email = props.editCustomerObject.email;
         form.city = props.editCustomerObject.city;
         form.source = props.editCustomerObject.source;
-        form.category = props.editCustomerObject.category;
-        form.note = (_props$editCustomerOb = props.editCustomerObject.call) === null || _props$editCustomerOb === void 0 ? void 0 : _props$editCustomerOb.note.full;
+        form.category = props.editCustomerObject.category; // form.note = props.editCustomerObject.call?.note.full;
+
         form.is_active = Boolean(props.editCustomerObject.is_active); // form.isDirty false olması için form.defaults() gerekli.
         // aksi takdirde veritabanına gereksiz istek atmış oluruz submit ederken
 
@@ -21344,15 +21552,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "flex justify-between items-center border-b border-lime-300 border-dashed py-3 px-6 text-md hover:bg-lime-100 cursor-default hover:text-gray-800 ease-in-out duration-100"
+  "class": "flex justify-between items-center border-b border-gray-300 border-dashed py-3 px-6 text-md hover:bg-gray-100 cursor-default hover:text-gray-800 ease-in-out duration-100"
 };
 var _hoisted_2 = {
-  key: 0
+  "class": "text-gray-500"
+};
+var _hoisted_3 = {
+  key: 0,
+  "class": "font-semibold text-gray-600"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
   /* TEXT */
-  ), $props.data ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.data), 1
+  ), $props.data ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.data), 1
   /* TEXT */
   )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default", {
     key: 1
@@ -22476,6 +22688,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_CustomerDetails = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CustomerDetails");
 
+  var _component_CallCustomer = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CallCustomer");
+
   var _component_DataTable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DataTable");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_DataTable, {
@@ -22495,7 +22709,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     paginatorTemplate: "CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown",
     currentPageReportTemplate: "{first} ile {last} arası gösteriliyor",
     filters: $setup.filters,
-    "onUpdate:filters": _cache[5] || (_cache[5] = function ($event) {
+    "onUpdate:filters": _cache[6] || (_cache[6] = function ($event) {
       return $setup.filters = $event;
     }),
     globalFilterFields: ['name', 'surname', 'email', 'phone', 'city', 'source', 'category', 'is_active', 'call.status.tr', 'call?.score', 'call?.note'],
@@ -22597,7 +22811,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, {
         body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (_ref3) {
           var data = _ref3.data;
-          return [data.is_active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+          return [data.is_active && data.email ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
             key: 0,
             "class": "text-cyan-600 hover:text-cyan-500",
             href: 'mailto:' + data.email
@@ -22652,13 +22866,39 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* STABLE */
 
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+        field: "call?.note",
+        header: "Not"
+      }, {
+        body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (_ref5) {
+          var _data$call5;
+
+          var data = _ref5.data;
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_data$call5 = data.call) === null || _data$call5 === void 0 ? void 0 : _data$call5.note.sliced), 1
+          /* TEXT */
+          )];
+        }),
+        _: 1
+        /* STABLE */
+
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
         header: "İşlem"
       }, {
         body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (content) {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Button label=\"Atama\" icon=\"pi pi-link\" class=\"p-button-primary p-button-raised p-button-sm\" badge=\"8\" badgeClass=\"p-badge-primary\" :loading=\"buttonsLoading\"></Button> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, [content.data.is_active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Button, {
+            key: 0,
+            label: "İşlem",
+            icon: "pi pi-phone",
+            "class": "p-button-primary p-button-raised p-button-sm",
+            loading: $setup.buttonsLoading,
+            onClick: function onClick($event) {
+              return $setup.openCallCustomerModal(content.data);
+            }
+          }, null, 8
+          /* PROPS */
+          , ["loading", "onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
             label: "",
             icon: "pi pi-eye",
-            "class": "p-button-primary p-button-raised p-button-sm",
+            "class": "p-button-primary p-button-text p-button-sm",
             loading: $setup.buttonsLoading,
             onClick: function onClick($event) {
               return $setup.openDetailsModal(content.data);
@@ -22749,6 +22989,36 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       }, 8
       /* PROPS */
+      , ["visible"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+        header: "Arama/Değerlendirme",
+        visible: $setup.visibleCallCustomer,
+        "onUpdate:visible": _cache[5] || (_cache[5] = function ($event) {
+          return $setup.visibleCallCustomer = $event;
+        }),
+        style: {
+          width: '50vw'
+        },
+        closeOnEscape: "",
+        modal: "",
+        maximizable: "",
+        breakpoints: {
+          '960px': '75vw',
+          '640px': '100vw'
+        }
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CallCustomer, {
+            onClose: $setup.closeCallCustomerModal,
+            customer: $setup.customerObject
+          }, null, 8
+          /* PROPS */
+          , ["onClose", "customer"])];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
       , ["visible"])];
     }),
     _: 1
@@ -22803,57 +23073,87 @@ var _hoisted_3 = {
   "class": ""
 };
 var _hoisted_4 = {
-  "class": "flex justify-between items-center mb-4 px-2 py-2 border border-dashed cursor-default"
+  "class": "flex gap-5 items-center"
 };
 var _hoisted_5 = {
-  "class": "flex gap-5 items-center text-lg"
-};
-
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "text-gray-500"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-  "class": "pi pi-user pr-2"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Temsilci: ")], -1
+};
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "pi pi-user pr-2 text-cyan-500"
+}, null, -1
 /* HOISTED */
 );
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "font-bold text-md text-gray-500"
-}, " Arama Tarihi: 12.12.2021 ", -1
-/* HOISTED */
-);
-
+var _hoisted_7 = {
+  key: 0
+};
 var _hoisted_8 = {
-  "class": "p-4 shadow-md"
+  key: 1,
+  "class": "text-xs"
 };
-var _hoisted_9 = {
-  "class": "border border-dashed border-lime-300"
+var _hoisted_9 = ["title"];
+
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "pi pi-phone pr-2"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_11 = {
+  key: 1,
+  "class": "p-2 bg-white border border-dashed rounded text-center font-bold flex items-center justify-center"
 };
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex justify-between border-b border-lime-300 border-dashed py-3 px-6 hover:bg-lime-100 text-lg font-bold"
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "pi pi-clock pr-1"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Sırada ");
+
+var _hoisted_14 = [_hoisted_12, _hoisted_13];
+var _hoisted_15 = {
+  "class": "md:p-4 md:shadow-md text-lg"
+};
+var _hoisted_16 = {
+  "class": "border border-dashed border-gray-300"
+};
+
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "flex justify-between border-b border-gray-300 border-dashed py-3 px-6 hover:bg-gray-100 text-lg font-bold"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Müşteri Bilgileri ")], -1
 /* HOISTED */
 );
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex justify-between border-b border-lime-300 border-dashed py-3 px-6 hover:bg-lime-100 text-lg font-bold"
+var _hoisted_18 = {
+  key: 0,
+  "class": "pi pi-check text-green-500"
+};
+var _hoisted_19 = {
+  key: 1,
+  "class": "pi pi-times"
+};
+var _hoisted_20 = {
+  key: 0
+};
+
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "flex justify-between border-b border-gray-300 border-dashed py-3 px-6 hover:bg-gray-100 text-lg font-bold"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Arama Bilgileri ")], -1
 /* HOISTED */
 );
 
-var _hoisted_12 = {
-  key: 0
-};
-var _hoisted_13 = {
+var _hoisted_22 = {
   "class": "flex gap-3 items-center"
 };
-var _hoisted_14 = {
+var _hoisted_23 = {
   "class": "text-sm text-gray-400"
 };
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex justify-between py-3 px-6 hover:bg-lime-200 font-bold"
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "flex justify-between py-3 px-6 hover:bg-gray-200 font-bold"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Temsilci Notu: ")], -1
 /* HOISTED */
 );
@@ -22861,9 +23161,21 @@ var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$props$customer$user;
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$customer$user = $props.customer.user) === null || _$props$customer$user === void 0 ? void 0 : _$props$customer$user.name), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["flex justify-between items-center mb-4 px-4 py-4 cursor-default shadow-sm", $setup.test()])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, $props.customer.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$customer$user = $props.customer.user) === null || _$props$customer$user === void 0 ? void 0 : _$props$customer$user.name), 1
   /* TEXT */
-  )]), _hoisted_7]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
+  )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_8, "Temsilci atanmadı..."))])]), $props.customer.call ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
+    key: 0,
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($props.customer.call.status["class"]),
+    title: $props.customer.call.updated_at
+  }, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.customer.call.human_readable_date) + " arandı ", 1
+  /* TEXT */
+  )], 10
+  /* CLASS, PROPS */
+  , _hoisted_9)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_11, _hoisted_14))], 2
+  /* CLASS */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
     title: "Adı Soyadı:",
     data: $props.customer.name + ' ' + $props.customer.surname
   }, null, 8
@@ -22894,63 +23206,223 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8
   /* PROPS */
   , ["data"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
-    title: "Durum:",
-    data: $props.customer.is_active ? 'Aktif' : 'Deaktif'
-  }, null, 8
-  /* PROPS */
-  , ["data"]), _hoisted_11, $props.customer.call ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
-    title: "Görüşme Durumu:"
+    title: "Durum:"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($props.customer.call.status["class"])
-      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.customer.call.status.tr), 3
-      /* TEXT, CLASS */
-      )];
+      return [$props.customer.is_active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("i", _hoisted_18)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("i", _hoisted_19))];
     }),
     _: 1
     /* STABLE */
 
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
-    title: "Verilen Puan:"
+    title: "Sisteme Giriş:",
+    data: $props.customer.created_at
+  }, null, 8
+  /* PROPS */
+  , ["data"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
+    title: "Son Güncellenme:",
+    data: $props.customer.updated_at
+  }, null, 8
+  /* PROPS */
+  , ["data"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ListItem title=\"Görüşme Durumu:\">\n                            <div v-if=\"customer.call\" class=\"text-gray-500 text-xs\" :title=\"customer.call.updated_at\">\n                                <i class=\"pi pi-phone pr-2\"></i>\n                                {{ customer.call.human_readable_date }} arandı\n                            </div>\n                        </ListItem> "), $props.customer.call ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
+    title: "Son arama:",
+    data: $props.customer.call.updated_at
+  }, null, 8
+  /* PROPS */
+  , ["data"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
+    title: "Puanlama:"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Rating"], {
+      var _$props$customer$call;
+
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Rating"], {
         stars: 10,
         modelValue: $props.customer.call.score,
         cancel: false,
         readonly: true
       }, null, 8
       /* PROPS */
-      , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_14, " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.customer.call.score) + "/10) ", 1
+      , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_23, " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$customer$call = $props.customer.call.score) !== null && _$props$customer$call !== void 0 ? _$props$customer$call : 0) + "/10) ", 1
       /* TEXT */
       )])];
     }),
     _: 1
     /* STABLE */
 
-  }), _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
+  }), _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
     title: $props.customer.call.note.full
   }, null, 8
   /* PROPS */
-  , ["title"])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ListItem"], {
-    key: 1,
-    "class": "text-xs text-gray-500",
-    title: "Temsilcinin müşteriyi araması bekleniyor..."
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      var _$props$customer$call, _$props$customer$call2;
+  , ["title"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])]);
+}
 
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)((_$props$customer$call = $props.customer.call) === null || _$props$customer$call === void 0 ? void 0 : _$props$customer$call.status["class"])
-      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$customer$call2 = $props.customer.call) === null || _$props$customer$call2 === void 0 ? void 0 : _$props$customer$call2.status.tr), 3
-      /* TEXT, CLASS */
-      )];
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Forms/CallCustomer.vue?vue&type=template&id=5d4cb5c5":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Forms/CallCustomer.vue?vue&type=template&id=5d4cb5c5 ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "pt-2 border-t -m-6"
+};
+var _hoisted_2 = {
+  "class": "bg-gray-50 shadow-md py-10 rounded border border-dashed bg-gradient-to-r from-green-100 to-rose-100"
+};
+var _hoisted_3 = {
+  "class": "flex justify-center"
+};
+var _hoisted_4 = {
+  "class": "bg-white rounded-full p-2 shadow-md"
+};
+var _hoisted_5 = ["href"];
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "pi pi-phone text-3xl"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_7 = [_hoisted_6];
+var _hoisted_8 = {
+  "class": "mt-10 px-6"
+};
+var _hoisted_9 = {
+  "class": "rounded border mb-6"
+};
+var _hoisted_10 = {
+  key: 0,
+  "class": "bg-white rounded-md p-6"
+};
+var _hoisted_11 = {
+  "class": "flex justify-between items-end pb-3"
+};
+
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-semibold text-gray-400 hover:text-gray-500 ease-in-out duration-100"
+}, "Görüşmeniz nasıldı?", -1
+/* HOISTED */
+);
+
+var _hoisted_13 = {
+  "class": "p-2 -mx-4 -my-3"
+};
+var _hoisted_14 = {
+  "class": "pl-2"
+};
+var _hoisted_15 = {
+  key: 0,
+  "class": "flex flex-col"
+};
+var _hoisted_16 = {
+  "class": "flex justify-between items-center pt-5"
+};
+var _hoisted_17 = {
+  "class": "flex items-center gap-3"
+};
+
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, "Puanınız:", -1
+/* HOISTED */
+);
+
+var _hoisted_19 = {
+  key: 0,
+  "class": "text-sm text-gray-400"
+};
+var _hoisted_20 = {
+  "class": "p-buttonset text-xs"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    href: 'tel:' + $props.customer.phone,
+    "class": "w-40 h-40 rounded-full border-2 border-dashed border-green-400 flex items-center justify-center text-green-400 hover:bg-green-400 hover:text-white"
+  }, _hoisted_7, 8
+  /* PROPS */
+  , _hoisted_5)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
+    title: "Adı Soyadı:",
+    data: $props.customer.name
+  }, null, 8
+  /* PROPS */
+  , ["data"]), $props.customer.email ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ListItem"], {
+    key: 0,
+    title: "E-Posta:",
+    data: $props.customer.email
+  }, null, 8
+  /* PROPS */
+  , ["data"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
+    title: "Telefon Numarası:",
+    data: $props.customer.phone
+  }, null, 8
+  /* PROPS */
+  , ["data"])]), $props.customer.is_active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["SelectButton"], {
+    modelValue: $setup.form.status,
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $setup.form.status = $event;
+    }),
+    options: $setup.customerStatusOptions,
+    dataKey: "value",
+    optionLabel: "brand"
+  }, {
+    option: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (slotProps) {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(slotProps.option.icon)
+      }, null, 2
+      /* CLASS */
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(slotProps.option.name), 1
+      /* TEXT */
+      )])];
     }),
     _: 1
     /* STABLE */
 
-  }))])])])])]);
+  }, 8
+  /* PROPS */
+  , ["modelValue", "options"])]), $setup.form.status.value ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $setup.form.note = $event;
+    }),
+    "class": "focus:outline-none focus:none border-dashed rounded-md",
+    id: "customer_note",
+    cols: "30",
+    rows: "5"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.note]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Rating"], {
+    stars: 10,
+    modelValue: $setup.form.score,
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $setup.form.score = $event;
+    }),
+    cancel: false
+  }, null, 8
+  /* PROPS */
+  , ["modelValue"]), $setup.form.score ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_19, "(" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.score) + "/10)", 1
+  /* TEXT */
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
+    onClick: _cache[3] || (_cache[3] = function ($event) {
+      return $setup.submit();
+    }),
+    label: "Kaydet",
+    icon: "pi pi-check",
+    iconPos: "right",
+    "class": "p-button-primary p-button-raised p-button-sm"
+  }), $props.customer.call ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Button"], {
+    key: 0,
+    onClick: _cache[4] || (_cache[4] = function ($event) {
+      return $setup.deleteCall();
+    }),
+    title: "Değerlendirmeyi kaldır",
+    icon: "pi pi-trash",
+    "class": "p-button-danger p-button-text p-button-sm"
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
 }
 
 /***/ }),
@@ -23121,57 +23593,40 @@ var _hoisted_42 = {
 
 var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "text-xs text-gray-400"
-}, "Deaktif olarak işaretlenen müşteriler; temsilciler tarafından görüntülenemez, aranamaz veya oy verilemezler", -1
+}, "Deaktif olarak işaretlenen müşteriler üzerinde oylama işlemi yapılamaz.", -1
 /* HOISTED */
 );
 
 var _hoisted_44 = {
-  "class": "flex flex-col w-full"
-};
-
-var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "class": "leading-loose"
-}, "Not", -1
-/* HOISTED */
-);
-
-var _hoisted_46 = ["disabled"];
-var _hoisted_47 = {
-  key: 0
-};
-var _hoisted_48 = {
-  "class": "text-xs text-red-500"
-};
-var _hoisted_49 = {
   "class": "pt-4 flex items-center space-x-4"
 };
-var _hoisted_50 = ["disabled"];
+var _hoisted_45 = ["disabled"];
 
-var _hoisted_51 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "pi pi-angle-left pr-2"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_52 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Geri Dön ");
+var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Geri Dön ");
 
-var _hoisted_53 = [_hoisted_51, _hoisted_52];
-var _hoisted_54 = ["disabled"];
+var _hoisted_48 = [_hoisted_46, _hoisted_47];
+var _hoisted_49 = ["disabled"];
 
-var _hoisted_55 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "pi pi-check pr-2"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Kaydet ");
+var _hoisted_51 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Kaydet ");
 
-var _hoisted_57 = [_hoisted_55, _hoisted_56];
+var _hoisted_52 = [_hoisted_50, _hoisted_51];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_InputSwitch = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputSwitch");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
-    onSubmit: _cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+    onSubmit: _cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $setup.submit && $setup.submit.apply($setup, arguments);
     }, ["prevent"])),
     autocomplete: "off",
@@ -23276,38 +23731,25 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["modelValue"]), $setup.form.errors.is_active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.is_active), 1
   /* TEXT */
-  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_43]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [_hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
-    disabled: $setup.disableFormFields,
-    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
-      return $setup.form.note = $event;
-    }),
-    type: "text",
-    "class": "px-4 py-2 border focus:ring-gray-500 focus:border-cyan-500 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300",
-    autocomplete: "off",
-    placeholder: "İlgili kullanıcılar görebilir"
-  }, null, 8
-  /* PROPS */
-  , _hoisted_46), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.note]]), $setup.form.errors.note ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.note), 1
-  /* TEXT */
-  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_43]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"flex flex-col w-full\">\n        <label class=\"leading-loose\">Not</label>\n        <textarea :disabled=\"disableFormFields\" v-model=\"form.note\" type=\"text\" class=\"px-4 py-2 border focus:ring-gray-500 focus:border-cyan-500 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300\" autocomplete=\"off\" placeholder=\"İlgili kullanıcılar görebilir\"></textarea>\n        <div v-if=\"form.errors.note\">\n          <small class=\"text-xs text-red-500\">{{ form.errors.note }}</small>\n        </div>\n      </div> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[8] || (_cache[8] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return _ctx.$emit('close');
     }, ["prevent"])),
     disabled: $setup.disableFormFields,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
       'disabled cursor-none bg-neutral-100': $setup.disableFormFields
     }, "flex justify-center items-center w-full text-cyan-500 px-4 py-3 border hover:bg-neutral-100 rounded-md focus:outline-none"])
-  }, _hoisted_53, 10
+  }, _hoisted_48, 10
   /* CLASS, PROPS */
-  , _hoisted_50), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  , _hoisted_45), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     disabled: $setup.disableFormFields,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
       'disabled cursor-none bg-cyan-800': $setup.disableFormFields
     }, "bg-cyan-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:bg-cyan-600"]),
     type: "submit"
-  }, _hoisted_57, 10
+  }, _hoisted_52, 10
   /* CLASS, PROPS */
-  , _hoisted_54)])], 32
+  , _hoisted_49)])], 32
   /* HYDRATE_EVENTS */
   );
 }
@@ -35300,6 +35742,168 @@ const Ripple = {
 
 /***/ }),
 
+/***/ "./node_modules/primevue/selectbutton/selectbutton.esm.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/primevue/selectbutton/selectbutton.esm.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ script)
+/* harmony export */ });
+/* harmony import */ var primevue_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! primevue/utils */ "./node_modules/primevue/utils/utils.esm.js");
+/* harmony import */ var primevue_ripple__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primevue/ripple */ "./node_modules/primevue/ripple/ripple.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+
+
+var script = {
+    name: 'SelectButton',
+    emits: ['update:modelValue', 'focus', 'blur', 'change'],
+    props: {
+        modelValue: null,
+        options: Array,
+        optionLabel: null,
+        optionValue: null,
+        optionDisabled: null,
+		multiple: Boolean,
+        disabled: Boolean,
+        dataKey: null,
+        ariaLabelledBy: null
+    },
+    methods: {
+        getOptionLabel(option) {
+            return this.optionLabel ? primevue_utils__WEBPACK_IMPORTED_MODULE_0__.ObjectUtils.resolveFieldData(option, this.optionLabel) : option;
+        },
+        getOptionValue(option) {
+            return this.optionValue ? primevue_utils__WEBPACK_IMPORTED_MODULE_0__.ObjectUtils.resolveFieldData(option, this.optionValue) : option;
+        },
+        getOptionRenderKey(option) {
+            return this.dataKey ? primevue_utils__WEBPACK_IMPORTED_MODULE_0__.ObjectUtils.resolveFieldData(option, this.dataKey) : this.getOptionLabel(option);
+        },
+        isOptionDisabled(option) {
+            return this.optionDisabled ? primevue_utils__WEBPACK_IMPORTED_MODULE_0__.ObjectUtils.resolveFieldData(option, this.optionDisabled) : false;
+        },
+        onOptionSelect(event, option) {
+            if (this.disabled || this.isOptionDisabled(option)) {
+                return;
+            }
+
+            let selected = this.isSelected(option);
+            let optionValue = this.getOptionValue(option);
+            let newValue;
+
+            if(this.multiple) {
+                if (selected)
+                    newValue = this.modelValue.filter(val => !primevue_utils__WEBPACK_IMPORTED_MODULE_0__.ObjectUtils.equals(val, optionValue, this.equalityKey));
+                else
+                    newValue = this.modelValue ? [...this.modelValue, optionValue]: [optionValue];
+            }
+            else {
+                newValue = optionValue;
+            }
+
+            this.$emit('update:modelValue', newValue);
+            this.$emit('change', {event: event, value: newValue});
+        },
+        isSelected(option) {
+            let selected = false;
+            let optionValue = this.getOptionValue(option);
+
+            if (this.multiple) {
+                if (this.modelValue) {
+                    for (let val of this.modelValue) {
+                        if (primevue_utils__WEBPACK_IMPORTED_MODULE_0__.ObjectUtils.equals(val, optionValue, this.equalityKey)) {
+                            selected = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            else {
+                selected = primevue_utils__WEBPACK_IMPORTED_MODULE_0__.ObjectUtils.equals(this.modelValue, optionValue, this.equalityKey);
+            }
+
+            return selected;
+        },
+        onFocus(event) {
+            this.$emit('focus', event);
+        },
+        onBlur(event) {
+            this.$emit('blur', event);
+        },
+        getButtonClass(option) {
+            return ['p-button p-component', {
+                'p-highlight': this.isSelected(option),
+                'p-disabled': this.isOptionDisabled(option)
+            }];
+        }
+    },
+	computed: {
+        containerClass() {
+            return ['p-selectbutton p-buttonset p-component', {
+                'p-disabled': this.disabled
+            }];
+        },
+        equalityKey() {
+            return this.optionValue ? null : this.dataKey;
+        }
+    },
+    directives: {
+        'ripple': primevue_ripple__WEBPACK_IMPORTED_MODULE_1__["default"]
+    }
+};
+
+const _hoisted_1 = ["aria-label", "aria-pressed", "onClick", "onKeydown", "tabindex", "aria-labelledby"];
+const _hoisted_2 = { class: "p-button-label" };
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _directive_ripple = (0,vue__WEBPACK_IMPORTED_MODULE_2__.resolveDirective)("ripple");
+
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_2__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_2__.createElementBlock)("div", {
+    class: (0,vue__WEBPACK_IMPORTED_MODULE_2__.normalizeClass)($options.containerClass),
+    role: "group"
+  }, [
+    ((0,vue__WEBPACK_IMPORTED_MODULE_2__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_2__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_2__.renderList)($props.options, (option, i) => {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_2__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_2__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_2__.createElementBlock)("div", {
+        key: $options.getOptionRenderKey(option),
+        "aria-label": $options.getOptionLabel(option),
+        role: "button",
+        "aria-pressed": $options.isSelected(option),
+        onClick: $event => ($options.onOptionSelect($event, option, i)),
+        onKeydown: [
+          (0,vue__WEBPACK_IMPORTED_MODULE_2__.withKeys)((0,vue__WEBPACK_IMPORTED_MODULE_2__.withModifiers)($event => ($options.onOptionSelect($event, option, i)), ["prevent"]), ["enter"]),
+          (0,vue__WEBPACK_IMPORTED_MODULE_2__.withKeys)((0,vue__WEBPACK_IMPORTED_MODULE_2__.withModifiers)($event => ($options.onOptionSelect($event, option)), ["prevent"]), ["space"])
+        ],
+        tabindex: $options.isOptionDisabled(option) ? null : '0',
+        onFocus: _cache[0] || (_cache[0] = $event => ($options.onFocus($event))),
+        onBlur: _cache[1] || (_cache[1] = $event => ($options.onBlur($event))),
+        "aria-labelledby": $props.ariaLabelledBy,
+        class: (0,vue__WEBPACK_IMPORTED_MODULE_2__.normalizeClass)($options.getButtonClass(option))
+      }, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_2__.renderSlot)(_ctx.$slots, "option", {
+          option: option,
+          index: i
+        }, () => [
+          (0,vue__WEBPACK_IMPORTED_MODULE_2__.createElementVNode)("span", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_2__.toDisplayString)($options.getOptionLabel(option)), 1)
+        ])
+      ], 42, _hoisted_1)), [
+        [_directive_ripple]
+      ])
+    }), 128))
+  ], 2))
+}
+
+script.render = render;
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/primevue/sidebar/sidebar.esm.js":
 /*!******************************************************!*\
   !*** ./node_modules/primevue/sidebar/sidebar.esm.js ***!
@@ -45155,6 +45759,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Forms/CallCustomer.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/Pages/Forms/CallCustomer.vue ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CallCustomer_vue_vue_type_template_id_5d4cb5c5__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CallCustomer.vue?vue&type=template&id=5d4cb5c5 */ "./resources/js/Pages/Forms/CallCustomer.vue?vue&type=template&id=5d4cb5c5");
+/* harmony import */ var _CallCustomer_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CallCustomer.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Pages/Forms/CallCustomer.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CallCustomer_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CallCustomer_vue_vue_type_template_id_5d4cb5c5__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Pages/Forms/CallCustomer.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Forms/CustomerForm.vue":
 /*!***************************************************!*\
   !*** ./resources/js/Pages/Forms/CustomerForm.vue ***!
@@ -45689,6 +46321,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Forms/CallCustomer.vue?vue&type=script&setup=true&lang=js":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/Pages/Forms/CallCustomer.vue?vue&type=script&setup=true&lang=js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CallCustomer_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CallCustomer_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CallCustomer.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Forms/CallCustomer.vue?vue&type=script&setup=true&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Forms/CustomerForm.vue?vue&type=script&lang=js":
 /*!***************************************************************************!*\
   !*** ./resources/js/Pages/Forms/CustomerForm.vue?vue&type=script&lang=js ***!
@@ -46117,6 +46765,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CustomerDetails_vue_vue_type_template_id_956b2504__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CustomerDetails_vue_vue_type_template_id_956b2504__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CustomerDetails.vue?vue&type=template&id=956b2504 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Details/CustomerDetails.vue?vue&type=template&id=956b2504");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Forms/CallCustomer.vue?vue&type=template&id=5d4cb5c5":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/Pages/Forms/CallCustomer.vue?vue&type=template&id=5d4cb5c5 ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CallCustomer_vue_vue_type_template_id_5d4cb5c5__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CallCustomer_vue_vue_type_template_id_5d4cb5c5__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CallCustomer.vue?vue&type=template&id=5d4cb5c5 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Forms/CallCustomer.vue?vue&type=template&id=5d4cb5c5");
 
 
 /***/ }),
@@ -48794,6 +49458,7 @@ var map = {
 	"./Customers.vue": "./resources/js/Pages/Customers.vue",
 	"./Dashboard.vue": "./resources/js/Pages/Dashboard.vue",
 	"./Details/CustomerDetails.vue": "./resources/js/Pages/Details/CustomerDetails.vue",
+	"./Forms/CallCustomer.vue": "./resources/js/Pages/Forms/CallCustomer.vue",
 	"./Forms/CustomerForm.vue": "./resources/js/Pages/Forms/CustomerForm.vue",
 	"./Forms/UserForm.vue": "./resources/js/Pages/Forms/UserForm.vue",
 	"./Users.vue": "./resources/js/Pages/Users.vue",
