@@ -21340,7 +21340,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "flex justify-between items-center border-b border-lime-300 border-dashed py-3 px-6 hover:bg-lime-100 cursor-default hover:text-gray-800 ease-in-out duration-100"
+  "class": "flex justify-between items-center border-b border-lime-300 border-dashed py-3 px-6 text-md hover:bg-lime-100 cursor-default hover:text-gray-800 ease-in-out duration-100"
 };
 var _hoisted_2 = {
   key: 0
@@ -22779,7 +22779,7 @@ var _hoisted_3 = {
   "class": ""
 };
 var _hoisted_4 = {
-  "class": "flex justify-between items-center mb-4 px-2 py-2 border border-dashed"
+  "class": "flex justify-between items-center mb-4 px-2 py-2 border border-dashed cursor-default"
 };
 var _hoisted_5 = {
   "class": "flex gap-5 items-center text-lg"
@@ -22793,7 +22793,9 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, " Arama Tarihi: 12.12.2021 ", -1
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "font-bold text-md text-gray-500"
+}, " Arama Tarihi: 12.12.2021 ", -1
 /* HOISTED */
 );
 
@@ -22810,7 +22812,14 @@ var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_11 = {
+  "class": "flex gap-3 items-center"
+};
+var _hoisted_12 = {
+  "class": "text-sm text-gray-400"
+};
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "flex justify-between py-3 px-6 hover:bg-lime-200 text-lg font-bold"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Temsilci Notu: ")], -1
 /* HOISTED */
@@ -22851,7 +22860,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["data"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
     title: "Durum:",
-    data: $props.customer.is_active ? 'Aktif' : 'Gizli'
+    data: $props.customer.is_active ? 'Aktif' : 'Deaktif'
   }, null, 8
   /* PROPS */
   , ["data"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
@@ -22871,19 +22880,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     title: "Verilen Puan:"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Rating"], {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Rating"], {
         stars: 10,
         modelValue: $props.customer.score,
         cancel: false,
         readonly: true
       }, null, 8
       /* PROPS */
-      , ["modelValue"])];
+      , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.customer.score) + "/10) ", 1
+      /* TEXT */
+      )])];
     }),
     _: 1
     /* STABLE */
 
-  }), _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
+  }), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
     title: $props.customer.note.full
   }, null, 8
   /* PROPS */
