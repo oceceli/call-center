@@ -10,12 +10,12 @@ defineProps({
 
 <template>
     <div class="border-t">
-        <div class="text-sm py-6 rounded-md">
+        <div class="text-sm pt-6 rounded-md">
             <div class="">
                 <div class="flex justify-between items-center mb-4 px-2 py-2 border border-dashed cursor-default">
                     <div class="flex gap-5 items-center text-lg">
                         <div class="text-gray-500"><i class="pi pi-user pr-2"></i> Temsilci: </div> 
-                        <span>{{ customer.User }} xxx user</span>
+                        <span>{{ customer.user?.name }}</span>
                     </div>
                     <div class="font-bold text-md text-gray-500">
                         Arama Tarihi: 12.12.2021
@@ -35,19 +35,28 @@ defineProps({
                         <ListItem title="Veri Kaynağı:" :data="customer.source" />
                         <ListItem title="Kategori:" :data="customer.category" />
                         <ListItem title="Durum:" :data="customer.is_active ? 'Aktif' : 'Deaktif'" />
-                        <ListItem title="Görüşme Durumu:">
-                            <span :class="customer.status.class">{{ customer.status.tr }}</span>
+
+
+                        <div class="flex justify-between border-b border-lime-300 border-dashed py-3 px-6 hover:bg-lime-100 text-lg font-bold"><span>Arama Bilgileri </span></div>
+                        <div v-if="customer.call">
+                            <ListItem title="Görüşme Durumu:">
+                                <span :class="customer.call.status.class">{{ customer.call.status.tr }}</span>
+                            </ListItem>
+                            <ListItem title="Verilen Puan:">
+                                <div class="flex gap-3 items-center">
+                                    <Rating :stars="10" :modelValue="customer.call.score" :cancel="false" :readonly="true" />
+                                    <span class="text-sm text-gray-400">
+                                        ({{customer.call.score}}/10)
+                                    </span>
+                                </div>
+                            </ListItem>
+                            <div class="flex justify-between py-3 px-6 hover:bg-lime-200 font-bold"><span>Temsilci Notu: </span></div>
+                            <ListItem :title="customer.call.note.full" />
+                        </div>
+                        <ListItem v-else class="text-xs text-gray-500" title="Temsilcinin müşteriyi araması bekleniyor..." >
+                            <span :class="customer.call?.status.class">{{ customer.call?.status.tr }}</span>
                         </ListItem>
-                        <ListItem title="Verilen Puan:">
-                            <div class="flex gap-3 items-center">
-                                <Rating :stars="10" :modelValue="customer.score" :cancel="false" :readonly="true" />
-                                <span class="text-sm text-gray-400">
-                                    ({{customer.score}}/10)
-                                </span>
-                            </div>
-                        </ListItem>
-                        <div class="flex justify-between py-3 px-6 hover:bg-lime-200 text-lg font-bold"><span>Temsilci Notu: </span></div>
-                        <ListItem :title="customer.note.full" />
+
                     </div>
                 </div>
             </div>

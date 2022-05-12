@@ -4,8 +4,6 @@
     :rowClass="rowClass"
     dataKey="id"
 
-    
-
     :rowHover="true"
     responsiveLayout="stack"
 
@@ -23,7 +21,7 @@
     currentPageReportTemplate="{first} ile {last} arası gösteriliyor"
 
     v-model:filters="filters"
-    :globalFilterFields="['name', 'surname', 'email', 'phone', 'city', 'source', 'category', 'status.tr', 'score', 'note']"
+    :globalFilterFields="['name', 'surname', 'email', 'phone', 'city', 'source', 'category', 'is_active', 'call.status.tr', 'call?.score', 'call?.note']"
     filterDisplay="menu"
     
     >
@@ -45,8 +43,14 @@
             </div>
         </div>
     </template>
-    
-
+    <Column field="is_active" header="Aktif" sortable>
+      <template #body={data}>
+        <div class="flex items-center justify-center">
+            <i v-if="data.is_active" class="pi pi-check text-green-500"></i>
+            <i v-else class="pi pi-times"></i>
+        </div>
+      </template>
+    </Column>
     <Column field="name" header="Müşteri Ad" sortable :exportable="true"></Column>
     <Column field="surname" header="Soyad" sortable :exportable="true"></Column>
     
@@ -77,27 +81,35 @@
     <Column field="city" header="Şehir" sortable></Column>
     <Column field="source" header="Kaynak" sortable></Column>
     <Column field="category" header="Kategori" sortable></Column>
-    <Column field="is_active" header="Aktif" sortable></Column>
-
-    <Column field="status.enum" header="Durum" sortable>
-      <template #body="{data}">
-        <div v-if="data.is_active" :class="data.status.class">
-          <i :class="data.status.icon"></i>
-          {{ data.status.tr }}
-        </div>
-        <span v-else>
-          {{ data.status.tr }}
-        </span>
-      </template>
-    </Column>
-
-    <Column field="score" header="Puan" sortable></Column>
     
-    <Column field="note" header="Not">
+  
+    <Column field="call.status.tr" header="Durum" sortable>
       <template #body="{data}">
-        {{ data.note.sliced }}
+        <div v-if="data.call">
+          <div v-if="data.is_active" :class="data.call?.status.class">
+            <i :class="data.call?.status.icon"></i>
+            {{ data.call?.status.tr }}
+          </div>
+          <span v-else>
+            {{ data.call?.status.tr }}
+          </span>
+        </div>
+        <div v-else>
+          <span class="p-2 bg-white border border-dashed rounded text-center font-bold">
+            <i class="pi pi-clock pr-1"></i>  
+            Sırada
+          </span>
+        </div>
       </template>
     </Column>
+
+    <!-- <Column field="call.score" header="Puan" sortable></Column> -->
+    
+    <!-- <Column field="call?.note" header="Not">
+      <template #body="{data}">
+        {{ data.call?.note.sliced }}
+      </template>
+    </Column> -->
 
 
     <Column header="İşlem">
@@ -229,9 +241,9 @@ export default {
       if(!row.is_active) {
         return 'bg-slate-100 text-gray-400 cursor-not-allowed';
       }
-      if(row.status.enum == 'BUSY') {
+      if(row.call?.status.enum == 'BUSY') {
         return 'bg-red-50 text-gray-400 hover:bg-red-100';
-      } else if(row.status.enum == 'POSITIVE') {
+      } else if(row.call?.status.enum == 'POSITIVE') {
         return 'bg-lime-50 text-gray-400 hover:bg-lime-100';
       }
     };

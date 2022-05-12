@@ -29,14 +29,12 @@ return new class extends Migration
             $table->string('source')->nullable();
             $table->string('category')->nullable();
 
-            $table->enum('status', ['QUEUED', 'POSITIVE', 'UNANSWERED', 'BUSY'])->nullable()->default('QUEUED');
-            // $table->enum('status', CallStatus::cases())->nullable()->default(CallStatus::QUEUED);
-            $table->smallInteger('score')->nullable()->default(0);
-            $table->string('note')->nullable();
+            // $table->enum('status', ['QUEUED', 'POSITIVE', 'UNANSWERED', 'BUSY'])->nullable()->default('QUEUED');
+            // // $table->enum('status', CallStatus::cases())->nullable()->default(CallStatus::QUEUED);
+            // $table->smallInteger('score')->nullable()->default(0);
+            // $table->string('note')->nullable();
             
             $table->timestamps();
-            
-            // sahipsiz customerları model helper ile bulurum
         });
     }
 

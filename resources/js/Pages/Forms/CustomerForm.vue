@@ -132,7 +132,7 @@ export default {
       category: null,
       // status: null,
       // score: null,
-      note: null,
+      // note: null,
       is_active: true,
     });
 
@@ -150,7 +150,7 @@ export default {
         form.city = props.editCustomerObject.city;
         form.source = props.editCustomerObject.source;
         form.category = props.editCustomerObject.category;
-        form.note = props.editCustomerObject.note.full;
+        form.note = props.editCustomerObject.call?.note.full;
         form.is_active = Boolean(props.editCustomerObject.is_active);
         // form.isDirty false olması için form.defaults() gerekli.
         // aksi takdirde veritabanına gereksiz istek atmış oluruz submit ederken
