@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CallController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\RoleController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -45,6 +46,12 @@ Route::group(['auth', 'verified'], function () {
     Route::patch('/call/{call}', [CallController::class, 'update'])->name('call.update');
     Route::delete('/call/{call}', [CallController::class, 'destroy'])->name('call.destroy');
     
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles');
+    Route::post('/roles', [RoleController::class, 'store'])->name('roles.post');
+    Route::patch('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
+    Route::get('/roles/available_perms', [RoleController::class, 'availablePerms'])->name('available_perms');
+    Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+
     Route::get('/test', function() {
         return Inertia::render('test');
     });

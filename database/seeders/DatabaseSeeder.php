@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         Customer::factory(200)->create();
         Call::factory(10)->create();
 
-        
+        $this->call(PermissionSeeder::class);
 
         // Customer::factory(1)->create();
         // Call::factory(1)->create();

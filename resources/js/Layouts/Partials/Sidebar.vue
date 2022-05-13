@@ -109,6 +109,13 @@
             userHasAccess: true,
         },
         {
+            toRouteName: "roles",
+            component: "Roles",
+            icon: "pi pi-lock",
+            displayName: "Roller",
+            userHasAccess: true,
+        },
+        {
             toRouteName: "dashboard",
             component: "Settings",
             icon: "pi pi-cog",

@@ -25,7 +25,7 @@ class Call extends Model
 
     public function getHumanReadableDateAttribute()
     {
-        return Carbon::parse($this->created_at)->diffForHumans();
+        return Carbon::parse($this->updated_at)->diffForHumans();
     }
 
     public function getStatusAttribute($value)

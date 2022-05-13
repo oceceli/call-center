@@ -118,7 +118,7 @@
                 <Button label="İşlem" icon="pi pi-phone" class="p-button-primary p-button-raised p-button-sm" :disabled="!content.data.is_active" @click="openCallCustomerModal(content.data)"></Button>
                 <Button label="" icon="pi pi-eye" class="p-button-primary p-button-text p-button-sm" @click="openDetailsModal(content.data)"></Button>
                 <Button label="" icon="pi pi-user-edit" class="p-button-primary p-button-text p-button-sm" @click="openCrudForm(content.data)"></Button>
-                <Button label="" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" @click="deleteCustomer($event, content.data.id)"></Button>
+                <DeleteButton toastInfo="Müşteri ile ilgili veriler silindi" :deleteRoute="route('customers.destroy', {'customer': content.data.id})" />
             </span>
         </template>
     </Column>
@@ -195,9 +195,8 @@ import Button from 'primevue/button';
 import {FilterMatchMode} from 'primevue/api';
 
 import { ref } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
 import { useToast } from 'primevue/usetoast';
-import { useConfirm } from "primevue/useconfirm";
+import DeleteButton from "@/Components/DeleteButton.vue";
 
 export default {
   layout: AppLayout,
@@ -213,6 +212,7 @@ export default {
     useToast,
     CustomerDetails,
     CallCustomer,
+    DeleteButton,
   },
 
 
@@ -273,30 +273,6 @@ export default {
       }
     };
 
-    const toast = useToast();
-    const confirm = useConfirm();
-    const deleteCustomer = (event, customerId) => {
-        confirm.require({
-            target: event.currentTarget,
-            message: 'Emin misiniz?',
-            icon: 'pi pi-exclamation-triangle',
-            acceptLabel: 'Evet',
-            rejectLabel: 'Vazgeç',
-            accept: () => {
-                Inertia.delete(route('customers.destroy', {'customer': customerId}), {
-                    onSuccess: () => {
-                        toast.add({severity: 'info', summary: 'Silindi', detail: 'Müşteri ile ilgili veriler silindi', life: 3000})
-                    },
-                });
-            },
-            reject: () => {
-                //callback to execute when user rejects the action
-            }
-        });
-
- 
-    };
-
     return {
       filters,
       editCustomerObject,
@@ -313,8 +289,6 @@ export default {
 
       tableLoading,
       buttonsLoading,
-
-      deleteCustomer,
 
       openCallCustomerModal,
       closeCallCustomerModal,

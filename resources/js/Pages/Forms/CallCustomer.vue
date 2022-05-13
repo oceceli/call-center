@@ -68,7 +68,7 @@ const submit = () => {
     emit('close');
 }
 
-const deleteCall = () => {
+const deleteCall = (event) => {
     confirm.require({
         target: event.currentTarget,
         message: 'Değerlendirme kaldırılacak, emin misiniz?',
@@ -125,13 +125,14 @@ const deleteCall = () => {
                 <div v-if="form.status.value" class="flex flex-col">
                     <textarea v-model="form.note" class="focus:outline-none focus:none border-dashed rounded-md" id="customer_note" cols="30" rows="5"></textarea>
                     <div class="flex justify-between items-center pt-5">
-                        <div class="flex items-center gap-3">
+                        <div v-if="form.status.value == 'POSITIVE'" class="flex items-center gap-3">
                             <div>Puanınız:</div>
                             <Rating :stars="10" v-model="form.score" :cancel="false" /><span v-if="form.score" class="text-sm text-gray-400">({{form.score}}/10)</span>
-                        </div>
+                        </div> 
+                        <div v-else></div>
                         <span class="p-buttonset text-xs">
                             <Button @click="submit()" label="Kaydet" icon="pi pi-check" iconPos="right" class="p-button-primary p-button-raised p-button-sm" />
-                            <Button v-if="customer.call" @click="deleteCall()" title="Değerlendirmeyi kaldır" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm"></Button>
+                            <Button v-if="customer.call" @click="deleteCall($event)" title="Değerlendirmeyi kaldır" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm"></Button>
                         </span>
                     </div>
                 </div>
