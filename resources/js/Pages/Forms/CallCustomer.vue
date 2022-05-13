@@ -103,8 +103,9 @@ const deleteCall = () => {
         <div class="mt-10 px-6">
             <div class="rounded border mb-6">
                 <ListItem title="Adı Soyadı:" :data="customer.name" />
-                <ListItem v-if="customer.email" title="E-Posta:" :data="customer.email" />
                 <ListItem title="Telefon Numarası:" :data="customer.phone" />
+                <ListItem v-if="customer.email" title="E-Posta:" :data="customer.email" />
+                <ListItem v-if="customer.email" title="E-Posta:" :data="customer.city" />
 
             </div>
             <div v-if="customer.is_active" class="bg-white rounded-md p-6">

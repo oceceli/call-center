@@ -43,7 +43,8 @@ class Call extends Model
         return $value ? [
             'full' => $value,
             'sliced' => substr($value, 0, 20) . '...',
-        ] : ['full' => '-', 'sliced' => '-'];
+        ] : '';
+        // ] : ['full' => '-', 'sliced' => '-'];
     }
 
     public function setStatusAttribute($value)

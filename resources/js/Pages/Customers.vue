@@ -115,10 +115,10 @@
     <Column header="İşlem">
         <template #body="content">
             <span class="p-buttonset text-xs">
-                <Button v-if="content.data.is_active" label="İşlem" icon="pi pi-phone" class="p-button-primary p-button-raised p-button-sm" :loading="buttonsLoading" @click="openCallCustomerModal(content.data)"></Button>
-                <Button label="" icon="pi pi-eye" class="p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openDetailsModal(content.data)"></Button>
-                <Button label="" icon="pi pi-user-edit" class="p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openCrudForm(content.data)"></Button>
-                <Button label="" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" @click="deleteCustomer($event, content.data.id)" :loading="buttonsLoading"></Button>
+                <Button label="İşlem" icon="pi pi-phone" class="p-button-primary p-button-raised p-button-sm" :disabled="!content.data.is_active" @click="openCallCustomerModal(content.data)"></Button>
+                <Button label="" icon="pi pi-eye" class="p-button-primary p-button-text p-button-sm" @click="openDetailsModal(content.data)"></Button>
+                <Button label="" icon="pi pi-user-edit" class="p-button-primary p-button-text p-button-sm" @click="openCrudForm(content.data)"></Button>
+                <Button label="" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" @click="deleteCustomer($event, content.data.id)"></Button>
             </span>
         </template>
     </Column>

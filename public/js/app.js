@@ -22884,48 +22884,44 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         header: "İşlem"
       }, {
         body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (content) {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, [content.data.is_active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Button, {
-            key: 0,
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
             label: "İşlem",
             icon: "pi pi-phone",
             "class": "p-button-primary p-button-raised p-button-sm",
-            loading: $setup.buttonsLoading,
+            disabled: !content.data.is_active,
             onClick: function onClick($event) {
               return $setup.openCallCustomerModal(content.data);
             }
           }, null, 8
           /* PROPS */
-          , ["loading", "onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+          , ["disabled", "onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
             label: "",
             icon: "pi pi-eye",
             "class": "p-button-primary p-button-text p-button-sm",
-            loading: $setup.buttonsLoading,
             onClick: function onClick($event) {
               return $setup.openDetailsModal(content.data);
             }
           }, null, 8
           /* PROPS */
-          , ["loading", "onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+          , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
             label: "",
             icon: "pi pi-user-edit",
             "class": "p-button-primary p-button-text p-button-sm",
-            loading: $setup.buttonsLoading,
             onClick: function onClick($event) {
               return $setup.openCrudForm(content.data);
             }
           }, null, 8
           /* PROPS */
-          , ["loading", "onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+          , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
             label: "",
             icon: "pi pi-trash",
             "class": "p-button-danger p-button-text p-button-sm",
             onClick: function onClick($event) {
               return $setup.deleteCustomer($event, content.data.id);
-            },
-            loading: $setup.buttonsLoading
+            }
           }, null, 8
           /* PROPS */
-          , ["onClick", "loading"])])];
+          , ["onClick"])])];
         }),
         _: 1
         /* STABLE */
@@ -23351,18 +23347,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     data: $props.customer.name
   }, null, 8
   /* PROPS */
+  , ["data"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
+    title: "Telefon Numarası:",
+    data: $props.customer.phone
+  }, null, 8
+  /* PROPS */
   , ["data"]), $props.customer.email ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ListItem"], {
     key: 0,
     title: "E-Posta:",
     data: $props.customer.email
   }, null, 8
   /* PROPS */
-  , ["data"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListItem"], {
-    title: "Telefon Numarası:",
-    data: $props.customer.phone
+  , ["data"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.customer.email ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ListItem"], {
+    key: 1,
+    title: "E-Posta:",
+    data: $props.customer.city
   }, null, 8
   /* PROPS */
-  , ["data"])]), $props.customer.is_active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["SelectButton"], {
+  , ["data"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), $props.customer.is_active ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["SelectButton"], {
     modelValue: $setup.form.status,
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.form.status = $event;
