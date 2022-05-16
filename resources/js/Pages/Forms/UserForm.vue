@@ -33,6 +33,27 @@
           <small class="text-xs text-red-500">{{ form.errors.password }}</small>
         </div>
       </div>
+      
+      <div class="flex flex-col pb-2">
+        <label class="leading-loose">Kullanıcı rolü</label>
+        <select v-model="form.role_id" class="form-select appearance-none
+          block
+          w-full
+          px-3
+          py-1.5
+          text-base
+          font-normal
+          text-gray-700
+          bg-white bg-clip-padding bg-no-repeat
+          border border-solid border-gray-300
+          rounded
+          transition
+          ease-in-out
+          m-0
+          focus:text-gray-700 focus:bg-white focus:border-cyan-500 focus:outline-none" aria-label="select_role">
+            <option v-for="(role, index) in roles" :key="index" :value="role?.id">{{ role?.name }}</option>
+        </select>
+    </div>
 
       <div class=" flex flex-col">
         <div class="flex gap-5 relative p-3 border border-lime-500 border-dashed">
@@ -98,6 +119,7 @@
 import { onMounted, onUpdated, reactive, ref } from "vue";
 import { Inertia, Method } from "@inertiajs/inertia";
 import UserAvatar from "../../Components/UserAvatar.vue";
+import axios from "axios";
 import InputSwitch from 'primevue/inputswitch';
 
 
@@ -120,6 +142,7 @@ export default {
       email: null,
       password: null,
       password_confirmation: null,
+      role_id: 0,
       img_url: null,
       is_active: true,
     });
@@ -127,12 +150,21 @@ export default {
     const editMode = ref(false);
     const disableFormFields = ref(false);
     const toast = useToast();
+    const roles = ref([]);
 
     onMounted(() => {
+       axios.get(route('available_roles')).then((response) => {
+          roles.value = response.data;
+      });
+
       if(props.editUserObject) {
+        // console.log(props.editUserObject);
         editMode.value = true;
         form.name = props.editUserObject.name;
         form.email = props.editUserObject.email;
+        if(props.editUserObject.roles[0]) {
+          form.role_id = props.editUserObject.roles[0].id;
+        }
         form.is_active = Boolean(props.editUserObject.is_active);
         form.defaults();
       } else {
@@ -140,6 +172,7 @@ export default {
       }
     });
 
+    
 
     function submit() {
       
@@ -182,7 +215,7 @@ export default {
       // emit('close');
     }
 
-    return { form, submit, editMode, disableFormFields};
+    return { form, submit, editMode, disableFormFields, roles};
   },
 };
 </script>

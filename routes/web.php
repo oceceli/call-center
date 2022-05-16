@@ -26,11 +26,11 @@ use Inertia\Inertia;
 require __DIR__.'/auth.php';
 
 
-Route::group(['auth', 'verified'], function () {
+Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/', function () {
         return Inertia::render('Dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    })->name('dashboard');
     
     Route::get('/users', [RegisteredUserController::class, 'index'])->name('users');
     Route::post('/users', [RegisteredUserController::class, 'store'])->name('users.post');
@@ -50,6 +50,7 @@ Route::group(['auth', 'verified'], function () {
     Route::post('/roles', [RoleController::class, 'store'])->name('roles.post');
     Route::patch('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
     Route::get('/roles/available_perms', [RoleController::class, 'availablePerms'])->name('available_perms');
+    Route::get('/roles/available_roles', [RoleController::class, 'availableRoles'])->name('available_roles');
     Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
     Route::get('/test', function() {

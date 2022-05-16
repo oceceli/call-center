@@ -59,6 +59,7 @@
         </template>
     </Column>
     <Column field="email" header="E-posta" sortable></Column>
+    <Column field="roles.0.name" header="Kullanıcı Rolü" sortable footer="Toplam: 300 !!!!"></Column>
     <Column field="!!!!!!!" header="Atandı" sortable footer="Toplam: 300 !!!!"></Column>
     <Column field="!!!!!!" header="Arandı" sortable footer="Toplam: 520 !!!!"></Column>
     <Column header="İşlem">

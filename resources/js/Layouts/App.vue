@@ -5,11 +5,15 @@ import ConfirmPopup from 'primevue/confirmpopup';
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import MobileMenu from 'primevue/sidebar';
+import { usePage } from "@inertiajs/inertia-vue3";
 
 const initialWidth = ref(window.innerWidth);
 
 const sidebarStatus = ref(false);
 onMounted(() => {
+    // if(!usePage().props.value.auth.user) {
+    //     window.location = '/login';
+    // }
     sidebarStatus.value = !isMobile();
 });
 

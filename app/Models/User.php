@@ -46,6 +46,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = [
+        'roles:id,name',
+    ];
+
+    // adminler silinmemeli ve tüm yetkilere sahip olmalılar
     public static $untouchables = [
         'admin', 'super admin',
     ];
@@ -54,6 +59,10 @@ class User extends Authenticatable
         return $this->hasMany(Customer::class);
     }
 
+    public function mainRole() 
+    {
+        return $this->roles()->exists() ? $this->getRoleNames()->first() : 'Rol atanmadı';
+    }
 
     public static function removeOldPic(Self $user)
     {

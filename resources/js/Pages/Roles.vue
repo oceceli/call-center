@@ -52,11 +52,18 @@ export default {
             </template>
 
             <Column field="name" header="Rol" sortable="" :reorderableColumn="false"></Column>
-            <Column field="created_at" header="Tanımlandı" :reorderableColumn="false"></Column>
+            <Column header="Verilen izinler" :reorderableColumn="false">
+                <template #body="{data}">
+                    <span class="font-bold cursor-default text-gray-500 hover:text-gray-700 ease-in-out duration-150">
+                        {{ data.permissions.length }} adet
+                    </span>
+                </template>
+            </Column>
+            <Column field="updated_at" header="Son Güncelleme" :reorderableColumn="false"></Column>
             <Column header="İşlem">
                 <template #body="content">
                     <span class="p-buttonset text-xs">
-                        <Button label="İzinleri Ayarla" icon="pi pi-lock-open" class="p-button-primary p-button-raised p-button-sm" @click="openCrudForm(content.data)"></Button>
+                        <Button label="Düzenle" icon="pi pi-lock-open" class="p-button-primary p-button-raised p-button-sm" @click="openCrudForm(content.data)"></Button>
                         <DeleteButton :deleteRoute="route('roles.destroy', {'role': content.data.id})" />
                     </span>
                 </template>

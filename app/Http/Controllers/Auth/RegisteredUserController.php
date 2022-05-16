@@ -10,7 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 
@@ -44,6 +46,7 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'. $user->id,
             'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
+            'role_id' => 'nullable|integer|min:1',
             'img_url' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg,webp|max:2048',
             'is_active' => 'required|boolean'
         ]);
@@ -70,6 +73,7 @@ class RegisteredUserController extends Controller
 
 
         $user->update($userData);
+        $user->syncRoles($request->role_id);
 
         return Redirect::back();
     }
@@ -84,11 +88,14 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+
+
         
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role_id' => 'nullable|integer|min:1',
             'img_url' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg,webp|max:2048',
             'is_active' => 'nullable|boolean'
         ]);
@@ -107,11 +114,16 @@ class RegisteredUserController extends Controller
             'is_active' => $request->is_active,
         ]);
 
-        event(new Registered($user)); // !!!!!!! burayı unutma
+        $user->syncRoles($request->role_id);
 
-        Auth::login($user);
+        event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME);
+        if(FacadesRequest::is('register')) {
+            Auth::login($user);
+            return redirect(RouteServiceProvider::HOME);
+        }
+
+        return Redirect::back();
     }
 
 

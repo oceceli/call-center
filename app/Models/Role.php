@@ -8,6 +8,7 @@ class Role extends SpatieRole
 {
     protected $casts = [
         'created_at' => 'datetime:d.m.Y',
+        'updated_at' => 'datetime:d.m.Y | H:i',
     ];
 
     protected $with = ['permissions'];

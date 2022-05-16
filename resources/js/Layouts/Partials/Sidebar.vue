@@ -2,14 +2,16 @@
     <aside class="flex flex-col justify-between h-screen">
         <div class="pb-6 pt-8 px-6 text-center border-b flex flex-col items-center">
             
-            <div @click="openCrudForm(user)" class="cursor-pointer rounded-full w-max">
-                <img v-if="user.img_url" :src="user.img_url" class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28">
+            <div @click="openCrudForm(auth.user)" class="cursor-pointer rounded-full w-max">
+                <img v-if="auth.user.img_url" :src="auth.user.img_url" class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28">
                 <span v-else>
-                    <user-avatar customClass="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28" :userName="user.name" />
+                    <user-avatar customClass="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28" :userName="auth.user.name" />
                 </span>
             </div>
-            <h5 class="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">{{ user.name }}</h5>
-            <span class="hidden text-gray-400 lg:block">{{ user.role }}</span>!!!!
+            <div class="cursor-default">
+                <h5 class="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">{{ auth.user.name }}</h5>
+                <span class="hidden text-gray-400 lg:block hover:text-gray-600 ease-in-out duration-100">{{ auth.role }}</span>
+            </div>
         </div>
         <div class="flex-1 px-6 py-6">
 
@@ -75,8 +77,8 @@
         visibleCrudForm.value = false;
     };
 
-    const user = computed(() => {
-        return usePage().props.value.auth.user;
+    const auth = computed(() => {
+        return usePage().props.value.auth;
     });
 
     const links = ref([

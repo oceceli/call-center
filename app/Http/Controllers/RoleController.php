@@ -23,7 +23,7 @@ class RoleController extends Controller
         $role = Role::create($data);
 
         $this->setPermissions($request, $role);
-        
+
         return Redirect::back();
     }
 
@@ -38,31 +38,42 @@ class RoleController extends Controller
     private function setPermissions(Request $request, Role $role)
     {
         $selectedPerms = $request->selectedPerms;
-        
-        // izin atamadan önce gönderdiğim izinlerle gelen izinler aynı mı diye bi bakıyorum, aynı olanları kabul ediyorum. nolur nolmaz 
-        if(is_array($selectedPerms) && count($selectedPerms) > 0) {
-            $availablePerms = array_column(Role::getAvailablePerms(), 'value');
-            $acceptablePerms = array_intersect($availablePerms, $selectedPerms);
-            $role->syncPermissions($acceptablePerms);
+
+        if ($selectedPerms) {
+            // izin atamadan önce gönderdiğim izinlerle gelen izinler aynı mı diye bi bakıyorum, aynı olanları kabul ediyorum. nolur nolmaz 
+            if (is_array($selectedPerms) && count($selectedPerms) > 0) {
+                $availablePerms = array_column(Role::getAvailablePerms(), 'value');
+                $acceptablePerms = array_intersect($availablePerms, $selectedPerms);
+                $role->syncPermissions($acceptablePerms);
+            }
+        } else {
+            $role->permissions()->detach();
         }
     }
-    
-    public function destroy(Role $role) 
+
+    public function destroy(Role $role)
     {
         $role->permissions()->detach();
         $role->delete();
         return Redirect::back();
     }
-    
-    public function availablePerms() 
+
+    public function availablePerms()
     {
         return Role::getAvailablePerms();
     }
+    
+    public function availableRoles()
+    {
+        return Role::all();
+        
+       
+    }
 
-    private function validatedData(Request $request, $roleId = null) 
+    private function validatedData(Request $request, $roleId = null)
     {
         return $request->validate([
-            'name' => 'required|unique:roles,name,'. $roleId .'|max:255',
+            'name' => 'required|unique:roles,name,' . $roleId . '|max:255',
         ], [], ['name' => 'Rol']);
     }
 }
