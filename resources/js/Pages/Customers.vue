@@ -2,7 +2,9 @@
     <DataTable :value="customers"  
     class="p-datatable-sm  text-sm"
     :rowClass="rowClass"
+    
     dataKey="id"
+    v-model:selection="selectedCustomers"
 
     :rowHover="true"
     responsiveLayout="stack"
@@ -23,12 +25,18 @@
     v-model:filters="filters"
     :globalFilterFields="['name', 'surname', 'email', 'phone', 'city', 'source', 'category', 'is_active', 'call.status.tr', 'call?.score', 'call?.note']"
     filterDisplay="menu"
-    
+
     >
     <template #header>
         <div class="flex items-center justify-between py-3 pl-2 md:pl-0">
-            <div>
+            <div class="flex gap-2">
                 <Button type="button" @click="openCrudForm(null)" icon="pi pi-plus" label="Ekle" class="p-button-outlined p-button-sm"/>
+                <Button @click="toggleAssigneePanel" v-show="selectedCustomers.length" type="button" icon="pi pi-link" label="Kullanıcıya ata" class="p-button-sm p-button-success"/>
+
+                <OverlayPanel ref="assigneePanel" :showCloseIcon="true" :dismissable="false" :breakpoints="{'960px': '75vw', '640px': '100vw'}" :style="{width: '450px'}">
+                  <Assignee :selectedCustomers="selectedCustomers" />
+                </OverlayPanel>
+
             </div>
             <div class="flex gap-5">
                 <Button type="button" icon="pi pi-filter-slash" label="Temizle" class="p-button-text p-button-rounded p-button-sm" @click="clearFilters()"/>
@@ -43,6 +51,7 @@
             </div>
         </div>
     </template>
+    <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
     <Column field="is_active" header="Aktif" sortable>
       <template #body={data}>
         <div class="flex items-center justify-center">
@@ -174,6 +183,16 @@
     >
         <CallCustomer @close="closeCallCustomerModal" :customer="customerObject" />
     </Dialog>
+    
+    
+    <!-- <Dialog header="Arama/Değerlendirme" v-model:visible="visibleCallCustomer" :style="{width: '50vw'}"
+    closeOnEscape
+    modal
+    maximizable
+    :breakpoints="{'960px': '75vw', '640px': '100vw'}"
+    >
+        <CallCustomer @close="closeCallCustomerModal" :customer="customerObject" />
+    </Dialog> -->
 
 
   </DataTable>
@@ -194,9 +213,12 @@ import Column from "primevue/column/Column.vue";
 import Button from 'primevue/button';
 import {FilterMatchMode} from 'primevue/api';
 
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import DeleteButton from "@/Components/DeleteButton.vue";
+
+import OverlayPanel from 'primevue/overlaypanel';
+import Assignee from './Forms/Assignee.vue';
 
 export default {
   layout: AppLayout,
@@ -213,6 +235,9 @@ export default {
     CustomerDetails,
     CallCustomer,
     DeleteButton,
+
+    OverlayPanel,
+    Assignee,
   },
 
 
@@ -228,6 +253,11 @@ export default {
     const visibleCallCustomer = ref(false);
 
     const customerObject = ref(null);
+
+    const selectedCustomers = ref([]);
+
+    const assignee = ref();
+    const assigneePanel = ref(null);
 
     const clearFilters = () => {
       filters.value['global'].value = '';
@@ -262,6 +292,10 @@ export default {
       visibleCallCustomer.value = false;
     }
 
+    const toggleAssigneePanel = (event) => {
+        assigneePanel.value.toggle(event);
+    };
+
     const rowClass = (row) => {
       if(!row.is_active) {
         return 'bg-slate-100 text-gray-400 cursor-not-allowed';
@@ -294,6 +328,11 @@ export default {
       closeCallCustomerModal,
       visibleCallCustomer,
 
+      selectedCustomers,
+
+      assignee,
+      assigneePanel,
+      toggleAssigneePanel,
 
       rowClass,
     };

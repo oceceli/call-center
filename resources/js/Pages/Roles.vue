@@ -55,7 +55,7 @@ export default {
             <Column header="Verilen izinler" :reorderableColumn="false">
                 <template #body="{data}">
                     <span class="font-bold cursor-default text-gray-500 hover:text-gray-700 ease-in-out duration-150">
-                        {{ data.permissions.length }} adet
+                        {{ data.permissions.length }} izin
                     </span>
                 </template>
             </Column>

@@ -33,6 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     })->name('dashboard');
     
     Route::get('/users', [RegisteredUserController::class, 'index'])->name('users');
+    Route::get('/users_list', [RegisteredUserController::class, 'usersList'])->name('users_list');
     Route::post('/users', [RegisteredUserController::class, 'store'])->name('users.post');
     Route::patch('/users/{user}', [RegisteredUserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [RegisteredUserController::class, 'destroy'])->name('users.destroy');
@@ -41,6 +42,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/customers', [CustomerController::class, 'store'])->name('customers.post');
     Route::patch('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update');
     Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+    
+    Route::post('/customers_assign/{user}', [CustomerController::class, 'customersAssign'])->name('customers_assign');
 
     Route::post('/call/{customer}', [CallController::class, 'store'])->name('call.post');
     Route::patch('/call/{call}', [CallController::class, 'update'])->name('call.update');

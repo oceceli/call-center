@@ -46,9 +46,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $with = [
-        'roles:id,name',
-    ];
+    // protected $with = [
+    //     'roles:id,name',
+    // ];
 
     // adminler silinmemeli ve tüm yetkilere sahip olmalılar
     public static $untouchables = [

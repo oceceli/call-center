@@ -23,9 +23,16 @@ class RegisteredUserController extends Controller
     {
         return Inertia::render('Users', [
             // 'users' => cache()->rememberForever('users', function() {
-            'users' => User::all(),
+            'users' => User::with(['roles:id,name'])->get(),
             // })
         ]);
+    }
+
+    public function UsersList() 
+    {
+        $users = User::get(['id', 'name']);
+        return $users;
+        
     }
 
     /**
@@ -49,6 +56,11 @@ class RegisteredUserController extends Controller
             'role_id' => 'nullable|integer|min:1',
             'img_url' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg,webp|max:2048',
             'is_active' => 'required|boolean'
+        ], [], [
+            'name' => 'Ad',
+            'email' => 'E-posta',
+            'img_url' => 'Resim',
+            'password' => 'Şifre',
         ]);
 
         
@@ -98,6 +110,11 @@ class RegisteredUserController extends Controller
             'role_id' => 'nullable|integer|min:1',
             'img_url' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg,webp|max:2048',
             'is_active' => 'nullable|boolean'
+        ], [], [
+            'name' => 'Ad',
+            'email' => 'E-posta',
+            'img_url' => 'Resim',
+            'password' => 'Şifre',
         ]);
         
         
@@ -129,6 +146,7 @@ class RegisteredUserController extends Controller
 
     public function destroy(User $user)
     {
+        $user->roles()->detach();
         $user->delete();
         return Redirect::back();
     }

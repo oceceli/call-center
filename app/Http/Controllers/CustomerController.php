@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -27,11 +28,23 @@ class CustomerController extends Controller
         return Redirect::back();
     }
 
-
     public function destroy(Customer $customer)
     {
         $customer->delete();
         return Redirect::back();
+    }
+
+    public function customersAssign(Request $request, User $user) 
+    {
+        $request->validate(['customers' => 'array|min:1'], ['min' => 'En az 1 atama yapılabilir!'], ['customers' => 'Müşteri']);
+        $customers = Customer::whereIn('id', $request->customers)->get();
+
+        // Yeni atama geçerli sayılacak, müşteri yeni temsilciye atanmış olacak
+        foreach ($customers as $key => $customer) {
+            $customer->user()->associate($user);
+        }
+        
+        return Redirect::back()->with('success', $user->name . ' (' . $user->mainRole() . ') ' . ' kullanıcısına ' . count($customers) . ' adet atama yapıldı...');
     }
 
     private function validatedData(Request $request) 
@@ -65,6 +78,7 @@ class CustomerController extends Controller
             // "note" => 'Not',
         ]);
     }
+    
 }
 
 

@@ -11,9 +11,6 @@ const initialWidth = ref(window.innerWidth);
 
 const sidebarStatus = ref(false);
 onMounted(() => {
-    // if(!usePage().props.value.auth.user) {
-    //     window.location = '/login';
-    // }
     sidebarStatus.value = !isMobile();
 });
 
