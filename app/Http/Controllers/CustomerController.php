@@ -16,11 +16,13 @@ class CustomerController extends Controller
         return Inertia::render('Customers', compact('customers'));
     }
 
+
     public function store(Request $request)
     {
         Customer::create($this->validatedData($request));
         return Redirect::back();
     }
+
 
     public function update(Request $request, Customer $customer)
     {
@@ -28,11 +30,13 @@ class CustomerController extends Controller
         return Redirect::back();
     }
 
+
     public function destroy(Customer $customer)
     {
         $customer->delete();
         return Redirect::back();
     }
+
 
     public function customersAssign(Request $request, User $user) 
     {
@@ -46,6 +50,7 @@ class CustomerController extends Controller
         
         return Redirect::back()->with('success', $user->name . ' (' . $user->mainRole() . ') ' . ' kullanıcısına ' . count($customers) . ' adet atama yapıldı...');
     }
+
 
     private function validatedData(Request $request) 
     {

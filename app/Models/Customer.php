@@ -27,6 +27,13 @@ class Customer extends Model
         return $this->hasOne(Call::class);
     }
 
+    // aranan müşteriler
+    public function scopeOnlyCalled($query) {
+        return $query->whereHas('call', function($query) {
+            return $query->whereNotNull('status');
+        });
+    }
+
     public static function fetchAll()
     {
         return self::all();

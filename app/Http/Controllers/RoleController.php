@@ -11,7 +11,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::allExceptUntouchables();
         return Inertia::render('Roles', [
             'roles' => $roles,
         ]);
@@ -29,6 +29,9 @@ class RoleController extends Controller
 
     public function update(Request $request, Role $role)
     {
+        if(in_array(strtolower($role->name), Role::$untouchables))
+            return redirect()->back();
+
         $data = $this->validatedData($request, $role->id);
         $role->update($data);
         $this->setPermissions($request, $role);
@@ -53,9 +56,14 @@ class RoleController extends Controller
 
     public function destroy(Role $role)
     {
+        if(in_array(strtolower($role->name), Role::$untouchables))
+        return Redirect::back();
+        // return Redirect::back()->with('error', 'Admin rolü silinemez!');
+
         $role->permissions()->detach();
         $role->delete();
         return Redirect::back();
+        // return Redirect::back()->with('success', 'Rol kaldırıldı...');
     }
 
     public function availablePerms()
@@ -66,8 +74,6 @@ class RoleController extends Controller
     public function availableRoles()
     {
         return Role::all();
-        
-       
     }
 
     private function validatedData(Request $request, $roleId = null)

@@ -50,13 +50,44 @@ class User extends Authenticatable
     //     'roles:id,name',
     // ];
 
-    // adminler silinmemeli ve tüm yetkilere sahip olmalılar
-    public static $untouchables = [
-        'admin', 'super admin',
+    protected $appends = [
+        'called_customers_count',
     ];
 
     public function customers() {
         return $this->hasMany(Customer::class);
+    }
+
+
+    public function isAdmin()
+    {
+        return $this->hasRole(Role::$untouchables);
+    }
+
+    public static function adminCount()
+    {
+        return self::whereHas('roles', function($query) {
+            return $query->where('name', 'admin');
+        })->count();
+    }
+
+    public function isLastAdmin()
+    {
+        return $this->isAdmin() && self::adminCount() === 1;
+    }
+
+    // public function scopeTheOnesWhoMadeAnyCall($query)
+    // {
+    //     return $query->whereHas('customers', function($query) {
+    //         return $query->onlyCalled();
+    //     });
+    // }
+    
+    public function getCalledCustomersCountAttribute() {
+        return $this->customers()->whereHas('call', function($query) {
+            return $query->where(['status' => 'UNANSWERED']);
+        })->count();
+        // return $this->customers()->onlyCalled()->count();
     }
 
     public function mainRole() 

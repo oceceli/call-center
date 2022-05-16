@@ -24,6 +24,7 @@
                 </li>
             </ul>
         </div>
+                <!-- {{ auth.user }} -->
 
         <div class="border-t">
             <!-- <button class="flex space-x-4 rounded-md text-gray-600"> -->

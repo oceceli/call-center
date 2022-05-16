@@ -53,6 +53,9 @@
           focus:text-gray-700 focus:bg-white focus:border-cyan-500 focus:outline-none" aria-label="select_role">
             <option v-for="(role, index) in roles" :key="index" :value="role?.id">{{ role?.name }}</option>
         </select>
+        <div v-if="form.errors.role_id">
+          <small class="text-xs text-red-500">{{ form.errors.role_id }}</small>
+        </div>
     </div>
 
       <div class=" flex flex-col">
@@ -142,7 +145,7 @@ export default {
       email: null,
       password: null,
       password_confirmation: null,
-      role_id: 0,
+      role_id: null,
       img_url: null,
       is_active: true,
     });

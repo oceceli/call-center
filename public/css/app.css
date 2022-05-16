@@ -861,6 +861,9 @@ select {
 .h-6 {
   height: 1.5rem !important;
 }
+.h-10 {
+  height: 2.5rem !important;
+}
 .min-h-screen {
   min-height: 100vh !important;
 }
@@ -966,6 +969,12 @@ select {
 .cursor-default {
   cursor: default !important;
 }
+.cursor-pointer {
+  cursor: pointer !important;
+}
+.cursor-default {
+  cursor: default !important;
+}
 .list-inside {
   list-style-position: inside !important;
 }
@@ -1046,6 +1055,9 @@ select {
 .gap-2 {
   gap: 0.5rem !important;
 }
+.gap-5 {
+  gap: 1.25rem !important;
+}
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0 !important;
   margin-right: calc(2rem * var(--tw-space-x-reverse)) !important;
@@ -1102,6 +1114,12 @@ select {
 }
 .rounded-full {
   border-radius: 9999px !important;
+}
+.rounded-xl {
+  border-radius: 0.75rem !important;
+}
+.rounded {
+  border-radius: 0.25rem !important;
 }
 .rounded-xl {
   border-radius: 0.75rem !important;
@@ -1313,6 +1331,10 @@ select {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(247 254 231 / var(--tw-bg-opacity)) !important;
 }
+.bg-red-100 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity)) !important;
+}
 .bg-opacity-60 {
   --tw-bg-opacity: 0.6 !important;
 }
@@ -1431,6 +1453,18 @@ select {
 .py-1\.5 {
   padding-top: 0.375rem !important;
   padding-bottom: 0.375rem !important;
+}
+.py-3 {
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+}
+.py-2\.5 {
+  padding-top: 0.625rem !important;
+  padding-bottom: 0.625rem !important;
+}
+.py-2 {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
 }
 .py-3 {
   padding-top: 0.75rem !important;
@@ -1588,6 +1622,18 @@ select {
 .pt-4 {
   padding-top: 1rem !important;
 }
+.pl-2 {
+  padding-left: 0.5rem !important;
+}
+.pr-3 {
+  padding-right: 0.75rem !important;
+}
+.pl-14 {
+  padding-left: 3.5rem !important;
+}
+.pr-4 {
+  padding-right: 1rem !important;
+}
 .text-left {
   text-align: left !important;
 }
@@ -1659,6 +1705,18 @@ select {
 .text-sm {
   font-size: 0.875rem !important;
   line-height: 1.25rem !important;
+}
+.text-xs {
+  font-size: 0.75rem !important;
+  line-height: 1rem !important;
+}
+.text-sm {
+  font-size: 0.875rem !important;
+  line-height: 1.25rem !important;
+}
+.text-lg {
+  font-size: 1.125rem !important;
+  line-height: 1.75rem !important;
 }
 .text-xs {
   font-size: 0.75rem !important;
@@ -1842,6 +1900,18 @@ select {
   --tw-text-opacity: 1 !important;
   color: rgb(37 99 235 / var(--tw-text-opacity)) !important;
 }
+.text-gray-400 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(156 163 175 / var(--tw-text-opacity)) !important;
+}
+.text-gray-600 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(75 85 99 / var(--tw-text-opacity)) !important;
+}
+.text-cyan-700 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(14 116 144 / var(--tw-text-opacity)) !important;
+}
 .underline {
   -webkit-text-decoration-line: underline !important;
           text-decoration-line: underline !important;
@@ -1930,6 +2000,9 @@ select {
 }
 .duration-300 {
   transition-duration: 300ms !important;
+}
+.duration-100 {
+  transition-duration: 100ms !important;
 }
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;

@@ -59,15 +59,20 @@
         </template>
     </Column>
     <Column field="email" header="E-posta" sortable></Column>
-    <Column field="roles.0.name" header="Kullanıcı Rolü" sortable footer="Toplam: 300 !!!!"></Column>
-    <Column field="!!!!!!!" header="Atandı" sortable footer="Toplam: 300 !!!!"></Column>
-    <Column field="!!!!!!" header="Arandı" sortable footer="Toplam: 520 !!!!"></Column>
+    <Column field="roles.0.name" header="Kullanıcı Rolü" sortable></Column>
+    <Column field="customers_count" header="Atandı" sortable>
+        <template #body="{data}">
+            <span class="text-lg font-bold text-cyan-600">{{data.customers_count}}</span>
+        </template>
+    </Column>
+    <Column field="called_customers_count" header="Arandı" sortable></Column>
     <Column header="İşlem">
         <template #body="content">
             <span class="p-buttonset text-xs">
                 <Button v-if="content.data.is_active" label="Atama" icon="pi pi-link" class="p-button-primary p-button-raised p-button-sm" badge="8" badgeClass="p-badge-primary" :loading="buttonsLoading"></Button>
                 <Button label="" icon="pi pi-user-edit" class=" p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openCrudForm(content.data)"></Button>
-                <Button label="" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" @click="deleteUser($event, content.data.id)" :loading="buttonsLoading"></Button>
+                <!-- <Button label="" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" @click="deleteUser($event, content.data.id)" :loading="buttonsLoading"></Button> -->
+                <DeleteButton :toastInfo="flashError()" :deleteRoute="route('users.destroy', {'user': content.data.id})" />
             </span>
         </template>
     </Column>
@@ -122,8 +127,10 @@ import {FilterMatchMode} from 'primevue/api';
 
 import { ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-import { useToast } from 'primevue/usetoast';
-import { useConfirm } from "primevue/useconfirm";
+// import { useToast } from 'primevue/usetoast';
+// import { useConfirm } from "primevue/useconfirm";
+import DeleteButton from '@/Components/DeleteButton.vue';
+import { usePage } from '@inertiajs/inertia-vue3';
 
 
 
@@ -136,7 +143,8 @@ export default {
     Button,
     UserForm,
     UserAvatar,
-    useToast,
+    // useToast,
+    DeleteButton,
       // SearchBar,
   },
   props: {
@@ -148,8 +156,11 @@ export default {
     const visibleCrudForm = ref(false);
     const editUserObject = ref(null)
     const filters = ref({'global': {value: '', matchMode: FilterMatchMode.CONTAINS}});
-    const toast = useToast();
+    // const toast = useToast();
     
+    const flashError = () => {
+        return usePage().props.value.flash?.error;
+    };
 
     const rowClass = (data) => {
         return data.is_active == '0' ? 'bg-red-100' : null;
@@ -169,28 +180,28 @@ export default {
         visibleCrudForm.value = false;
     };
 
-    const confirm = useConfirm();
-    const deleteUser = (event, userId) => {
-        confirm.require({
-            target: event.currentTarget,
-            message: 'Emin misiniz?',
-            icon: 'pi pi-exclamation-triangle',
-            acceptLabel: 'Evet',
-            rejectLabel: 'Vazgeç',
-            accept: () => {
-                Inertia.delete(route('users.destroy', {'user': userId}), {
-                    onSuccess: () => {
-                        toast.add({severity: 'success', summary: 'Silindi', detail: 'Kullanıcı silindi!', life: 3000})
-                    },
-                });
-            },
-            reject: () => {
-                //callback to execute when user rejects the action
-            }
-        });
+    // const confirm = useConfirm();
+    // const deleteUser = (event, userId) => {
+    //     confirm.require({
+    //         target: event.currentTarget,
+    //         message: 'Emin misiniz?',
+    //         icon: 'pi pi-exclamation-triangle',
+    //         acceptLabel: 'Evet',
+    //         rejectLabel: 'Vazgeç',
+    //         accept: () => {
+    //             Inertia.delete(route('users.destroy', {'user': userId}), {
+    //                 onSuccess: () => {
+    //                     toast.add({severity: 'success', summary: 'Silindi', detail: 'Kullanıcı silindi!', life: 3000})
+    //                 },
+    //             });
+    //         },
+    //         reject: () => {
+    //             //callback to execute when user rejects the action
+    //         }
+    //     });
 
  
-    };
+    // };
 
 
     return { 
@@ -202,8 +213,9 @@ export default {
     openCrudForm,
     editUserObject,
     closeCrudForm,
-    deleteUser,
+    // deleteUser,
     rowClass,
+    flashError,
     };
   },   
 

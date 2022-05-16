@@ -23,7 +23,7 @@ class RegisteredUserController extends Controller
     {
         return Inertia::render('Users', [
             // 'users' => cache()->rememberForever('users', function() {
-            'users' => User::with(['roles:id,name'])->get(),
+            'users' => User::with(['roles:id,name'])->withCount('customers')->get(),
             // })
         ]);
     }
@@ -48,7 +48,6 @@ class RegisteredUserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        // dd($request);
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'. $user->id,
@@ -59,6 +58,7 @@ class RegisteredUserController extends Controller
         ], [], [
             'name' => 'Ad',
             'email' => 'E-posta',
+            'role_id' => 'Rol',
             'img_url' => 'Resim',
             'password' => 'Şifre',
         ]);
@@ -100,9 +100,6 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -113,6 +110,7 @@ class RegisteredUserController extends Controller
         ], [], [
             'name' => 'Ad',
             'email' => 'E-posta',
+            'role_id' => 'Rol',
             'img_url' => 'Resim',
             'password' => 'Şifre',
         ]);
@@ -146,8 +144,11 @@ class RegisteredUserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->roles()->detach();
+        if($user->isLastAdmin())
+            return back()->with('error', 'Sistemde kayıtlı son admin kullanıcı silinemez!');
+            
         $user->delete();
+        // $user->roles()->detach();
         return Redirect::back();
     }
 
