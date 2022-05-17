@@ -72,7 +72,7 @@
                 <Button v-if="content.data.is_active" label="Atama" icon="pi pi-link" class="p-button-primary p-button-raised p-button-sm" badge="8" badgeClass="p-badge-primary" :loading="buttonsLoading"></Button>
                 <Button label="" icon="pi pi-user-edit" class=" p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openCrudForm(content.data)"></Button>
                 <!-- <Button label="" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" @click="deleteUser($event, content.data.id)" :loading="buttonsLoading"></Button> -->
-                <DeleteButton :toastInfo="flashError()" :deleteRoute="route('users.destroy', {'user': content.data.id})" />
+                <DeleteButton :toastInfo="flashError()" :deleteRoute="route('users.destroy', {'user': content.data.id})" customClass="p-button-text" />
             </span>
         </template>
     </Column>

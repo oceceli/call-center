@@ -83,7 +83,7 @@ const test = () => {
                                 </div>
                             </ListItem>
                             <div class="flex justify-between py-3 px-6 hover:bg-gray-200 font-bold"><span>Temsilci Notu: </span></div>
-                            <ListItem :title="customer.call.note.full" />
+                            <ListItem class="text-rose-600 font-bold text-sm" :title="customer.call.note.full" />
                         </div>
                         
 

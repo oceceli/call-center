@@ -30,14 +30,13 @@
     <template #header>
         <div class="flex items-center justify-between py-3 pl-2 md:pl-0">
             <div class="flex gap-2">
-              <span class="p-buttonset text-xs">
+              <span v-if="selectedCustomers.length" class="p-buttonset text-xs">
+                <Button @click="toggleAssigneePanel" type="button" icon="pi pi-link" label="Kullanıcıya ata" class="p-button-sm p-button-warning"/>
+                <DeleteButton @deleted="multipleDeleteWasSuccessful()" :multipleData="selectedCustomers" toastInfo="Seçilen müşteri bilgileri silindi" :deleteRoute="route('customers_destroy_multiple')" customClass="p-button-outlined" />
+              </span>
+              <span v-else class="p-buttonset text-xs">
                   <Button type="button" @click="openCrudForm(null, true)" icon="pi pi-upload" label="İmport" class="p-button-sm"/>
                   <Button type="button" @click="openCrudForm(null)" icon="pi pi-plus" label="Ekle" class="p-button-outlined p-button-sm"/>
-              </span>
-              <span v-show="selectedCustomers.length" class="p-buttonset text-xs">
-                <Button @click="toggleAssigneePanel" type="button" icon="pi pi-link" label="Kullanıcıya ata" class="p-button-sm p-button-success"/>
-                <Button type="button" @click="openCrudForm(null, true)" icon="pi pi-download" label="Export" class="p-button-sm p-button-outlined"/>
-
               </span>
               <OverlayPanel ref="assigneePanel" :showCloseIcon="true" :dismissable="false" :breakpoints="{'960px': '75vw', '640px': '100vw'}" :style="{width: '450px'}">
                 <Assignee :selectedCustomers="selectedCustomers" @close="closeAssigneePanel" />
@@ -45,7 +44,10 @@
 
             </div>
             <div class="flex gap-5">
-                <Button type="button" icon="pi pi-filter-slash" label="Temizle" class="p-button-text p-button-rounded p-button-sm" @click="clearFilters()"/>
+                <!-- <Button type="button" icon="pi pi-filter-slash" label="Temizle" class="p-button-text p-button-rounded p-button-sm" @click="clearFilters()"/> -->
+              <span class="p-buttonset text-xs flex items-center">
+                <Button type="button" @click="openCustomerExportModal()" icon="pi pi-file-excel" label="Export" class="p-button-sm p-button-outlined rounded"/>
+              </span>
                 <div hidden class="md:block">
                     <div class="relative flex items-center text-gray-400 focus-within:text-cyan-400">
                         <span class="absolute left-4 h-6 flex items-center pr-3 border-r border-gray-300">
@@ -58,11 +60,14 @@
         </div>
     </template>
     <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
-    <Column field="is_active" header="Aktif" sortable>
-      <template #body={data}>
-        <div class="flex items-center justify-center">
-            <i v-if="data.is_active" class="pi pi-check text-green-500"></i>
-            <i v-else class="pi pi-times"></i>
+    
+    <Column field="user.name" header="Temsilci" sortable>
+      <template #body="{data}">
+        <div v-if="data.user" class="font-bold text-green-600">
+          {{ data.user?.name }}
+        </div>
+        <div v-else>
+          <i class="pi pi-times text-red-500"></i>
         </div>
       </template>
     </Column>
@@ -96,6 +101,15 @@
     <Column field="city" header="Şehir" sortable></Column>
     <Column field="source" header="Kaynak" sortable></Column>
     <Column field="category" header="Kategori" sortable></Column>
+    
+    <Column field="is_active" header="Aktif" sortable>
+      <template #body={data}>
+        <div class="flex items-center justify-center">
+            <i v-if="data.is_active" class="pi pi-check text-green-500"></i>
+            <i v-else class="pi pi-times"></i>
+        </div>
+      </template>
+    </Column>
     
   
     <Column field="call.status.tr" header="Durum" sortable>
@@ -133,7 +147,7 @@
                 <Button label="İşlem" icon="pi pi-phone" class="p-button-primary p-button-raised p-button-sm" :disabled="!content.data.is_active" @click="openCallCustomerModal(content.data)"></Button>
                 <Button label="" icon="pi pi-eye" class="p-button-primary p-button-text p-button-sm" @click="openDetailsModal(content.data)"></Button>
                 <Button label="" icon="pi pi-user-edit" class="p-button-primary p-button-text p-button-sm" @click="openCrudForm(content.data)"></Button>
-                <DeleteButton toastInfo="Müşteri ile ilgili veriler silindi" :deleteRoute="route('customers.destroy', {'customer': content.data.id})" />
+                <DeleteButton toastInfo="Müşteri ile ilgili veriler silindi" :deleteRoute="route('customers.destroy', {'customer': content.data.id})" customClass="p-button-text" />
             </span>
         </template>
     </Column>
@@ -191,14 +205,14 @@
     </Dialog>
     
     
-    <!-- <Dialog header="Arama/Değerlendirme" v-model:visible="visibleCallCustomer" :style="{width: '50vw'}"
+    <Dialog header="Export Et" v-model:visible="visibleCustomerExportModal" :style="{width: '50vw'}"
     closeOnEscape
     modal
     maximizable
     :breakpoints="{'960px': '75vw', '640px': '100vw'}"
     >
-        <CallCustomer @close="closeCallCustomerModal" :customer="customerObject" />
-    </Dialog> -->
+        <CustomerExportForm @close="closeCustomerExportModal()" />
+    </Dialog>
 
 
   </DataTable>
@@ -225,6 +239,7 @@ import DeleteButton from "@/Components/DeleteButton.vue";
 
 import OverlayPanel from 'primevue/overlaypanel';
 import Assignee from './Forms/Assignee.vue';
+import CustomerExportForm from './Forms/CustomerExportForm.vue';
 
 export default {
   layout: AppLayout,
@@ -236,6 +251,7 @@ export default {
     Column,
     Button,
     CustomerForm,
+    CustomerExportForm,
     UserAvatar,
     useToast,
     CustomerDetails,
@@ -258,6 +274,8 @@ export default {
     const visibleCrudForm = ref(false);
     const visibleDetailsModal = ref(false);
 
+    const visibleCustomerExportModal = ref(false);
+
     const visibleCallCustomer = ref(false);
 
     const customerObject = ref(null);
@@ -267,10 +285,10 @@ export default {
     const assignee = ref();
     const assigneePanel = ref(null);
 
-    const clearFilters = () => {
-      filters.value['global'].value = '';
-      console.log('Filtreler temizlendi');
-    }
+    // const clearFilters = () => {
+    //   filters.value['global'].value = '';
+    //   console.log('Filtreler temizlendi');
+    // }
     
     const openCrudForm = (userObject, importable) => {
       if(importable) {
@@ -295,6 +313,14 @@ export default {
     //   visibleDetailsModal.value = false;
     // }
     
+    const openCustomerExportModal = () => {
+      visibleCustomerExportModal.value = true;
+    }
+    
+    const closeCustomerExportModal = () => {
+      visibleCustomerExportModal.value = false;
+    }
+    
     const openCallCustomerModal = (customer) => {
       customerObject.value = customer;
       visibleCallCustomer.value = true;
@@ -310,7 +336,11 @@ export default {
     };
 
     const closeAssigneePanel = (event) => {
-      assigneePanel.value.toggle(event);
+      assigneePanel.value.hide(event);
+      selectedCustomers.value = [];
+    };
+
+    const multipleDeleteWasSuccessful = () => {
       selectedCustomers.value = [];
     };
 
@@ -330,10 +360,14 @@ export default {
       editCustomerObject,
       importMode,
 
-      clearFilters,
+      // clearFilters,
       visibleCrudForm,
       openCrudForm,
       closeCrudForm,
+
+      openCustomerExportModal,
+      closeCustomerExportModal,
+      visibleCustomerExportModal,
 
       visibleDetailsModal,
       openDetailsModal,
@@ -353,6 +387,8 @@ export default {
       assigneePanel,
       toggleAssigneePanel,
       closeAssigneePanel,
+
+      multipleDeleteWasSuccessful,
 
       rowClass,
     };

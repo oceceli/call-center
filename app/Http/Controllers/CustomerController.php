@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CustomersExport;
 use App\Imports\CustomersImport;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
@@ -40,6 +42,13 @@ class CustomerController extends Controller
     }
 
 
+    public function destroyMultiple(Request $request)
+    {
+        Customer::destroy($request->ids);
+        return back();
+    }
+
+
     public function customersAssign(Request $request, User $user) 
     {
         $request->validate(['customers' => 'array|min:1'], ['min' => 'En az 1 atama yapılabilir!'], ['customers' => 'Müşteri']);
@@ -47,10 +56,10 @@ class CustomerController extends Controller
 
         // Yeni atama geçerli sayılacak, müşteri yeni temsilciye atanmış olacak
         foreach ($customers as $customer) {
-            $customer->user()->associate($user);
+            $customer->user()->associate($user)->save();
         }
         
-        return Redirect::back()->with('success', $user->name . ' (' . $user->mainRole() . ') ' . ' kullanıcısına ' . count($customers) . ' adet atama yapıldı...');
+        return Redirect::back()->with('success', ' (' . $user->mainRole() . ') ' . $user->name . ' kullanıcısına ' . count($customers) . ' form atandı...');
     }
 
 
@@ -65,9 +74,6 @@ class CustomerController extends Controller
         try {
             $import = new CustomersImport($request->is_active);
             $import->import($request->excel_file);
-            
-            // dd($import->failures());
-
             foreach($import->failures() as $failure) {
                 $errors[] = $failure->row() . '. ' . 'satırda: (' . $failure->values()['ad'] . ' ' . $failure->values()['soyad'] . ') ' . $failure->errors()[0];
             }
@@ -81,7 +87,7 @@ class CustomerController extends Controller
 
     public function export(Request $request)
     {
-
+        return Excel::download(new CustomersExport, 'Müşteri Listesi - ' . date('d.m.Y') . '.xlsx');
     }
 
 

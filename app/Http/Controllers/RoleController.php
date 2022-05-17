@@ -17,6 +17,7 @@ class RoleController extends Controller
         ]);
     }
 
+    
     public function store(Request $request)
     {
         $data = $this->validatedData($request);
@@ -26,6 +27,7 @@ class RoleController extends Controller
 
         return Redirect::back();
     }
+
 
     public function update(Request $request, Role $role)
     {
@@ -37,6 +39,7 @@ class RoleController extends Controller
         $this->setPermissions($request, $role);
         return Redirect::back();
     }
+
 
     private function setPermissions(Request $request, Role $role)
     {
@@ -54,11 +57,12 @@ class RoleController extends Controller
         }
     }
 
+
     public function destroy(Role $role)
     {
         if(in_array(strtolower($role->name), Role::$untouchables))
-        return Redirect::back();
-        // return Redirect::back()->with('error', 'Admin rolü silinemez!');
+            return Redirect::back();
+            // return Redirect::back()->with('error', 'Admin rolü silinemez!');
 
         $role->permissions()->detach();
         $role->delete();
@@ -66,15 +70,18 @@ class RoleController extends Controller
         // return Redirect::back()->with('success', 'Rol kaldırıldı...');
     }
 
+
     public function availablePerms()
     {
         return Role::getAvailablePerms();
     }
     
+
     public function availableRoles()
     {
         return Role::all();
     }
+
 
     private function validatedData(Request $request, $roleId = null)
     {
