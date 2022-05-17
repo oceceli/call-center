@@ -22652,6 +22652,11 @@ __webpack_require__.r(__webpack_exports__);
       assigneePanel.value.toggle(event);
     };
 
+    var closeAssigneePanel = function closeAssigneePanel(event) {
+      assigneePanel.value.toggle(event);
+      selectedCustomers.value = [];
+    };
+
     var rowClass = function rowClass(row) {
       var _row$call, _row$call2;
 
@@ -22686,6 +22691,7 @@ __webpack_require__.r(__webpack_exports__);
       assignee: assignee,
       assigneePanel: assigneePanel,
       toggleAssigneePanel: toggleAssigneePanel,
+      closeAssigneePanel: closeAssigneePanel,
       rowClass: rowClass
     };
   }
@@ -22824,8 +22830,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   props: {
     selectedCustomers: Array
   },
+  emits: ['close'],
   setup: function setup(__props, _ref) {
-    var expose = _ref.expose;
+    var expose = _ref.expose,
+        emit = _ref.emit;
     expose();
     var props = __props;
     var toast = (0,primevue_usetoast__WEBPACK_IMPORTED_MODULE_4__.useToast)();
@@ -22885,9 +22893,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           });
         }
       });
+      emit('close');
     };
 
     var __returned__ = {
+      emit: emit,
       toast: toast,
       props: props,
       filteredUsers: filteredUsers,
@@ -25377,10 +25387,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Assignee, {
-            selectedCustomers: $setup.selectedCustomers
+            selectedCustomers: $setup.selectedCustomers,
+            onClose: $setup.closeAssigneePanel
           }, null, 8
           /* PROPS */
-          , ["selectedCustomers"])];
+          , ["selectedCustomers", "onClose"])];
         }),
         _: 1
         /* STABLE */

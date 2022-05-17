@@ -34,7 +34,7 @@
                 <Button @click="toggleAssigneePanel" v-show="selectedCustomers.length" type="button" icon="pi pi-link" label="Kullanıcıya ata" class="p-button-sm p-button-success"/>
 
                 <OverlayPanel ref="assigneePanel" :showCloseIcon="true" :dismissable="false" :breakpoints="{'960px': '75vw', '640px': '100vw'}" :style="{width: '450px'}">
-                  <Assignee :selectedCustomers="selectedCustomers" />
+                  <Assignee :selectedCustomers="selectedCustomers" @close="closeAssigneePanel" />
                 </OverlayPanel>
 
             </div>
@@ -296,6 +296,11 @@ export default {
         assigneePanel.value.toggle(event);
     };
 
+    const closeAssigneePanel = (event) => {
+      assigneePanel.value.toggle(event);
+      selectedCustomers.value = [];
+    };
+
     const rowClass = (row) => {
       if(!row.is_active) {
         return 'bg-slate-100 text-gray-400 cursor-not-allowed';
@@ -333,6 +338,7 @@ export default {
       assignee,
       assigneePanel,
       toggleAssigneePanel,
+      closeAssigneePanel,
 
       rowClass,
     };

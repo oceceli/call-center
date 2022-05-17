@@ -6,6 +6,8 @@ import AutoComplete from 'primevue/autocomplete';
 import Button from 'primevue/button';
 import { useToast } from 'primevue/usetoast';
 
+const emit = defineEmits(['close']);
+
 const toast = useToast();
 
 const props = defineProps({
@@ -58,6 +60,7 @@ const submit = () => {
             toast.add({severity: 'success', summary: 'Atama yapıldı', detail: usePage().props.value.flash.success, life: 3000});
         }
     });
+    emit('close');
 };
 
 
