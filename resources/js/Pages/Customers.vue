@@ -1,3 +1,126 @@
+<script setup>
+import AppLayout from '../Layouts/App.vue';
+import CallCustomer from "./Forms/CallCustomer.vue";
+import CustomerForm from "./Forms/CustomerForm.vue";
+import CustomerDetails from "./Details/CustomerDetails.vue";
+import UserAvatar from "../Components/UserAvatar.vue";
+
+import DataTable from "primevue/datatable/DataTable.vue";
+import Column from "primevue/column/Column.vue";
+import Button from 'primevue/button';
+import {FilterMatchMode} from 'primevue/api';
+
+import { ref, watchEffect } from 'vue';
+import { useToast } from 'primevue/usetoast';
+import DeleteButton from "@/Components/DeleteButton.vue";
+
+import OverlayPanel from 'primevue/overlaypanel';
+import Assignee from './Forms/Assignee.vue';
+import CustomerExportForm from './Forms/CustomerExportForm.vue';
+
+const editCustomerObject = ref(null);
+  const importMode = ref(false);
+
+  const tableLoading = ref(false); // !!!!!
+  const buttonsLoading = ref(false); // !!!!
+  const filters = ref({'global': {value: '', matchMode: FilterMatchMode.CONTAINS}});
+
+  const visibleCrudForm = ref(false);
+  const visibleDetailsModal = ref(false);
+
+  const visibleCustomerExportModal = ref(false);
+
+  const visibleCallCustomer = ref(false);
+
+  const customerObject = ref(null);
+
+  const selectedCustomers = ref([]);
+
+  const assignee = ref();
+  const assigneePanel = ref(null);
+
+  // const clearFilters = () => {
+  //   filters.value['global'].value = '';
+  //   console.log('Filtreler temizlendi');
+  // }
+  
+  const openCrudForm = (userObject, importable) => {
+    if(importable) {
+      importMode.value = importable;
+    }
+    editCustomerObject.value = userObject;
+    visibleCrudForm.value = true;
+  }
+
+  const closeCrudForm = () => {
+    importMode.value = false;
+    editCustomerObject.value = null;
+    visibleCrudForm.value = false;
+  };
+
+  const openDetailsModal = (customer) => {
+    customerObject.value = customer;
+    visibleDetailsModal.value = true;
+  }
+  
+  // const closeDetailsModal = () => {
+  //   visibleDetailsModal.value = false;
+  // }
+  
+  const openCustomerExportModal = () => {
+    visibleCustomerExportModal.value = true;
+  }
+  
+  const closeCustomerExportModal = () => {
+    visibleCustomerExportModal.value = false;
+  }
+  
+  const openCallCustomerModal = (customer) => {
+    customerObject.value = customer;
+    visibleCallCustomer.value = true;
+  }
+  
+  const closeCallCustomerModal = () => {
+    customerObject.value = null;
+    visibleCallCustomer.value = false;
+  }
+
+  const toggleAssigneePanel = (event) => {
+      assigneePanel.value.toggle(event);
+  };
+
+  const closeAssigneePanel = (event) => {
+    assigneePanel.value.hide(event);
+    selectedCustomers.value = [];
+  };
+
+  const multipleDeleteWasSuccessful = () => {
+    selectedCustomers.value = [];
+  };
+
+  const rowClass = (row) => {
+    if(!row.is_active) {
+      return 'bg-slate-100 text-gray-400 cursor-not-allowed';
+    }
+    if(row.call?.status.enum == 'BUSY') {
+      return 'bg-red-50 text-gray-400 hover:bg-red-100';
+    } else if(row.call?.status.enum == 'POSITIVE') {
+      return 'bg-lime-50 text-gray-400 hover:bg-lime-100';
+    }
+  };
+
+</script>
+<script>
+export default {
+  layout: AppLayout,
+  props: {
+    customers: Object,
+  },
+}
+</script>
+
+
+
 <template>
     <DataTable :value="customers"  
     class="p-datatable-sm  text-sm"
@@ -23,7 +146,7 @@
     currentPageReportTemplate="{first} ile {last} arası gösteriliyor"
 
     v-model:filters="filters"
-    :globalFilterFields="['name', 'surname', 'email', 'phone', 'city', 'source', 'category', 'is_active', 'call.status.tr', 'call?.score', 'call?.note']"
+    :globalFilterFields="['name', 'surname', 'email', 'phone', 'city', 'source', 'category', 'is_active', 'call.status.tr', 'call?.score', 'call?.note', 'user.name']"
     filterDisplay="menu"
 
     >
@@ -217,183 +340,3 @@
 
   </DataTable>
 </template>
-
-
-
-
-<script>
-import AppLayout from '../Layouts/App.vue';
-import CallCustomer from "./Forms/CallCustomer.vue";
-import CustomerForm from "./Forms/CustomerForm.vue";
-import CustomerDetails from "./Details/CustomerDetails.vue";
-import UserAvatar from "../Components/UserAvatar.vue";
-
-import DataTable from "primevue/datatable/DataTable.vue";
-import Column from "primevue/column/Column.vue";
-import Button from 'primevue/button';
-import {FilterMatchMode} from 'primevue/api';
-
-import { ref, watchEffect } from 'vue';
-import { useToast } from 'primevue/usetoast';
-import DeleteButton from "@/Components/DeleteButton.vue";
-
-import OverlayPanel from 'primevue/overlaypanel';
-import Assignee from './Forms/Assignee.vue';
-import CustomerExportForm from './Forms/CustomerExportForm.vue';
-
-export default {
-  layout: AppLayout,
-  props: {
-    customers: Object,
-  },
-  components: {
-    DataTable,
-    Column,
-    Button,
-    CustomerForm,
-    CustomerExportForm,
-    UserAvatar,
-    useToast,
-    CustomerDetails,
-    CallCustomer,
-    DeleteButton,
-
-    OverlayPanel,
-    Assignee,
-  },
-
-
-  setup() {
-    const editCustomerObject = ref(null);
-    const importMode = ref(false);
-
-    const tableLoading = ref(false); // !!!!!
-    const buttonsLoading = ref(false); // !!!!
-    const filters = ref({'global': {value: '', matchMode: FilterMatchMode.CONTAINS}});
-
-    const visibleCrudForm = ref(false);
-    const visibleDetailsModal = ref(false);
-
-    const visibleCustomerExportModal = ref(false);
-
-    const visibleCallCustomer = ref(false);
-
-    const customerObject = ref(null);
-
-    const selectedCustomers = ref([]);
-
-    const assignee = ref();
-    const assigneePanel = ref(null);
-
-    // const clearFilters = () => {
-    //   filters.value['global'].value = '';
-    //   console.log('Filtreler temizlendi');
-    // }
-    
-    const openCrudForm = (userObject, importable) => {
-      if(importable) {
-        importMode.value = importable;
-      }
-      editCustomerObject.value = userObject;
-      visibleCrudForm.value = true;
-    }
-
-    const closeCrudForm = () => {
-      importMode.value = false;
-      editCustomerObject.value = null;
-      visibleCrudForm.value = false;
-    };
-
-    const openDetailsModal = (customer) => {
-      customerObject.value = customer;
-      visibleDetailsModal.value = true;
-    }
-    
-    // const closeDetailsModal = () => {
-    //   visibleDetailsModal.value = false;
-    // }
-    
-    const openCustomerExportModal = () => {
-      visibleCustomerExportModal.value = true;
-    }
-    
-    const closeCustomerExportModal = () => {
-      visibleCustomerExportModal.value = false;
-    }
-    
-    const openCallCustomerModal = (customer) => {
-      customerObject.value = customer;
-      visibleCallCustomer.value = true;
-    }
-    
-    const closeCallCustomerModal = () => {
-      customerObject.value = null;
-      visibleCallCustomer.value = false;
-    }
-
-    const toggleAssigneePanel = (event) => {
-        assigneePanel.value.toggle(event);
-    };
-
-    const closeAssigneePanel = (event) => {
-      assigneePanel.value.hide(event);
-      selectedCustomers.value = [];
-    };
-
-    const multipleDeleteWasSuccessful = () => {
-      selectedCustomers.value = [];
-    };
-
-    const rowClass = (row) => {
-      if(!row.is_active) {
-        return 'bg-slate-100 text-gray-400 cursor-not-allowed';
-      }
-      if(row.call?.status.enum == 'BUSY') {
-        return 'bg-red-50 text-gray-400 hover:bg-red-100';
-      } else if(row.call?.status.enum == 'POSITIVE') {
-        return 'bg-lime-50 text-gray-400 hover:bg-lime-100';
-      }
-    };
-
-    return {
-      filters,
-      editCustomerObject,
-      importMode,
-
-      // clearFilters,
-      visibleCrudForm,
-      openCrudForm,
-      closeCrudForm,
-
-      openCustomerExportModal,
-      closeCustomerExportModal,
-      visibleCustomerExportModal,
-
-      visibleDetailsModal,
-      openDetailsModal,
-      // closeDetailsModal,
-      customerObject,
-
-      tableLoading,
-      buttonsLoading,
-
-      openCallCustomerModal,
-      closeCallCustomerModal,
-      visibleCallCustomer,
-
-      selectedCustomers,
-
-      assignee,
-      assigneePanel,
-      toggleAssigneePanel,
-      closeAssigneePanel,
-
-      multipleDeleteWasSuccessful,
-
-      rowClass,
-    };
-  },
-
-
-}
-</script>

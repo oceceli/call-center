@@ -11,7 +11,7 @@ class Customer extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $with = ['user', 'call'];
+    protected $with = ['user:id,name', 'call'];
     // protected $appends = ['is_called'];
 
     protected $casts = [

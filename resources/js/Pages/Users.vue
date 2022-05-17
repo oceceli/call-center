@@ -60,12 +60,13 @@
     </Column>
     <Column field="email" header="E-posta" sortable></Column>
     <Column field="roles.0.name" header="Kullanıcı Rolü" sortable></Column>
-    <Column field="customers_count" header="Atandı" sortable>
+    <Column field="customers_count" header="Mevcut Atama" sortable>
         <template #body="{data}">
             <span class="text-lg font-bold text-cyan-600">{{data.customers_count}}</span>
         </template>
     </Column>
     <Column field="called_customers_count" header="Arandı" sortable></Column>
+    <Column field="called_customers_count" header="İşlem Bekleyen" sortable></Column>
     <Column header="İşlem">
         <template #body="content">
             <span class="p-buttonset text-xs">
