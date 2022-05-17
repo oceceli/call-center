@@ -11,6 +11,8 @@
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.7",
+        "maatwebsite/excel": "^3.1",
+        "psr/simple-cache": "^1.0",
         "spatie/laravel-permission": "^5.5",
         "tightenco/ziggy": "^1.0"
     },

@@ -43,6 +43,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::patch('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update');
     Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
     
+    Route::post('/customers_import', [CustomerController::class, 'import'])->name('customers_import');
+    Route::post('/customers_export', [CustomerController::class, 'export'])->name('customers_export');
     Route::post('/customers_assign/{user}', [CustomerController::class, 'customersAssign'])->name('customers_assign');
 
     Route::post('/call/{customer}', [CallController::class, 'store'])->name('call.post');

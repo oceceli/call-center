@@ -30,12 +30,18 @@
     <template #header>
         <div class="flex items-center justify-between py-3 pl-2 md:pl-0">
             <div class="flex gap-2">
-                <Button type="button" @click="openCrudForm(null)" icon="pi pi-plus" label="Ekle" class="p-button-outlined p-button-sm"/>
-                <Button @click="toggleAssigneePanel" v-show="selectedCustomers.length" type="button" icon="pi pi-link" label="Kullanıcıya ata" class="p-button-sm p-button-success"/>
+              <span class="p-buttonset text-xs">
+                  <Button type="button" @click="openCrudForm(null, true)" icon="pi pi-upload" label="İmport" class="p-button-sm"/>
+                  <Button type="button" @click="openCrudForm(null)" icon="pi pi-plus" label="Ekle" class="p-button-outlined p-button-sm"/>
+              </span>
+              <span v-show="selectedCustomers.length" class="p-buttonset text-xs">
+                <Button @click="toggleAssigneePanel" type="button" icon="pi pi-link" label="Kullanıcıya ata" class="p-button-sm p-button-success"/>
+                <Button type="button" @click="openCrudForm(null, true)" icon="pi pi-download" label="Export" class="p-button-sm p-button-outlined"/>
 
-                <OverlayPanel ref="assigneePanel" :showCloseIcon="true" :dismissable="false" :breakpoints="{'960px': '75vw', '640px': '100vw'}" :style="{width: '450px'}">
-                  <Assignee :selectedCustomers="selectedCustomers" @close="closeAssigneePanel" />
-                </OverlayPanel>
+              </span>
+              <OverlayPanel ref="assigneePanel" :showCloseIcon="true" :dismissable="false" :breakpoints="{'960px': '75vw', '640px': '100vw'}" :style="{width: '450px'}">
+                <Assignee :selectedCustomers="selectedCustomers" @close="closeAssigneePanel" />
+              </OverlayPanel>
 
             </div>
             <div class="flex gap-5">
@@ -155,13 +161,13 @@
     </template>
 
 
-    <Dialog :header="editCustomerObject ? 'Müşteri Düzenle' : 'Müşteri Ekle'" v-model:visible="visibleCrudForm" :style="{width: '50vw'}"
+    <Dialog :header="editCustomerObject ? 'Müşteri Düzenle' : 'Müşteri Ekle'" v-model:visible="visibleCrudForm" @hide="closeCrudForm" :style="{width: '50vw'}"
     closeOnEscape
     modal
     maximizable
     :breakpoints="{'960px': '75vw', '640px': '100vw'}"
     >
-        <CustomerForm @close="closeCrudForm" :editCustomerObject="editCustomerObject"></CustomerForm>
+        <CustomerForm @close="closeCrudForm" :editCustomerObject="editCustomerObject" :importMode="importMode"></CustomerForm>
     </Dialog>
     
     
@@ -243,6 +249,8 @@ export default {
 
   setup() {
     const editCustomerObject = ref(null);
+    const importMode = ref(false);
+
     const tableLoading = ref(false); // !!!!!
     const buttonsLoading = ref(false); // !!!!
     const filters = ref({'global': {value: '', matchMode: FilterMatchMode.CONTAINS}});
@@ -264,12 +272,17 @@ export default {
       console.log('Filtreler temizlendi');
     }
     
-    const openCrudForm = (userObject) => {
+    const openCrudForm = (userObject, importable) => {
+      if(importable) {
+        importMode.value = importable;
+      }
       editCustomerObject.value = userObject;
       visibleCrudForm.value = true;
     }
 
     const closeCrudForm = () => {
+      importMode.value = false;
+      editCustomerObject.value = null;
       visibleCrudForm.value = false;
     };
 
@@ -315,6 +328,7 @@ export default {
     return {
       filters,
       editCustomerObject,
+      importMode,
 
       clearFilters,
       visibleCrudForm,

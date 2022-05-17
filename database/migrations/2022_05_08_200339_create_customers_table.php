@@ -20,11 +20,11 @@ return new class extends Migration
             
             $table->string('name');
             $table->string('surname');
-            $table->string('phone');
+            $table->string('phone')->unique();
 
             $table->boolean('is_active');
 
-            $table->string('email')->nullable();
+            $table->string('email')->nullable()->unique();
             $table->string('city')->nullable();
             $table->string('source')->nullable();
             $table->string('category')->nullable();

@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::create(['name' => 'test','email' => 'test@test.com', 'password' => '$2a$12$FwCduObDSYCMq0wtkipfM.sOVKniWD2.vxpiuDPVGyaI//FnDxeKG', 'is_active' => '1']); // 444444444
-        User::factory(50)->create();
-        Customer::factory(200)->create();
-        Call::factory(10)->create();
+        // User::factory(50)->create();
+        // Customer::factory(200)->create();
+        // Call::factory(10)->create();
 
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);

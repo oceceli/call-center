@@ -54,6 +54,16 @@ class Customer extends Model
         return ucwords($value);
     }
     
+    public function getCityAttribute($value)
+    {
+        return ucwords($value);
+    }
+    
+    public function getCategoryAttribute($value)
+    {
+        return ucwords($value);
+    }
+    
     public function setSourceAttribute($value)
     {
         $this->attributes['source'] = strtolower($value);

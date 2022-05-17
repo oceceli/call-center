@@ -70,7 +70,7 @@
             </span>
           </div>
 
-          <input :disabled="disableFormFields" name="img_url" @change="form.img_url = $event.target.files[0]" type="file" class="absolute opacity-0 h-full w-full" />
+          <input :disabled="disableFormFields" accept="image/*" name="img_url" @change="form.img_url = $event.target.files[0]" type="file" class="absolute opacity-0 h-full w-full" />
           <div v-if="form.img_url">
             {{ form.img_url.name }}
           </div>

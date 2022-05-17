@@ -50,6 +50,7 @@ class HandleInertiaRequests extends Middleware
                 return [
                     'success' => $request->session()->get('success'),
                     'error' => $request->session()->get('error'),
+                    'failures' => $request->session()->get('failures'),
                 ];
             },
             'ziggy' => function () {
