@@ -1,29 +1,39 @@
 <script setup>
 import AppLayout from '../Layouts/App.vue';
+import debounce from "lodash/debounce"
 import CallCustomer from "./Forms/CallCustomer.vue";
 import CustomerForm from "./Forms/CustomerForm.vue";
 import CustomerDetails from "./Details/CustomerDetails.vue";
 import UserAvatar from "../Components/UserAvatar.vue";
+import Paginator from "@/Components/Paginator.vue";
 
 import DataTable from "primevue/datatable/DataTable.vue";
 import Column from "primevue/column/Column.vue";
 import Button from 'primevue/button';
 import {FilterMatchMode} from 'primevue/api';
 
-import { ref, watchEffect } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import DeleteButton from "@/Components/DeleteButton.vue";
 
 import OverlayPanel from 'primevue/overlaypanel';
 import Assignee from './Forms/Assignee.vue';
 import CustomerExportForm from './Forms/CustomerExportForm.vue';
+import { useForm } from '@inertiajs/inertia-vue3';
+import { Inertia } from '@inertiajs/inertia';
 
-const editCustomerObject = ref(null);
+  const props = defineProps({
+    customers: Object,
+    filters: Object,
+  });
+
+  const editCustomerObject = ref(null);
   const importMode = ref(false);
 
   const tableLoading = ref(false); // !!!!!
   const buttonsLoading = ref(false); // !!!!
-  const filters = ref({'global': {value: '', matchMode: FilterMatchMode.CONTAINS}});
+  // const filters = ref({'global': {value: '', matchMode: FilterMatchMode.CONTAINS}});
+  const search = ref(props.filters.search);
 
   const visibleCrudForm = ref(false);
   const visibleDetailsModal = ref(false);
@@ -38,12 +48,29 @@ const editCustomerObject = ref(null);
 
   const assignee = ref();
   const assigneePanel = ref(null);
-
-  // const clearFilters = () => {
-  //   filters.value['global'].value = '';
-  //   console.log('Filtreler temizlendi');
-  // }
   
+  const perPage = ref(20);
+
+  watch(perPage, val => {
+    inertiaGet();
+  });
+
+  watch(search, debounce(() => {
+    inertiaGet();
+  }, 500));
+  
+
+  const inertiaGet = () => {
+    Inertia.get(route('customers'), {
+        search: search.value,
+        perPage: perPage.value,
+      }, {
+      preserveState: true,
+      replace: true,
+    })
+  };
+
+
   const openCrudForm = (userObject, importable) => {
     if(importable) {
       importMode.value = importable;
@@ -98,6 +125,7 @@ const editCustomerObject = ref(null);
     selectedCustomers.value = [];
   };
 
+
   const rowClass = (row) => {
     if(!row.is_active) {
       return 'bg-slate-100 text-gray-400 cursor-not-allowed';
@@ -113,16 +141,15 @@ const editCustomerObject = ref(null);
 <script>
 export default {
   layout: AppLayout,
-  props: {
-    customers: Object,
-  },
 }
 </script>
 
 
 
 <template>
-    <DataTable :value="customers"  
+    <!-- <Head title="Müşteri Listesi"> -->
+    
+    <DataTable :value="customers.data"
     class="p-datatable-sm  text-sm"
     :rowClass="rowClass"
     
@@ -139,58 +166,64 @@ export default {
     
     :loading="tableLoading"
 
-    :paginator="true" 
-    :rows="20" 
-    :rowsPerPageOptions="[10,20,30,50]"
-    paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
     currentPageReportTemplate="{first} ile {last} arası gösteriliyor"
 
-    v-model:filters="filters"
     :globalFilterFields="['name', 'surname', 'email', 'phone', 'city', 'source', 'category', 'is_active', 'call.status.tr', 'call?.score', 'call?.note', 'user.name']"
     filterDisplay="menu"
 
     >
+    <!-- v-model:filters="filters" -->
+    <!-- :paginator="true" 
+    paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+    :rows="20" 
+    :rowsPerPageOptions="[10,20,30,50]" -->
     <template #header>
         <div class="flex items-center justify-between py-3 pl-2 md:pl-0">
-            <div class="flex gap-2">
-              <span v-if="selectedCustomers.length" class="p-buttonset text-xs">
-                <Button @click="toggleAssigneePanel" type="button" icon="pi pi-link" label="Kullanıcıya ata" class="p-button-sm p-button-warning"/>
-                <DeleteButton @deleted="multipleDeleteWasSuccessful()" :multipleData="selectedCustomers" toastInfo="Seçilen müşteri bilgileri silindi" :deleteRoute="route('customers_destroy_multiple')" customClass="p-button-outlined" />
-              </span>
-              <span v-else class="p-buttonset text-xs">
-                  <Button type="button" @click="openCrudForm(null, true)" icon="pi pi-upload" label="İmport" class="p-button-sm"/>
-                  <Button type="button" @click="openCrudForm(null)" icon="pi pi-plus" label="Ekle" class="p-button-outlined p-button-sm"/>
-              </span>
-              <OverlayPanel ref="assigneePanel" :showCloseIcon="true" :dismissable="false" :breakpoints="{'960px': '75vw', '640px': '100vw'}" :style="{width: '450px'}">
-                <Assignee :selectedCustomers="selectedCustomers" @close="closeAssigneePanel" />
-              </OverlayPanel>
+          <div class="flex gap-2">
+            <span v-if="selectedCustomers.length" class="p-buttonset text-xs">
+              <Button @click="toggleAssigneePanel" type="button" icon="pi pi-link" label="Kullanıcıya ata" class="p-button-sm p-button-warning"/>
+              <DeleteButton @deleted="multipleDeleteWasSuccessful()" :multipleData="selectedCustomers" toastInfo="Seçilen müşteri bilgileri silindi" :deleteRoute="route('customers_destroy_multiple')" customClass="p-button-outlined" />
+            </span>
+            <span v-else class="p-buttonset text-xs">
+                <Button type="button" @click="openCrudForm(null, true)" icon="pi pi-upload" label="İmport" class="p-button-sm"/>
+                <Button type="button" @click="openCrudForm(null)" icon="pi pi-plus" label="Ekle" class="p-button-outlined p-button-sm"/>
+            </span>
+            <OverlayPanel ref="assigneePanel" :showCloseIcon="true" :dismissable="false" :breakpoints="{'960px': '75vw', '640px': '100vw'}" :style="{width: '450px'}">
+              <Assignee :selectedCustomers="selectedCustomers" @close="closeAssigneePanel" />
+            </OverlayPanel>
 
-            </div>
-            <div class="flex gap-5">
-                <!-- <Button type="button" icon="pi pi-filter-slash" label="Temizle" class="p-button-text p-button-rounded p-button-sm" @click="clearFilters()"/> -->
-              <span class="p-buttonset text-xs flex items-center">
-                <Button type="button" @click="openCustomerExportModal()" icon="pi pi-file-excel" label="Export" class="p-button-sm p-button-outlined rounded"/>
-              </span>
-                <div hidden class="md:block">
-                    <div class="relative flex items-center text-gray-400 focus-within:text-cyan-400">
-                        <span class="absolute left-4 h-6 flex items-center pr-3 border-r border-gray-300">
-                        <i class="pi pi-search"></i>
-                        </span>
-                        <input v-model="filters['global'].value" type="search" name="leadingIcon" id="leadingIcon" placeholder="Tabloda ara" class="w-full pl-14 pr-4 py-2.5 rounded-xl text-sm text-gray-600 outline-none border border-gray-300 focus:border-cyan-300 transition">
-                    </div>
-                </div>
-            </div>
-        </div>
+          </div>
+          <div class="flex gap-5">
+              <!-- <Button type="button" icon="pi pi-filter-slash" label="Temizle" class="p-button-text p-button-rounded p-button-sm" @click="clearFilters()"/> -->
+            <span class="p-buttonset text-xs flex items-center">
+              <Button type="button" @click="openCustomerExportModal()" icon="pi pi-file-excel" label="Export" class="p-button-sm p-button-outlined rounded"/>
+            </span>
+              <div hidden class="md:block">
+                  <div class="relative flex items-center text-gray-400 focus-within:text-cyan-400">
+                      <span class="absolute left-4 h-6 flex items-center pr-3 border-r border-gray-300">
+                      <i class="pi pi-search"></i>
+                      </span>
+                      <input v-model="search" type="search" name="leadingIcon" id="leadingIcon" placeholder="Veritabanında ara" class="w-full pl-14 pr-4 py-2.5 rounded-xl text-sm text-gray-600 outline-none border border-gray-300 focus:border-cyan-300 transition">
+                  </div>
+              </div>
+          </div>
+      </div>
+      <hr class="pt-2 mt-2">
+      <div class="">
+        test
+      </div>
     </template>
+
+
     <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
     
     <Column field="user.name" header="Temsilci" sortable>
       <template #body="{data}">
-        <div v-if="data.user" class="font-bold text-green-600">
+        <div v-if="data.user" class="font-bold text-green-600 hover:text-green-500 ease-in-out duration-100">
           {{ data.user?.name }}
         </div>
         <div v-else>
-          <i class="pi pi-times text-red-500"></i>
+          <i class="pi pi-times text-red-500" title="Atanmadı..."></i>
         </div>
       </template>
     </Column>
@@ -276,15 +309,21 @@ export default {
     </Column>
     
 
-    <template #paginatorstart>
-        <!-- <Button type="button" icon="pi pi-refresh" class="p-button-text" /> -->
-    </template>
+    <!-- <template #paginatorstart>
+
+    </template> -->
 
 
     <template #footer>
         <div class="flex items-center justify-between border border-dashed p-3 -mx-2">
             <div>
-                Toplam kayıt: {{customers ? customers.length : 0 }}
+                Toplam kayıt: {{customers.data ? customers.total : 0 }}
+            </div>
+            <div class="flex gap-5 justify-center items-center">
+              <Paginator :model="customers" />
+              <div>
+                  <input v-model="perPage" type="number" step="5" min="5" class="w-20 text-sm rounded">
+              </div>
             </div>
         </div>
     </template>

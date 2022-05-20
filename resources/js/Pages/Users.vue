@@ -1,5 +1,67 @@
+<script setup>
+import AppLayout from "../Layouts/App.vue";
+import UserForm from "./Forms/UserForm.vue";
+import UserAvatar from "@/Components/UserAvatar.vue";
+import Paginator from "@/Components/Paginator.vue";
+
+import DataTable from "primevue/datatable/DataTable.vue";
+import Column from "primevue/column/Column.vue";
+import Button from 'primevue/button';
+import {FilterMatchMode} from 'primevue/api';
+
+import { ref } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
+// import { useToast } from 'primevue/usetoast';
+// import { useConfirm } from "primevue/useconfirm";
+import DeleteButton from '@/Components/DeleteButton.vue';
+import { usePage } from '@inertiajs/inertia-vue3';
+
+const props = defineProps({
+    users: Object,
+});
+
+const buttonsLoading = false;
+const tableLoading = false;
+const visibleCrudForm = ref(false);
+const editUserObject = ref(null)
+const filters = ref({'global': {value: '', matchMode: FilterMatchMode.CONTAINS}});
+// const toast = useToast();
+
+const flashError = () => {
+    return usePage().props.value.flash?.error;
+};
+
+const rowClass = (data) => {
+    return data.is_active == '0' ? 'bg-red-100' : null;
+};
+
+const clearFilters = () => {
+    filters.value['global'].value = '';
+    console.log('Filtreler temizlendi');
+}
+
+const openCrudForm = (userObject) => {
+    editUserObject.value = userObject;
+    visibleCrudForm.value = true;
+}
+
+const closeCrudForm = () => {
+    visibleCrudForm.value = false;
+};
+
+</script>
+
+<script>
+export default {
+  layout: AppLayout,
+};
+</script>
+
+
+
+
 <template>
-  <DataTable :value="users" 
+  <DataTable :value="users.data" 
     class="p-datatable-sm text-sm"
     :rowClass="rowClass"
 
@@ -13,17 +75,17 @@
     
     :loading="tableLoading"
 
-    :paginator="true" 
-    :rows="10" 
-    :rowsPerPageOptions="[10,20,30]"
-    paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-    currentPageReportTemplate="{first} ile {last} arası gösteriliyor"
 
     v-model:filters="filters"
     :globalFilterFields="['name','email']"
     filterDisplay="menu"
     
     >
+    <!-- :paginator="true" 
+    :rows="10" 
+    :rowsPerPageOptions="[10,20,30]"
+    paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+    currentPageReportTemplate="{first} ile {last} arası gösteriliyor" -->
     <template #header>
         <div class="flex items-center justify-between py-3 pl-2 md:pl-0">
             <div>
@@ -87,7 +149,10 @@
     <template #footer>
         <div class="flex items-center justify-between border border-dashed p-3 -mx-2">
             <div>
-                Toplam kayıt: {{users ? users.length : 0 }}
+                Toplam kayıt: {{users.data ? users.total : 0 }}
+            </div>
+            <div>
+                <Paginator :model="users" />
             </div>
         </div>
     </template>
@@ -116,113 +181,8 @@
 
   </DataTable>
 </template>
-<script>
-import AppLayout from "../Layouts/App.vue";
-import UserForm from "./Forms/UserForm.vue";
-import UserAvatar from "../Components/UserAvatar.vue";
-
-import DataTable from "primevue/datatable/DataTable.vue";
-import Column from "primevue/column/Column.vue";
-import Button from 'primevue/button';
-import {FilterMatchMode} from 'primevue/api';
-
-import { ref } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
-// import { useToast } from 'primevue/usetoast';
-// import { useConfirm } from "primevue/useconfirm";
-import DeleteButton from '@/Components/DeleteButton.vue';
-import { usePage } from '@inertiajs/inertia-vue3';
 
 
-
-// import SearchBar from '../Components/SearchBar.vue';
-export default {
-  layout: AppLayout,
-  components: {
-    DataTable,
-    Column,
-    Button,
-    UserForm,
-    UserAvatar,
-    // useToast,
-    DeleteButton,
-      // SearchBar,
-  },
-  props: {
-    users: Object,
-  },
-  setup() {
-    const buttonsLoading = false;
-    const tableLoading = false;
-    const visibleCrudForm = ref(false);
-    const editUserObject = ref(null)
-    const filters = ref({'global': {value: '', matchMode: FilterMatchMode.CONTAINS}});
-    // const toast = useToast();
-    
-    const flashError = () => {
-        return usePage().props.value.flash?.error;
-    };
-
-    const rowClass = (data) => {
-        return data.is_active == '0' ? 'bg-red-100' : null;
-    };
-
-    const clearFilters = () => {
-        filters.value['global'].value = '';
-        console.log('Filtreler temizlendi');
-    }
-    
-    const openCrudForm = (userObject) => {
-        editUserObject.value = userObject;
-        visibleCrudForm.value = true;
-    }
-
-    const closeCrudForm = () => {
-        visibleCrudForm.value = false;
-    };
-
-    // const confirm = useConfirm();
-    // const deleteUser = (event, userId) => {
-    //     confirm.require({
-    //         target: event.currentTarget,
-    //         message: 'Emin misiniz?',
-    //         icon: 'pi pi-exclamation-triangle',
-    //         acceptLabel: 'Evet',
-    //         rejectLabel: 'Vazgeç',
-    //         accept: () => {
-    //             Inertia.delete(route('users.destroy', {'user': userId}), {
-    //                 onSuccess: () => {
-    //                     toast.add({severity: 'success', summary: 'Silindi', detail: 'Kullanıcı silindi!', life: 3000})
-    //                 },
-    //             });
-    //         },
-    //         reject: () => {
-    //             //callback to execute when user rejects the action
-    //         }
-    //     });
-
- 
-    // };
-
-
-    return { 
-    buttonsLoading, 
-    clearFilters, 
-    filters, 
-    tableLoading, 
-    visibleCrudForm, 
-    openCrudForm,
-    editUserObject,
-    closeCrudForm,
-    // deleteUser,
-    rowClass,
-    flashError,
-    };
-  },   
-
-  
-};
-</script>
 
 
 

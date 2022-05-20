@@ -30,7 +30,7 @@
             <!-- <button class="flex space-x-4 rounded-md text-gray-600"> -->
             <Link :href="route('logout')" method="post" as="button" type="button" class="hover:text-red-500 p-6">
                 <i class="pi pi-sign-out pr-2"></i>
-                Logout
+                Çıkış yap
             </Link>
             <!-- </button> -->
         </div>

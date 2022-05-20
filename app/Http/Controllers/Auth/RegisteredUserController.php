@@ -22,9 +22,8 @@ class RegisteredUserController extends Controller
     public function index()
     {
         return Inertia::render('Users', [
-            // 'users' => cache()->rememberForever('users', function() {
-            'users' => User::with(['roles:id,name'])->withCount('customers')->get(),
-            // })
+            // 'users' => User::with(['roles:id,name'])->withCount('customers')->get(),
+            'users' => User::withCount('customers')->with('roles:id,name')->paginate(20),
         ]);
     }
 

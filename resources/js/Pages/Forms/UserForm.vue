@@ -161,11 +161,11 @@ export default {
       });
 
       if(props.editUserObject) {
-        // console.log(props.editUserObject);
+        // console.log(props.editUserObject); return;
         editMode.value = true;
         form.name = props.editUserObject.name;
         form.email = props.editUserObject.email;
-        if(props.editUserObject.roles[0]) {
+        if(props.editUserObject.roles && props.editUserObject.roles.length > 0) {
           form.role_id = props.editUserObject.roles[0].id;
         }
         form.is_active = Boolean(props.editUserObject.is_active);

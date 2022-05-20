@@ -19,6 +19,10 @@ class Customer extends Model
         'updated_at' => 'datetime:d.m.Y H:i',
     ];
 
+    public static $searchColumns = [
+        'name', 'surname', 'phone', 'email', 'city', 'source', 'category',
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }

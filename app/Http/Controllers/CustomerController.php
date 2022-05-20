@@ -14,10 +14,24 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::fetchAll();
-        return Inertia::render('Customers', compact('customers'));
+        $mainQuery = Customer::query();
+
+        if($request->search) {
+            foreach (Customer::$searchColumns as $column) {
+                $mainQuery->orWhere($column, 'LIKE', "%{$request->search}%");
+            }
+        }
+
+        return Inertia::render('Customers', [
+            'customers' => $mainQuery
+                ->paginate($request->perPage ?? 20)
+                ->withQueryString(),
+
+            'filters' => $request->only(['search']),
+                
+        ]);
     }
 
 

@@ -26,6 +26,7 @@
         "vue-loader": "^17.0.0"
     },
     "dependencies": {
+        "lodash.debounce": "^4.0.8",
         "primeicons": "^5.0.0",
         "primevue": "^3.12.6"
     }

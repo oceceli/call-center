@@ -80,7 +80,7 @@
       
       <div class="flex flex-col">
         <label class="leading-loose">E-posta</label>
-        <input :disabled="disableFormFields" v-model="form.email" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-cyan-500 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="off" placeholder="E-posta">
+        <input :disabled="disableFormFields" v-model="form.email" type="email" class="px-4 py-2 border focus:ring-gray-500 focus:border-cyan-500 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 placeholder:text-gray-300" autocomplete="off" placeholder="E-posta">
         <div v-if="form.errors.email">
           <small class="text-xs text-red-500">{{ form.errors.email }}</small>
         </div>

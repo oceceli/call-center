@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="font-size: 1rem;">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="font-size: 0.88rem;">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,6 +19,7 @@
         
         
         <!-- Scripts -->
+        <script src="{{ mix('js/app.js') }}" defer></script>
         @routes
         @inertiaHead
     </head>
@@ -32,7 +33,6 @@
         {{-- <script src="https://unpkg.com/primevue/core/core.min.js"></script>
         <script src="https://unpkg.com/primevue/slider/slider.min.js"></script> --}}
         
-        <script src="{{ mix('js/app.js') }}" defer></script>
     </body>
 </html>
 
