@@ -12,14 +12,14 @@ import Column from "primevue/column/Column.vue";
 import Button from 'primevue/button';
 import {FilterMatchMode} from 'primevue/api';
 
-import { onMounted, ref, watch, watchEffect } from 'vue';
+import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import DeleteButton from "@/Components/DeleteButton.vue";
 
 import OverlayPanel from 'primevue/overlaypanel';
 import Assignee from './Forms/Assignee.vue';
 import CustomerExportForm from './Forms/CustomerExportForm.vue';
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 
   const props = defineProps({
@@ -49,7 +49,7 @@ import { Inertia } from '@inertiajs/inertia';
   const assignee = ref();
   const assigneePanel = ref(null);
   
-  const perPage = ref(20);
+  const perPage = ref(props.filters.perPage);
 
   watch(perPage, val => {
     inertiaGet();
@@ -69,6 +69,11 @@ import { Inertia } from '@inertiajs/inertia';
       replace: true,
     })
   };
+
+
+  const auth = computed(() => {
+      return usePage().props.value.auth;
+  });
 
 
   const openCrudForm = (userObject, importable) => {
@@ -177,6 +182,7 @@ export default {
     paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
     :rows="20" 
     :rowsPerPageOptions="[10,20,30,50]" -->
+
     <template #header>
         <div class="flex items-center justify-between py-3 pl-2 md:pl-0">
           <div class="flex gap-2">

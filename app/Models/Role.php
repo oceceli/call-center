@@ -30,6 +30,9 @@ class Role extends SpatieRole
         return [
             ['tr' => 'Kullanıcıları görebilir', 'value' => 'show users'],
             ['tr' => 'Kullanıcıları düzenleyebilir, silebilir', 'value' => 'edit users'],
+            
+            ['tr' => 'Müşterileri görebilir', 'value' => 'show customers'],
+            ['tr' => 'Kullanıcıları düzenleyebilir, silebilir', 'value' => 'edit customers'],
         ];
     }
 

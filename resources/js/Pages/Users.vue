@@ -9,15 +9,25 @@ import Column from "primevue/column/Column.vue";
 import Button from 'primevue/button';
 import {FilterMatchMode} from 'primevue/api';
 
-import { ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 // import { useToast } from 'primevue/usetoast';
 // import { useConfirm } from "primevue/useconfirm";
 import DeleteButton from '@/Components/DeleteButton.vue';
 import { usePage } from '@inertiajs/inertia-vue3';
+// import test from '@/Composables/Perms';
+
+
+// onMounted(() => {
+//     console.log(test);
+// })
 
 const props = defineProps({
     users: Object,
+});
+
+const auth = computed(() => {
+    return usePage().props.value.auth;
 });
 
 const buttonsLoading = false;
@@ -86,6 +96,8 @@ export default {
     :rowsPerPageOptions="[10,20,30]"
     paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
     currentPageReportTemplate="{first} ile {last} arası gösteriliyor" -->
+    {{ auth.all_permissions }}
+
     <template #header>
         <div class="flex items-center justify-between py-3 pl-2 md:pl-0">
             <div>

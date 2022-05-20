@@ -22697,7 +22697,7 @@ var __default__ = {
     var selectedCustomers = (0,vue__WEBPACK_IMPORTED_MODULE_11__.ref)([]);
     var assignee = (0,vue__WEBPACK_IMPORTED_MODULE_11__.ref)();
     var assigneePanel = (0,vue__WEBPACK_IMPORTED_MODULE_11__.ref)(null);
-    var perPage = (0,vue__WEBPACK_IMPORTED_MODULE_11__.ref)(20);
+    var perPage = (0,vue__WEBPACK_IMPORTED_MODULE_11__.ref)(props.filters.perPage);
     (0,vue__WEBPACK_IMPORTED_MODULE_11__.watch)(perPage, function (val) {
       inertiaGet();
     });
@@ -22714,6 +22714,10 @@ var __default__ = {
         replace: true
       });
     };
+
+    var auth = (0,vue__WEBPACK_IMPORTED_MODULE_11__.computed)(function () {
+      return (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_17__.usePage)().props.value.auth;
+    });
 
     var openCrudForm = function openCrudForm(userObject, importable) {
       if (importable) {
@@ -22800,6 +22804,7 @@ var __default__ = {
       assigneePanel: assigneePanel,
       perPage: perPage,
       inertiaGet: inertiaGet,
+      auth: auth,
       openCrudForm: openCrudForm,
       closeCrudForm: closeCrudForm,
       openDetailsModal: openDetailsModal,
@@ -22822,6 +22827,7 @@ var __default__ = {
       Column: primevue_column_Column_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
       Button: primevue_button__WEBPACK_IMPORTED_MODULE_9__["default"],
       FilterMatchMode: primevue_api__WEBPACK_IMPORTED_MODULE_10__.FilterMatchMode,
+      computed: vue__WEBPACK_IMPORTED_MODULE_11__.computed,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_11__.onMounted,
       ref: vue__WEBPACK_IMPORTED_MODULE_11__.ref,
       watch: vue__WEBPACK_IMPORTED_MODULE_11__.watch,
@@ -22832,6 +22838,7 @@ var __default__ = {
       Assignee: _Forms_Assignee_vue__WEBPACK_IMPORTED_MODULE_15__["default"],
       CustomerExportForm: _Forms_CustomerExportForm_vue__WEBPACK_IMPORTED_MODULE_16__["default"],
       useForm: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_17__.useForm,
+      usePage: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_17__.usePage,
       Inertia: _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_18__.Inertia
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
@@ -23844,6 +23851,10 @@ var __default__ = {
 // import { useConfirm } from "primevue/useconfirm";
 
 
+ // import test from '@/Composables/Perms';
+// onMounted(() => {
+//     console.log(test);
+// })
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/Object.assign(__default__, {
   props: {
@@ -23853,6 +23864,9 @@ var __default__ = {
     var expose = _ref.expose;
     expose();
     var props = __props;
+    var auth = (0,vue__WEBPACK_IMPORTED_MODULE_8__.computed)(function () {
+      return (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_11__.usePage)().props.value.auth;
+    });
     var buttonsLoading = false;
     var tableLoading = false;
     var visibleCrudForm = (0,vue__WEBPACK_IMPORTED_MODULE_8__.ref)(false);
@@ -23890,6 +23904,7 @@ var __default__ = {
 
     var __returned__ = {
       props: props,
+      auth: auth,
       buttonsLoading: buttonsLoading,
       tableLoading: tableLoading,
       visibleCrudForm: visibleCrudForm,
@@ -23908,6 +23923,8 @@ var __default__ = {
       Column: primevue_column_Column_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
       Button: primevue_button__WEBPACK_IMPORTED_MODULE_6__["default"],
       FilterMatchMode: primevue_api__WEBPACK_IMPORTED_MODULE_7__.FilterMatchMode,
+      computed: vue__WEBPACK_IMPORTED_MODULE_8__.computed,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_8__.onMounted,
       ref: vue__WEBPACK_IMPORTED_MODULE_8__.ref,
       Inertia: _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_9__.Inertia,
       DeleteButton: _Components_DeleteButton_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
@@ -27710,7 +27727,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_13];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Column"], {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.auth.all_permissions) + " ", 1
+      /* TEXT */
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Column"], {
         field: "name",
         header: "Kullanıcı",
         sortable: "",

@@ -17,7 +17,8 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $mainQuery = Customer::query();
-
+        $perPage = $request->perPage > 0 ? $request->perPage : 20;
+        
         if($request->search) {
             foreach (Customer::$searchColumns as $column) {
                 $mainQuery->orWhere($column, 'LIKE', "%{$request->search}%");
@@ -26,11 +27,12 @@ class CustomerController extends Controller
 
         return Inertia::render('Customers', [
             'customers' => $mainQuery
-                ->paginate($request->perPage ?? 20)
+                ->paginate($perPage)
                 ->withQueryString(),
 
-            'filters' => $request->only(['search']),
-                
+            'filters' => [
+                $request->only(['search']), 
+                'perPage' => $perPage],
         ]);
     }
 
