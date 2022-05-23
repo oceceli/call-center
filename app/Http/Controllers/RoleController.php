@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -11,6 +12,8 @@ class RoleController extends Controller
 {
     public function index()
     {
+        if(Auth::user()->notPermittedTo('view roles')) abort(403);
+        
         $roles = Role::allExceptUntouchables();
         return Inertia::render('Roles', [
             'roles' => $roles,

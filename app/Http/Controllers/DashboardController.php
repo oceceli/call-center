@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Call;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        if(Auth::user()->notPermittedTo('view dashboard')) abort(403);
+
         $dateTo = $request->dateTo ? Carbon::parse($request->dateTo) : Carbon::tomorrow();
         $dateFrom = $request->dateFrom ? Carbon::parse($request->dateFrom) : $dateTo->copy()->subDays(30);
 

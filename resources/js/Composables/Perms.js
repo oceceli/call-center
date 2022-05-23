@@ -1,17 +1,10 @@
-import { onMounted } from "vue";
+import { usePage } from "@inertiajs/inertia-vue3";
 
-export function test() {
-    const ekmek = [
-        'ali',
-        'veli',
-        '49',
-        '50',
-    ];
+export const permittedTo = function(permission) {
+    let userPermissions = Array.from(usePage().props.value.auth.all_permissions);
+    return userPermissions.includes(permission);
+}
 
-
-    const sonuc = () => {
-        console.log(this.ekmek);
-    }
-
-
+export const notPermittedTo = (permission) => {
+    return ! permittedTo(permission);
 }

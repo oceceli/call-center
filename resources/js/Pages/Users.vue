@@ -10,26 +10,21 @@ import Column from "primevue/column/Column.vue";
 import Button from 'primevue/button';
 import {FilterMatchMode} from 'primevue/api';
 
-import { computed, onMounted, ref } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
 // import { useToast } from 'primevue/usetoast';
 // import { useConfirm } from "primevue/useconfirm";
 import DeleteButton from '@/Components/DeleteButton.vue';
 import { usePage } from '@inertiajs/inertia-vue3';
-// import test from '@/Composables/Perms';
+import { computed, onMounted, ref } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
+import { permittedTo } from '@/Composables/Perms';
 
 
-// onMounted(() => {
-//     console.log(test);
-// })
+
+
 
 const props = defineProps({
     users: Object,
 });
-
-// const auth = computed(() => {
-//     return usePage().props.value.auth;
-// });
 
 const buttonsLoading = false;
 const tableLoading = false;
@@ -109,7 +104,7 @@ export default {
     <template #header>
         <div class="flex items-center justify-between py-3 pl-2 md:pl-0">
             <div>
-                <Button type="button" @click="openCrudForm(null)" icon="pi pi-plus" label="Ekle" class="p-button-outlined p-button-sm"/>
+                <Button v-if="permittedTo('edit users')" type="button" @click="openCrudForm(null)" icon="pi pi-plus" label="Ekle" class="p-button-outlined p-button-sm"/>
                 <!-- <Button icon="pi pi-refresh p-button-sm" style="float: left"/> -->
 
             </div>
@@ -152,10 +147,10 @@ export default {
     <Column header="İşlem">
         <template #body="content">
             <span class="p-buttonset text-xs">
-                <Button v-if="content.data.is_active" @click="openAssignedModal(content.data)" label="Atanan" icon="pi pi-link" class="p-button-primary p-button-raised p-button-sm" :badge="content.data.customers_count.toString() ?? '0'" badgeClass="p-badge-primary" :loading="buttonsLoading"></Button>
-                <Button label="" icon="pi pi-user-edit" class=" p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openCrudForm(content.data)"></Button>
+                <Button v-if="content.data.is_active && permittedTo('view customers')" @click="openAssignedModal(content.data)" label="Atanan" icon="pi pi-link" class="p-button-primary p-button-raised p-button-sm" :badge="content.data.customers_count.toString() ?? '0'" badgeClass="p-badge-primary" :loading="buttonsLoading"></Button>
+                <Button v-if="permittedTo('edit users')" label="" icon="pi pi-user-edit" class=" p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openCrudForm(content.data)"></Button>
                 <!-- <Button label="" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" @click="deleteUser($event, content.data.id)" :loading="buttonsLoading"></Button> -->
-                <DeleteButton :toastInfo="flashError()" :deleteRoute="route('users.destroy', {'user': content.data.id})" customClass="p-button-text" />
+                <DeleteButton v-if="permittedTo('edit users')" :toastInfo="flashError()" :deleteRoute="route('users.destroy', {'user': content.data.id})" customClass="p-button-text" />
             </span>
         </template>
     </Column>

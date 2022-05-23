@@ -7,6 +7,7 @@ use App\Imports\CustomersImport;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Excel as ExcelExcel;
@@ -16,6 +17,9 @@ class CustomerController extends Controller
 {
     public function index(Request $request)
     {
+
+        if(Auth::user()->notPermittedTo('view customers')) abort(403);
+
         $mainQuery = Customer::query();
         $perPage = $request->perPage > 0 ? $request->perPage : 20;
         
@@ -39,6 +43,8 @@ class CustomerController extends Controller
 
     public function customersOfUser(Request $request, User $user)
     {
+        if(Auth::user()->notPermittedTo('view customers')) abort(403);
+
         return $user->customers;
     }
 

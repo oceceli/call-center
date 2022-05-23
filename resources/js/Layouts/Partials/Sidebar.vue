@@ -62,6 +62,8 @@
     import { computed, onMounted, onUnmounted, ref } from "@vue/runtime-core";
     import UserAvatar from "../../Components/UserAvatar.vue";
     import UserForm from "../../Pages/Forms/UserForm.vue";
+    import { permittedTo } from '@/Composables/Perms';
+
     
 
     defineProps({
@@ -88,42 +90,42 @@
             component: "Dashboard",
             icon: "pi pi-th-large",
             displayName: "Anasayfa",
-            userHasAccess: true,
+            userHasAccess: permittedTo('view dashboard'),
         },
         {
             toRouteName: "users",
             component: "Users",
             icon: "pi pi-user",
             displayName: "Kullanıcılar",
-            userHasAccess: true,
+            userHasAccess: permittedTo('view users'),
         },
         {
             toRouteName: "customers",
             component: "Customers",
             icon: "pi pi-phone",
             displayName: "Müşteriler",
-            userHasAccess: true,
+            userHasAccess: permittedTo('view customers'),
         },
         // {
         //     toRouteName: "dashboard",
         //     component: "Reports",
         //     icon: "pi pi-chart-bar",
         //     displayName: "Raporlar",
-        //     userHasAccess: true,
+        //     userHasAccess: permittedTo('view dashboard'),
         // },
         {
             toRouteName: "roles",
             component: "Roles",
             icon: "pi pi-lock",
             displayName: "Roller",
-            userHasAccess: true,
+            userHasAccess: permittedTo('view roles'),
         },
         {
             toRouteName: "dashboard",
             component: "Settings",
             icon: "pi pi-cog",
             displayName: "Ayarlar",
-            userHasAccess: true,
+            userHasAccess: permittedTo('view dashboard'),
         },
         
     ]);

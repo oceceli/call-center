@@ -21,6 +21,8 @@ class RegisteredUserController extends Controller
 
     public function index()
     {
+        if(Auth::user()->notPermittedTo('view users')) abort(403);
+
         return Inertia::render('Users', [
             // 'users' => User::with(['roles:id,name'])->withCount('customers')->get(),
             'users' => User::withCount('customers')->with('roles:id,name')->paginate(20),
@@ -29,6 +31,8 @@ class RegisteredUserController extends Controller
 
     public function UsersList() 
     {
+        if(Auth::user()->notPermittedTo('view users')) abort(403);
+
         $users = User::get(['id', 'name']);
         return $users;
         
@@ -47,6 +51,9 @@ class RegisteredUserController extends Controller
 
     public function update(Request $request, User $user)
     {
+        if(Auth::user()->notPermittedTo('edit users')) abort(403);
+
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'. $user->id,
@@ -99,6 +106,9 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        if(Auth::user()->notPermittedTo('edit users')) abort(403);
+
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -143,6 +153,9 @@ class RegisteredUserController extends Controller
 
     public function destroy(User $user)
     {
+        if(Auth::user()->notPermittedTo('edit users')) abort(403);
+
+
         if($user->isLastAdmin())
             return back()->with('error', 'Sistemde kayıtlı son admin kullanıcı silinemez!');
             
@@ -152,7 +165,8 @@ class RegisteredUserController extends Controller
     }
 
 
-    private function setImage(Request $request){
+    private function setImage(Request $request)
+    {
         if ($request->hasFile('img_url')) {
             return $request->img_url->store('images/users', 'public');
         }

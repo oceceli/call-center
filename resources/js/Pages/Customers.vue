@@ -21,6 +21,13 @@ import Assignee from './Forms/Assignee.vue';
 import CustomerExportForm from './Forms/CustomerExportForm.vue';
 import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
+import { permittedTo } from '@/Composables/Perms';
+
+onMounted(() => {
+  if(!permittedTo('view customers')) {
+    Inertia.get(route('login'));
+  }
+});
 
   const props = defineProps({
     customers: Object,

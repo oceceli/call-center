@@ -6,6 +6,16 @@ import Button from 'primevue/button';
 import { ref } from '@vue/reactivity';
 import RoleForm from './Forms/RoleForm.vue';
 import DeleteButton from "@/Components/DeleteButton.vue";
+import { permittedTo } from '@/Composables/Perms';
+import { onMounted } from '@vue/runtime-core';
+import { Inertia } from '@inertiajs/inertia';
+
+
+onMounted(() => {
+  if(!permittedTo('view roles')) {
+    Inertia.get(route('login'));
+  }
+});
 
 const props = defineProps({
     roles: Object,
@@ -41,10 +51,10 @@ export default {
             :resizableColumns="true"
             sortable
             removableSort
-            :paginator="true" 
-            :rows="20" 
-            :rowsPerPageOptions="[10,20,30,50]"
         >
+            <!-- :paginator="true" 
+            :rows="20" 
+            :rowsPerPageOptions="[10,20,30,50]" -->
             <template #header>
                 <div class="py-3 pl-2 md:pl-0">
                     <Button type="button" @click="openCrudForm(null)" icon="pi pi-plus" label="Yeni Rol Tanımla" class="p-button-outlined p-button-sm"/>

@@ -58,6 +58,16 @@ class User extends Authenticatable
         return $this->hasMany(Customer::class);
     }
 
+    // kullanıcı adminse sorgusuz geçiş ver
+    public function permittedTo(String $permission)
+    {
+        return $this->hasPermissionTo($permission) || $this->isAdmin();
+    }
+    
+    public function notPermittedTo(String $permission)
+    {
+        return ! $this->permittedTo($permission);
+    }
 
     public function isAdmin()
     {

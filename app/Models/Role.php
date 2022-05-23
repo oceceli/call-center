@@ -28,21 +28,28 @@ class Role extends SpatieRole
     public static function getAvailablePerms()
     {
         return [
-            ['tr' => 'Kullanıcıları görebilir', 'value' => 'show users'],
-            ['tr' => 'Kullanıcıları düzenleyebilir, silebilir', 'value' => 'edit users'],
+            ['tr' => 'Kullanıcıları görebilir', 'value' => 'view users'],
+            ['tr' => 'Kullanıcı ekleyebilir, düzenleyebilir ve silebilir', 'value' => 'edit users'],
             
-            ['tr' => 'Müşterileri görebilir', 'value' => 'show customers'],
-            ['tr' => 'Müşterileri düzenleyebilir, silebilir', 'value' => 'edit customers'],
+            ['tr' => 'Müşterileri görebilir', 'value' => 'view customers'],
+            ['tr' => 'Müşteri ekleyebilir, düzenleyebilir ve silebilir', 'value' => 'edit customers'],
+            
+            ['tr' => 'Rolleri görebilir', 'value' => 'view roles'],
+            ['tr' => 'Rol ekleyebilir, düzenleyebilir ve silebilir', 'value' => 'edit roles'],
+
+            ['tr' => 'Anasayfayı görebilir', 'value' => 'view dashboard'],
+            // ['tr' => 'Anasayfada işlem yapabilir', 'value' => 'edit dashboard'],
         ];
     }
 
-    public function setNameAttribute($value) {
-        $this->attributes['name'] = strtolower($value);
-    }
+    // ???? mutator çalışmıyo enteresan
+    // public function setNameAttribute($value) {
+    //     $this->attributes['name'] = strtolower($value);
+    // }
     
-    public function getNameAttribute($value) {
-        return ucwords($value);
-    }
+    // public function getNameAttribute($value) {
+    //     return ucwords($value);
+    // }
 
     public static function boot()
     {
