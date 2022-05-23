@@ -14,8 +14,18 @@ class DashboardController extends Controller
     {
         if(Auth::user()->notPermittedTo('view dashboard')) abort(403);
 
+
         $dateTo = $request->dateTo ? Carbon::parse($request->dateTo) : Carbon::tomorrow();
         $dateFrom = $request->dateFrom ? Carbon::parse($request->dateFrom) : $dateTo->copy()->subDays(30);
+
+        
+        $mainQuery = Call::query();
+
+
+        $mainQuery
+            ->betweenDates($dateFrom, $dateTo)
+            ->with('customer');
+
 
         $filters = [
             'dateFrom' => $dateFrom->format('Y-m-d'),
@@ -24,9 +34,7 @@ class DashboardController extends Controller
             // 'perPage' => $request->perPage,
         ];
 
-        $mainQuery = Call::query()
-            ->betweenDates($dateFrom, $dateTo)
-            ->with('customer');
+        
 
         if($request->callType == 'successfulCalls') {
             $mainQuery->successfulCalls();
@@ -58,4 +66,13 @@ class DashboardController extends Controller
         ];
         return Inertia::render('Dashboard', ['data' => $data, 'counts' => $counts, 'filters' => $filters]);
     }
+
+
+
+    // private function userDashboard()
+    // {
+    //     $nonAdminData = Call::queuedCalls()->count();
+    //     return Inertia::render('UserDashboard', ['data' => [$nonAdminData]]);
+    // }
+
 }

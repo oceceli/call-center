@@ -23075,7 +23075,8 @@ var __default__ = {
       watchEffect: _vue_runtime_core__WEBPACK_IMPORTED_MODULE_10__.watchEffect,
       Inertia: _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_7__.Inertia,
       Paginator: _Components_Paginator_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
-      permittedTo: _Composables_Perms__WEBPACK_IMPORTED_MODULE_9__.permittedTo
+      permittedTo: _Composables_Perms__WEBPACK_IMPORTED_MODULE_9__.permittedTo,
+      auth: _Composables_Perms__WEBPACK_IMPORTED_MODULE_9__.auth
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -26489,57 +26490,54 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  key: 0
-};
-var _hoisted_2 = {
   "class": "md:-mx-6 md:-mt-6 bg-white shadow p-4"
 };
 
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-semibold"
 }, "Tarih aralığı:", -1
 /* HOISTED */
 );
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" - ");
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" - ");
 
-var _hoisted_5 = {
+var _hoisted_4 = {
   "class": "h-full md:py-6"
 };
-var _hoisted_6 = {
+var _hoisted_5 = {
   "class": "w-full flex flex-col md:flex-row justify-between md:gap-5"
 };
-var _hoisted_7 = {
+var _hoisted_6 = {
   "class": "pt-8"
 };
-var _hoisted_8 = {
-  "class": "font-bold text-xl"
+var _hoisted_7 = {
+  "class": "font-bold text-xl pl-4 md:pl-0"
 };
-var _hoisted_9 = {
+var _hoisted_8 = {
   "class": "text-sm text-gray-600"
 };
-var _hoisted_10 = {
+var _hoisted_9 = {
   "class": "p-1 bg-white rounded shadow mt-6"
 };
-var _hoisted_11 = {
+var _hoisted_10 = {
   "class": "md:flex gap-3 items-center hidden"
 };
-var _hoisted_12 = {
+var _hoisted_11 = {
   "class": "text-sm text-gray-400"
 };
-var _hoisted_13 = {
+var _hoisted_12 = {
   "class": "flex md:hidden"
 };
-var _hoisted_14 = {
+var _hoisted_13 = {
   "class": "flex items-center justify-between border border-dashed p-3 -mx-2"
 };
-var _hoisted_15 = {
+var _hoisted_14 = {
   "class": "flex gap-5 justify-center items-center"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Dialog = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Dialog");
 
-  return $setup.permittedTo('view dashboard') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.dateFrom = $event;
     }),
@@ -26547,7 +26545,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "rounded border-none"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.dateFrom]]), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.dateFrom]]), _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $setup.dateTo = $event;
     }),
@@ -26555,7 +26553,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "rounded border-none"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.dateTo]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["OverviewCard"], {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.dateTo]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["OverviewCard"], {
     onClick: _cache[2] || (_cache[2] = function ($event) {
       return $setup.filterCall('totalCalls');
     }),
@@ -26572,7 +26570,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     "class": "cursor-pointer hover:bg-slate-500 hover:text-white hover:shadow-md duration-100 ease-in-out",
     color: "bg-green-500",
-    suffixText: " başarılı görüşme sağlandı",
+    suffixText: " görüşme sağlandı",
     count: $props.counts.successful_calls.toString(),
     icon: "pi pi-phone"
   }, null, 8
@@ -26588,20 +26586,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     icon: "pi pi-phone"
   }, null, 8
   /* PROPS */
-  , ["count"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.tableTitle), 1
+  , ["count"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.tableTitle), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_9, " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dateFrom + ' | ' + $setup.dateTo) + ")", 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dateFrom + ' | ' + $setup.dateTo) + ")", 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["DataTable"], {
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["DataTable"], {
     value: $props.data,
     responsiveLayout: "scroll",
     rowHover: true,
     sortable: ""
   }, {
     footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, " Toplam kayıt: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.data ? $props.data.length : 0), 1
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, " Toplam kayıt: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.data ? $props.data.length : 0), 1
       /* TEXT */
-      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Paginator"], {
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Paginator"], {
         model: $props.data
       }, null, 8
       /* PROPS */
@@ -26629,16 +26627,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (content) {
           var _content$data$score, _content$data$score2;
 
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Rating"], {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Rating"], {
             stars: 10,
             modelValue: content.data.score,
             cancel: false,
             readonly: true
           }, null, 8
           /* PROPS */
-          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_content$data$score = content.data.score) !== null && _content$data$score !== void 0 ? _content$data$score : 0) + "/10) ", 1
+          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_11, " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_content$data$score = content.data.score) !== null && _content$data$score !== void 0 ? _content$data$score : 0) + "/10) ", 1
           /* TEXT */
-          )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_content$data$score2 = content.data.score) !== null && _content$data$score2 !== void 0 ? _content$data$score2 : 0) + "/10) ", 1
+          )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_content$data$score2 = content.data.score) !== null && _content$data$score2 !== void 0 ? _content$data$score2 : 0) + "/10) ", 1
           /* TEXT */
           )];
         }),
@@ -26701,7 +26699,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["visible"])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
+  , ["visible"])])]);
 }
 
 /***/ }),

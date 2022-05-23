@@ -28,6 +28,11 @@ class Call extends Model
         return Carbon::parse($this->updated_at)->diffForHumans();
     }
 
+    public function scopeQueuedCalls($query)
+    {
+        return $query->whereNull('status');
+    }
+
     public function scopeTotalCalls($query)
     {
         return $query->whereNotNull('status');

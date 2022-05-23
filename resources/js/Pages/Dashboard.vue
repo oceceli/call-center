@@ -10,7 +10,7 @@ import CustomerDetails from "./Details/CustomerDetails.vue";
 import { onMounted, watch, watchEffect } from '@vue/runtime-core';
 import { Inertia } from '@inertiajs/inertia';
 import Paginator from "@/Components/Paginator.vue";
-import { permittedTo } from '@/Composables/Perms';
+import { permittedTo, auth } from '@/Composables/Perms';
 
 
 const props = defineProps({
@@ -79,7 +79,8 @@ export default {
 </script>
 
 <template>
-  <div v-if="permittedTo('view dashboard')">
+
+  <div>
     <div class="md:-mx-6 md:-mt-6 bg-white shadow p-4 ">
       <span class="font-semibold">Tarih aralığı:</span>
       <input v-model="dateFrom" type="date" class="rounded border-none">
@@ -90,12 +91,12 @@ export default {
     <div class="h-full md:py-6">
       <div class="w-full flex flex-col md:flex-row justify-between md:gap-5">
         <OverviewCard @click="filterCall('totalCalls')" class="cursor-pointer hover:bg-slate-500 hover:text-white hover:shadow-md duration-100 ease-in-out" color="bg-cyan-500" suffixText=" arama yapıldı" :count="counts.total_calls.toString()" icon="pi pi-phone" />
-        <OverviewCard @click="filterCall('successfulCalls')" class="cursor-pointer hover:bg-slate-500 hover:text-white hover:shadow-md duration-100 ease-in-out" color="bg-green-500" suffixText=" başarılı görüşme sağlandı" :count="counts.successful_calls.toString()" icon="pi pi-phone" />
+        <OverviewCard @click="filterCall('successfulCalls')" class="cursor-pointer hover:bg-slate-500 hover:text-white hover:shadow-md duration-100 ease-in-out" color="bg-green-500" suffixText=" görüşme sağlandı" :count="counts.successful_calls.toString()" icon="pi pi-phone" />
         <OverviewCard @click="filterCall('unsuccessfulCalls')" class="cursor-pointer hover:bg-slate-500 hover:text-white hover:shadow-md duration-100 ease-in-out" color="bg-red-500" suffixText=" meşgul ya da cevapsız çağrı" :count="counts.unsuccessful_calls.toString()" icon="pi pi-phone" />
       </div>
 
       <div class="pt-8">
-        <span class="font-bold text-xl">
+        <span class="font-bold text-xl pl-4 md:pl-0">
           {{ tableTitle }}
         </span>
         <span class="text-sm text-gray-600"> ({{ dateFrom + ' | ' + dateTo}})</span>
