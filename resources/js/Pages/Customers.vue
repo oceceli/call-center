@@ -312,7 +312,7 @@ export default {
     <Column header="İşlem">
         <template #body="content">
             <span class="p-buttonset text-xs">
-                <Button v-if="permittedTo('process customers')" label="İşlem" icon="pi pi-phone" class="p-button-primary p-button-raised p-button-sm" :disabled="!content.data.is_active || auth().user.id != content.data.user.id" @click="openCallCustomerModal(content.data)"></Button>
+                <Button v-if="permittedTo('process customers')" label="İşlem" icon="pi pi-phone" class="p-button-primary p-button-raised p-button-sm" :disabled="!content.data.is_active || auth().user.id != content.data.user?.id" @click="openCallCustomerModal(content.data)"></Button>
                 <Button label="" icon="pi pi-eye" class="p-button-primary p-button-text p-button-sm" @click="openDetailsModal(content.data)"></Button>
                 <Button v-if="permittedTo('edit customers')" label="" icon="pi pi-user-edit" class="p-button-primary p-button-text p-button-sm" @click="openCrudForm(content.data)"></Button>
                 <DeleteButton v-if="permittedTo('edit customers')" toastInfo="Müşteri ile ilgili veriler silindi" :deleteRoute="route('customers.destroy', {'customer': content.data.id})" customClass="p-button-text" />

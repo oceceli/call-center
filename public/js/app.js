@@ -26211,12 +26211,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         header: "İşlem"
       }, {
         body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (content) {
+          var _content$data$user;
+
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_28, [$setup.permittedTo('process customers') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Button"], {
             key: 0,
             label: "İşlem",
             icon: "pi pi-phone",
             "class": "p-button-primary p-button-raised p-button-sm",
-            disabled: !content.data.is_active || $setup.auth().user.id != content.data.user.id,
+            disabled: !content.data.is_active || $setup.auth().user.id != ((_content$data$user = content.data.user) === null || _content$data$user === void 0 ? void 0 : _content$data$user.id),
             onClick: function onClick($event) {
               return $setup.openCallCustomerModal(content.data);
             }
