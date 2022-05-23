@@ -34,7 +34,7 @@
         </div>
       </div>
       
-      <div class="flex flex-col pb-2">
+      <div v-if="permittedTo('view roles')" class="flex flex-col pb-2">
         <label class="leading-loose">Kullanıcı rolü</label>
         <select v-model="form.role_id" class="form-select appearance-none
           block
@@ -128,6 +128,8 @@ import InputSwitch from 'primevue/inputswitch';
 
 import { useForm } from '@inertiajs/inertia-vue3'
 import { useToast } from 'primevue/usetoast';
+import { permittedTo } from '@/Composables/Perms';
+
 
 export default {
   props: {
@@ -218,7 +220,7 @@ export default {
       // emit('close');
     }
 
-    return { form, submit, editMode, disableFormFields, roles};
+    return { form, submit, editMode, disableFormFields, roles, permittedTo};
   },
 };
 </script>

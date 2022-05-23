@@ -120,13 +120,13 @@
             displayName: "Roller",
             userHasAccess: permittedTo('view roles'),
         },
-        {
-            toRouteName: "dashboard",
-            component: "Settings",
-            icon: "pi pi-cog",
-            displayName: "Ayarlar",
-            userHasAccess: permittedTo('view dashboard'),
-        },
+        // {
+        //     toRouteName: "dashboard",
+        //     component: "Settings",
+        //     icon: "pi pi-cog",
+        //     displayName: "Ayarlar",
+        //     userHasAccess: permittedTo('view dashboard'),
+        // },
         
     ]);
     

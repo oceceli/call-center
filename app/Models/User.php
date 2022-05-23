@@ -73,6 +73,11 @@ class User extends Authenticatable
     {
         return $this->hasRole(Role::$untouchables);
     }
+    
+    public function isNotAdmin()
+    {
+        return ! $this->isAdmin();
+    }
 
     public static function adminCount()
     {

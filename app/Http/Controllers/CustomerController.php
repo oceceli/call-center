@@ -17,7 +17,6 @@ class CustomerController extends Controller
 {
     public function index(Request $request)
     {
-
         if(Auth::user()->notPermittedTo('view customers')) abort(403);
 
         $mainQuery = Customer::query();
@@ -51,6 +50,8 @@ class CustomerController extends Controller
 
     public function store(Request $request)
     {
+        if(Auth::user()->notPermittedTo('edit customers')) abort(403);
+
         Customer::create($this->validatedData($request));
         return Redirect::back();
     }
@@ -58,6 +59,8 @@ class CustomerController extends Controller
 
     public function update(Request $request, Customer $customer)
     {
+        if(Auth::user()->notPermittedTo('edit customers')) abort(403);
+
         $customer->update($this->validatedData($request, $customer));
         return Redirect::back();
     }
@@ -65,6 +68,8 @@ class CustomerController extends Controller
 
     public function destroy(Customer $customer)
     {
+        if(Auth::user()->notPermittedTo('edit customers')) abort(403);
+
         $customer->delete();
         return Redirect::back();
     }
@@ -72,6 +77,8 @@ class CustomerController extends Controller
 
     public function destroyMultiple(Request $request)
     {
+        if(Auth::user()->notPermittedTo('edit customers')) abort(403);
+
         Customer::destroy($request->ids);
         return back();
     }
@@ -79,6 +86,8 @@ class CustomerController extends Controller
 
     public function customersAssign(Request $request, User $user) 
     {
+        if(Auth::user()->notPermittedTo('edit customers')) abort(403);
+
         $request->validate(['customers' => 'array|min:1'], ['min' => 'En az 1 atama yapılabilir!'], ['customers' => 'Müşteri']);
         $customers = Customer::whereIn('id', $request->customers)->get();
 
@@ -93,6 +102,8 @@ class CustomerController extends Controller
 
     public function import(Request $request)
     {
+        if(Auth::user()->notPermittedTo('edit customers')) abort(403);
+
         $request->validate([
             'is_active' => 'required|boolean',
             'excel_file' => 'required|mimes:xlsx, csv, xls',
@@ -115,6 +126,8 @@ class CustomerController extends Controller
 
     public function export(Request $request)
     {
+        if(Auth::user()->notPermittedTo('edit customers')) abort(403);
+
         return Excel::download(new CustomersExport, 'Müşteri Listesi - ' . date('d.m.Y') . '.xlsx');
     }
 

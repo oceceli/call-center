@@ -23,6 +23,9 @@ class RoleController extends Controller
     
     public function store(Request $request)
     {
+        if(Auth::user()->notPermittedTo('edit roles')) abort(403);
+
+
         $data = $this->validatedData($request);
         $role = Role::create($data);
 
@@ -34,6 +37,8 @@ class RoleController extends Controller
 
     public function update(Request $request, Role $role)
     {
+        if(Auth::user()->notPermittedTo('edit roles')) abort(403);
+
         if(in_array(strtolower($role->name), Role::$untouchables))
             return redirect()->back();
 
@@ -46,6 +51,8 @@ class RoleController extends Controller
 
     private function setPermissions(Request $request, Role $role)
     {
+        if(Auth::user()->notPermittedTo('edit roles')) abort(403);
+
         $selectedPerms = $request->selectedPerms;
 
         if ($selectedPerms) {
@@ -63,6 +70,8 @@ class RoleController extends Controller
 
     public function destroy(Role $role)
     {
+        if(Auth::user()->notPermittedTo('edit roles')) abort(403);
+
         if(in_array(strtolower($role->name), Role::$untouchables))
             return Redirect::back();
             // return Redirect::back()->with('error', 'Admin rolü silinemez!');
@@ -76,12 +85,16 @@ class RoleController extends Controller
 
     public function availablePerms()
     {
+        if(Auth::user()->notPermittedTo('view roles')) return;
+
         return Role::getAvailablePerms();
     }
     
 
     public function availableRoles()
     {
+        if(Auth::user()->notPermittedTo('view roles')) return;
+
         return Role::all();
     }
 

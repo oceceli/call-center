@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Call;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class CallController extends Controller
@@ -13,6 +14,8 @@ class CallController extends Controller
 
     public function store(Request $request, Customer $customer)
     {
+        if(Auth::user()->notPermittedTo('process customers')) abort(403);
+
         // müşteri aktif işaretlenmemişse oylanamaz
         if(!$customer->is_active)
             return Redirect::back();
@@ -25,6 +28,8 @@ class CallController extends Controller
 
     public function update(Request $request, Call $call)
     {
+        if(Auth::user()->notPermittedTo('process customers')) abort(403);
+
         $data = $this->validatedData($request);
         $call->update($data);
         return Redirect::back();
@@ -32,6 +37,8 @@ class CallController extends Controller
 
     public function destroy(Call $call)
     {
+        if(Auth::user()->notPermittedTo('process customers')) abort(403);
+
         $call->delete();
         return Redirect::back();
     }

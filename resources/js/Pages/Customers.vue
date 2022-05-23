@@ -23,11 +23,6 @@ import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 import { permittedTo } from '@/Composables/Perms';
 
-onMounted(() => {
-  if(!permittedTo('view customers')) {
-    Inertia.get(route('login'));
-  }
-});
 
   const props = defineProps({
     customers: Object,
@@ -192,24 +187,27 @@ export default {
 
     <template #header>
         <div class="flex items-center justify-between py-3 pl-2 md:pl-0">
-          <div class="flex gap-2">
-            <span v-if="selectedCustomers.length" class="p-buttonset text-xs">
-              <Button @click="toggleAssigneePanel" type="button" icon="pi pi-link" label="Kullanıcıya ata" class="p-button-sm p-button-warning"/>
-              <DeleteButton @deleted="multipleDeleteWasSuccessful()" :multipleData="selectedCustomers" toastInfo="Seçilen müşteri bilgileri silindi" :deleteRoute="route('customers_destroy_multiple')" customClass="p-button-outlined" />
-            </span>
-            <span v-else class="p-buttonset text-xs">
-                <Button type="button" @click="openCrudForm(null, true)" icon="pi pi-upload" label="İmport" class="p-button-sm"/>
-                <Button type="button" @click="openCrudForm(null)" icon="pi pi-plus" label="Ekle" class="p-button-outlined p-button-sm"/>
-            </span>
-            <OverlayPanel ref="assigneePanel" :showCloseIcon="true" :dismissable="false" :breakpoints="{'960px': '75vw', '640px': '100vw'}" :style="{width: '450px'}">
-              <Assignee :selectedCustomers="selectedCustomers" @close="closeAssigneePanel" />
-            </OverlayPanel>
 
+          <div class="flex gap-2">
+            <div v-if="permittedTo('edit customers')">
+              <span v-if="selectedCustomers.length" class="p-buttonset text-xs">
+                <Button @click="toggleAssigneePanel" type="button" icon="pi pi-link" label="Kullanıcıya ata" class="p-button-sm p-button-warning"/>
+                <DeleteButton @deleted="multipleDeleteWasSuccessful()" :multipleData="selectedCustomers" toastInfo="Seçilen müşteri bilgileri silindi" :deleteRoute="route('customers_destroy_multiple')" customClass="p-button-outlined" />
+              </span>
+              <span v-else class="p-buttonset text-xs">
+                  <Button type="button" @click="openCrudForm(null, true)" icon="pi pi-upload" label="İmport" class="p-button-sm"/>
+                  <Button type="button" @click="openCrudForm(null)" icon="pi pi-plus" label="Ekle" class="p-button-outlined p-button-sm"/>
+              </span>
+              <OverlayPanel ref="assigneePanel" :showCloseIcon="true" :dismissable="false" :breakpoints="{'960px': '75vw', '640px': '100vw'}" :style="{width: '450px'}">
+                <Assignee :selectedCustomers="selectedCustomers" @close="closeAssigneePanel" />
+              </OverlayPanel>
+            </div>
           </div>
+
           <div class="flex gap-5">
               <!-- <Button type="button" icon="pi pi-filter-slash" label="Temizle" class="p-button-text p-button-rounded p-button-sm" @click="clearFilters()"/> -->
             <span class="p-buttonset text-xs flex items-center">
-              <Button type="button" @click="openCustomerExportModal()" icon="pi pi-file-excel" label="Export" class="p-button-sm p-button-outlined rounded"/>
+              <Button v-if="permittedTo('edit customers')" type="button" @click="openCustomerExportModal()" icon="pi pi-file-excel" label="Export" class="p-button-sm p-button-outlined rounded"/>
             </span>
               <div hidden class="md:block">
                   <div class="relative flex items-center text-gray-400 focus-within:text-cyan-400">
@@ -220,17 +218,18 @@ export default {
                   </div>
               </div>
           </div>
+
       </div>
-      <hr class="pt-2 mt-2">
+      <!-- <hr class="pt-2 mt-2">
       <div class="">
         test
-      </div>
+      </div> -->
     </template>
 
 
-    <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
+    <Column v-if="permittedTo('edit customers')" selectionMode="multiple" headerStyle="width: 3em"></Column>
     
-    <Column field="user.name" header="Temsilci" sortable>
+    <Column v-if="permittedTo('view users')" field="user.name" header="Temsilci" sortable>
       <template #body="{data}">
         <div v-if="data.user" class="font-bold text-green-600 hover:text-green-500 ease-in-out duration-100">
           {{ data.user?.name }}
@@ -313,10 +312,10 @@ export default {
     <Column header="İşlem">
         <template #body="content">
             <span class="p-buttonset text-xs">
-                <Button label="İşlem" icon="pi pi-phone" class="p-button-primary p-button-raised p-button-sm" :disabled="!content.data.is_active" @click="openCallCustomerModal(content.data)"></Button>
+                <Button v-if="permittedTo('process customers')" label="İşlem" icon="pi pi-phone" class="p-button-primary p-button-raised p-button-sm" :disabled="!content.data.is_active" @click="openCallCustomerModal(content.data)"></Button>
                 <Button label="" icon="pi pi-eye" class="p-button-primary p-button-text p-button-sm" @click="openDetailsModal(content.data)"></Button>
-                <Button label="" icon="pi pi-user-edit" class="p-button-primary p-button-text p-button-sm" @click="openCrudForm(content.data)"></Button>
-                <DeleteButton toastInfo="Müşteri ile ilgili veriler silindi" :deleteRoute="route('customers.destroy', {'customer': content.data.id})" customClass="p-button-text" />
+                <Button v-if="permittedTo('edit customers')" label="" icon="pi pi-user-edit" class="p-button-primary p-button-text p-button-sm" @click="openCrudForm(content.data)"></Button>
+                <DeleteButton v-if="permittedTo('edit customers')" toastInfo="Müşteri ile ilgili veriler silindi" :deleteRoute="route('customers.destroy', {'customer': content.data.id})" customClass="p-button-text" />
             </span>
         </template>
     </Column>
@@ -350,7 +349,7 @@ export default {
     </template>
 
 
-    <Dialog :header="editCustomerObject ? 'Müşteri Düzenle' : 'Müşteri Ekle'" v-model:visible="visibleCrudForm" @hide="closeCrudForm" :style="{width: '50vw'}"
+    <Dialog  v-if="permittedTo('edit customers')" :header="editCustomerObject ? 'Müşteri Düzenle' : 'Müşteri Ekle'" v-model:visible="visibleCrudForm" @hide="closeCrudForm" :style="{width: '50vw'}"
     closeOnEscape
     modal
     maximizable
@@ -370,7 +369,7 @@ export default {
     </Dialog>
     
     
-    <Dialog header="Arama/Değerlendirme" v-model:visible="visibleCallCustomer" :style="{width: '50vw'}"
+    <Dialog v-if="permittedTo('process customers')" header="Arama/Değerlendirme" v-model:visible="visibleCallCustomer" :style="{width: '50vw'}"
     closeOnEscape
     modal
     maximizable
@@ -380,7 +379,7 @@ export default {
     </Dialog>
     
     
-    <Dialog header="Export Et" v-model:visible="visibleCustomerExportModal" :style="{width: '50vw'}"
+    <Dialog  v-if="permittedTo('edit customers')" header="Export Et" v-model:visible="visibleCustomerExportModal" :style="{width: '50vw'}"
     closeOnEscape
     modal
     maximizable

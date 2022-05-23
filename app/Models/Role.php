@@ -34,6 +34,8 @@ class Role extends SpatieRole
             ['tr' => 'Müşterileri görebilir', 'value' => 'view customers'],
             ['tr' => 'Müşteri ekleyebilir, düzenleyebilir ve silebilir', 'value' => 'edit customers'],
             
+            ['tr' => 'Müşterileri arayabilir, değerlendirebilir', 'value' => 'process customers'],
+            
             ['tr' => 'Rolleri görebilir', 'value' => 'view roles'],
             ['tr' => 'Rol ekleyebilir, düzenleyebilir ve silebilir', 'value' => 'edit roles'],
 

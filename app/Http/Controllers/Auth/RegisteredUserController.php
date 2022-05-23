@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -53,6 +54,10 @@ class RegisteredUserController extends Controller
     {
         if(Auth::user()->notPermittedTo('edit users')) abort(403);
 
+        if($user->isAdmin() && Auth::user()->isNotAdmin()) {
+            return back()->with('error', 'Bu işlemi yalnızca admin kullanıcılar yapabilir!');
+        }
+
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -91,7 +96,8 @@ class RegisteredUserController extends Controller
 
 
         $user->update($userData);
-        $user->syncRoles($request->role_id);
+        
+        $this->syncRoleIfApplicable($request, $user);
 
         return Redirect::back();
     }
@@ -107,7 +113,6 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         if(Auth::user()->notPermittedTo('edit users')) abort(403);
-
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -138,7 +143,7 @@ class RegisteredUserController extends Controller
             'is_active' => $request->is_active,
         ]);
 
-        $user->syncRoles($request->role_id);
+        $this->syncRoleIfApplicable($request, $user);
 
         event(new Registered($user));
 
@@ -150,11 +155,27 @@ class RegisteredUserController extends Controller
         return Redirect::back();
     }
 
+    // süper admin kullanıcısı seed edilecek ve atanacak. Sonradan bu rol atanamaz
+    private function syncRoleIfApplicable(Request $request, User $user)
+    {
+        $requestRole = Role::find($request->role_id);
+        if($requestRole->name != 'super admin') {
+            $user->syncRoles($request->role_id);
+        }
+    }
+
 
     public function destroy(User $user)
     {
         if(Auth::user()->notPermittedTo('edit users')) abort(403);
 
+        if($user->id == Auth::user()->id) {
+            return back()->with('error', 'Kendi kendinizi silemezsiniz!');
+        }
+
+        if($user->isAdmin() && Auth::user()->isNotAdmin()) {
+            return back()->with('error', 'Admin kullanıcıları yalnızca adminler siler!');
+        }
 
         if($user->isLastAdmin())
             return back()->with('error', 'Sistemde kayıtlı son admin kullanıcı silinemez!');
