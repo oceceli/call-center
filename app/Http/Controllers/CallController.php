@@ -16,6 +16,11 @@ class CallController extends Controller
     {
         if(Auth::user()->notPermittedTo('process customers')) abort(403);
 
+        // müşteri, değerlendirme işlemi yapan kullanıcıya bağlı ise değerlendir
+        if($customer->user->id != Auth::user()->id) {
+            return back();
+        }
+
         // müşteri aktif işaretlenmemişse oylanamaz
         if(!$customer->is_active)
             return Redirect::back();
@@ -29,6 +34,10 @@ class CallController extends Controller
     public function update(Request $request, Call $call)
     {
         if(Auth::user()->notPermittedTo('process customers')) abort(403);
+
+        // müşteri aktif işaretlenmemişse oylanamaz
+        if(!$call->customer->is_active)
+            return Redirect::back();
 
         $data = $this->validatedData($request);
         $call->update($data);

@@ -30,14 +30,17 @@ class RegisteredUserController extends Controller
         ]);
     }
 
+
+    
     public function UsersList() 
     {
         if(Auth::user()->notPermittedTo('view users')) abort(403);
 
         $users = User::get(['id', 'name']);
         return $users;
-        
     }
+
+
 
     /**
      * Display the registration view.
@@ -50,14 +53,14 @@ class RegisteredUserController extends Controller
     }
 
 
+
     public function update(Request $request, User $user)
     {
-        if(Auth::user()->notPermittedTo('edit users')) abort(403);
+        if(Auth::user()->notPermittedTo('edit users') && Auth::user()->id != $user->id) abort(403);
 
         if($user->isAdmin() && Auth::user()->isNotAdmin()) {
             return back()->with('error', 'Bu işlemi yalnızca admin kullanıcılar yapabilir!');
         }
-
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -78,8 +81,11 @@ class RegisteredUserController extends Controller
         $userData = [
             'name' => $request->name,
             'email' => $request->email,
-            'is_active' => $request->is_active,
         ];
+
+        // kullanıcı kendi kendini disaktif edemez
+        if(Auth::user()->id != $user->id)
+            $userData['is_active'] = $request->is_active;
         
         if($request->password)
             $userData['password'] = Hash::make($request->password);
@@ -91,16 +97,14 @@ class RegisteredUserController extends Controller
             
             User::removeOldPic($user);
             // Storage::disk('public')->delete(str_replace('/storage/', '', $obj->img_url));
-
         }
 
-
         $user->update($userData);
-        
         $this->syncRoleIfApplicable($request, $user);
-
         return Redirect::back();
     }
+
+
 
     /**
      * Handle an incoming registration request.
@@ -112,7 +116,9 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        if(Auth::user()->notPermittedTo('edit users')) abort(403);
+        if(!FacadesRequest::is('register')) {
+            if(Auth::user()->notPermittedTo('edit users')) abort(403);
+        }
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -128,7 +134,6 @@ class RegisteredUserController extends Controller
             'img_url' => 'Resim',
             'password' => 'Şifre',
         ]);
-        
         
         $image_path = '';
         if ($request->hasFile('img_url')) {
@@ -155,14 +160,18 @@ class RegisteredUserController extends Controller
         return Redirect::back();
     }
 
+
+
     // süper admin kullanıcısı seed edilecek ve atanacak. Sonradan bu rol atanamaz
     private function syncRoleIfApplicable(Request $request, User $user)
     {
+        if(!$request->role_id) return;
         $requestRole = Role::find($request->role_id);
         if($requestRole->name != 'super admin') {
             $user->syncRoles($request->role_id);
         }
     }
+
 
 
     public function destroy(User $user)
@@ -184,6 +193,7 @@ class RegisteredUserController extends Controller
         // $user->roles()->detach();
         return Redirect::back();
     }
+
 
 
     private function setImage(Request $request)

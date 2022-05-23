@@ -1370,6 +1370,9 @@ select {
 .pr-5 {
   padding-right: 1.25rem !important;
 }
+.pb-4 {
+  padding-bottom: 1rem !important;
+}
 .pt-3 {
   padding-top: 0.75rem !important;
 }
@@ -1378,9 +1381,6 @@ select {
 }
 .pt-5 {
   padding-top: 1.25rem !important;
-}
-.pb-4 {
-  padding-bottom: 1rem !important;
 }
 .pb-8 {
   padding-bottom: 2rem !important;

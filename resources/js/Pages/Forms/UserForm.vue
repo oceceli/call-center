@@ -88,7 +88,7 @@
         </div>
       </div>
 
-      <div class="flex flex-col gap-3">
+      <div v-if="auth().user.id != editUserObject?.id" class="flex flex-col gap-3">
         <label class="leading-loose">Aktif</label>
         <InputSwitch v-model="form.is_active" />
         <div v-if="form.errors.is_active">
@@ -128,7 +128,7 @@ import InputSwitch from 'primevue/inputswitch';
 
 import { useForm } from '@inertiajs/inertia-vue3'
 import { useToast } from 'primevue/usetoast';
-import { permittedTo } from '@/Composables/Perms';
+import { permittedTo, auth } from '@/Composables/Perms';
 
 
 export default {
@@ -220,7 +220,7 @@ export default {
       // emit('close');
     }
 
-    return { form, submit, editMode, disableFormFields, roles, permittedTo};
+    return { form, submit, editMode, disableFormFields, roles, permittedTo, auth};
   },
 };
 </script>

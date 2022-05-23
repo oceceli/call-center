@@ -17,12 +17,17 @@ class CustomerController extends Controller
 {
     public function index(Request $request)
     {
-        if(Auth::user()->notPermittedTo('view customers')) abort(403);
+        $authUser = Auth::user();
+        if($authUser->notPermittedTo('view customers')) abort(403);
 
         $mainQuery = Customer::query();
+        if($authUser->isNotAdmin()) {
+            $mainQuery->where('user_id', $authUser->id);
+        }
+
         $perPage = $request->perPage > 0 ? $request->perPage : 20;
         
-        if($request->search) {
+        if($request->search && $authUser->isAdmin()) {
             foreach (Customer::$searchColumns as $column) {
                 $mainQuery->orWhere($column, 'LIKE', "%{$request->search}%");
             }
@@ -40,12 +45,15 @@ class CustomerController extends Controller
         ]);
     }
 
+
+
     public function customersOfUser(Request $request, User $user)
     {
         if(Auth::user()->notPermittedTo('view customers')) abort(403);
 
         return $user->customers;
     }
+
 
 
     public function store(Request $request)
@@ -57,6 +65,7 @@ class CustomerController extends Controller
     }
 
 
+
     public function update(Request $request, Customer $customer)
     {
         if(Auth::user()->notPermittedTo('edit customers')) abort(403);
@@ -64,6 +73,7 @@ class CustomerController extends Controller
         $customer->update($this->validatedData($request, $customer));
         return Redirect::back();
     }
+
 
 
     public function destroy(Customer $customer)
@@ -75,6 +85,7 @@ class CustomerController extends Controller
     }
 
 
+
     public function destroyMultiple(Request $request)
     {
         if(Auth::user()->notPermittedTo('edit customers')) abort(403);
@@ -82,6 +93,7 @@ class CustomerController extends Controller
         Customer::destroy($request->ids);
         return back();
     }
+
 
 
     public function customersAssign(Request $request, User $user) 
@@ -93,11 +105,15 @@ class CustomerController extends Controller
 
         // Yeni atama geçerli sayılacak, müşteri yeni temsilciye atanmış olacak
         foreach ($customers as $customer) {
+            if($customer->user?->id != $user->id) {
+                $customer->call()->delete();
+            }
             $customer->user()->associate($user)->save();
         }
         
         return Redirect::back()->with('success', ' (' . $user->mainRole() . ') ' . $user->name . ' kullanıcısına ' . count($customers) . ' form atandı...');
     }
+
 
 
     public function import(Request $request)
@@ -124,19 +140,19 @@ class CustomerController extends Controller
     }
 
 
+
     public function export(Request $request)
     {
         if(Auth::user()->notPermittedTo('edit customers')) abort(403);
-
         return Excel::download(new CustomersExport, 'Müşteri Listesi - ' . date('d.m.Y') . '.xlsx');
     }
+
 
 
     private function validatedData(Request $request, Customer $customer = null) 
     {
         return $this->validate($request, [
             // "user_id" => 'nullable|integer',
-
             "name" => 'required|max:50',
             "surname" => 'required|max:50',
             "phone" => 'required|numeric|digits_between:10,14|unique:customers,phone,' . $customer?->id,

@@ -25,7 +25,6 @@ class RoleController extends Controller
     {
         if(Auth::user()->notPermittedTo('edit roles')) abort(403);
 
-
         $data = $this->validatedData($request);
         $role = Role::create($data);
 
@@ -45,6 +44,7 @@ class RoleController extends Controller
         $data = $this->validatedData($request, $role->id);
         $role->update($data);
         $this->setPermissions($request, $role);
+        
         return Redirect::back();
     }
 
@@ -60,7 +60,7 @@ class RoleController extends Controller
             if (is_array($selectedPerms) && count($selectedPerms) > 0) {
                 $availablePerms = array_column(Role::getAvailablePerms(), 'value');
                 $acceptablePerms = array_intersect($availablePerms, $selectedPerms);
-                $role->syncPermissions($acceptablePerms);
+                $role->syncPermissions($acceptablePerms)->touch();
             }
         } else {
             $role->permissions()->detach();

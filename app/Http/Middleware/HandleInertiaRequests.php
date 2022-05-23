@@ -46,6 +46,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $user,
                 'all_permissions' => $userPermissions,
                 'role' => $user?->mainRole(),
+                'is_admin' => $user && $user->isAdmin(),
 
                 // dd($request->user()->append([$request->user()->roles->first()]))
             ],

@@ -21,7 +21,7 @@ import Assignee from './Forms/Assignee.vue';
 import CustomerExportForm from './Forms/CustomerExportForm.vue';
 import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
-import { permittedTo } from '@/Composables/Perms';
+import { permittedTo, auth } from '@/Composables/Perms';
 
 
   const props = defineProps({
@@ -73,9 +73,9 @@ import { permittedTo } from '@/Composables/Perms';
   };
 
 
-  const auth = computed(() => {
-      return usePage().props.value.auth;
-  });
+  // const auth = computed(() => {
+  //     return usePage().props.value.auth;
+  // });
 
 
   const openCrudForm = (userObject, importable) => {
@@ -185,11 +185,11 @@ export default {
     :rows="20" 
     :rowsPerPageOptions="[10,20,30,50]" -->
 
-    <template #header>
+    <template v-if="permittedTo('edit customers')" #header>
         <div class="flex items-center justify-between py-3 pl-2 md:pl-0">
 
           <div class="flex gap-2">
-            <div v-if="permittedTo('edit customers')">
+            <div>
               <span v-if="selectedCustomers.length" class="p-buttonset text-xs">
                 <Button @click="toggleAssigneePanel" type="button" icon="pi pi-link" label="Kullanıcıya ata" class="p-button-sm p-button-warning"/>
                 <DeleteButton @deleted="multipleDeleteWasSuccessful()" :multipleData="selectedCustomers" toastInfo="Seçilen müşteri bilgileri silindi" :deleteRoute="route('customers_destroy_multiple')" customClass="p-button-outlined" />
@@ -207,7 +207,7 @@ export default {
           <div class="flex gap-5">
               <!-- <Button type="button" icon="pi pi-filter-slash" label="Temizle" class="p-button-text p-button-rounded p-button-sm" @click="clearFilters()"/> -->
             <span class="p-buttonset text-xs flex items-center">
-              <Button v-if="permittedTo('edit customers')" type="button" @click="openCustomerExportModal()" icon="pi pi-file-excel" label="Export" class="p-button-sm p-button-outlined rounded"/>
+              <Button type="button" @click="openCustomerExportModal()" icon="pi pi-file-excel" label="Export" class="p-button-sm p-button-outlined rounded"/>
             </span>
               <div hidden class="md:block">
                   <div class="relative flex items-center text-gray-400 focus-within:text-cyan-400">
@@ -229,7 +229,7 @@ export default {
 
     <Column v-if="permittedTo('edit customers')" selectionMode="multiple" headerStyle="width: 3em"></Column>
     
-    <Column v-if="permittedTo('view users')" field="user.name" header="Temsilci" sortable>
+    <Column v-if="auth().is_admin" field="user.name" header="Temsilci" sortable>
       <template #body="{data}">
         <div v-if="data.user" class="font-bold text-green-600 hover:text-green-500 ease-in-out duration-100">
           {{ data.user?.name }}
@@ -312,7 +312,7 @@ export default {
     <Column header="İşlem">
         <template #body="content">
             <span class="p-buttonset text-xs">
-                <Button v-if="permittedTo('process customers')" label="İşlem" icon="pi pi-phone" class="p-button-primary p-button-raised p-button-sm" :disabled="!content.data.is_active" @click="openCallCustomerModal(content.data)"></Button>
+                <Button v-if="permittedTo('process customers')" label="İşlem" icon="pi pi-phone" class="p-button-primary p-button-raised p-button-sm" :disabled="!content.data.is_active || auth().user.id != content.data.user.id" @click="openCallCustomerModal(content.data)"></Button>
                 <Button label="" icon="pi pi-eye" class="p-button-primary p-button-text p-button-sm" @click="openDetailsModal(content.data)"></Button>
                 <Button v-if="permittedTo('edit customers')" label="" icon="pi pi-user-edit" class="p-button-primary p-button-text p-button-sm" @click="openCrudForm(content.data)"></Button>
                 <DeleteButton v-if="permittedTo('edit customers')" toastInfo="Müşteri ile ilgili veriler silindi" :deleteRoute="route('customers.destroy', {'customer': content.data.id})" customClass="p-button-text" />

@@ -10,7 +10,7 @@
     <div class="h-screen bg-gray-50 flex">
 
 
-        <div class="w-full md:w-1/2 p-24 flex items-center justify-center">
+        <div class="w-full md:w-1/2 p-24 flex flex-col items-center justify-center">
             <slot />
         </div>
         
