@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CallController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -28,9 +29,7 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function() {
 
-    Route::get('/', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     
     Route::get('/users', [RegisteredUserController::class, 'index'])->name('users');
     Route::get('/users_list', [RegisteredUserController::class, 'usersList'])->name('users_list');
@@ -42,6 +41,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/customers', [CustomerController::class, 'store'])->name('customers.post');
     Route::patch('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update');
     Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+
+    Route::get('/customers_of_user/{user}', [CustomerController::class, 'customersOfUser'])->name('customers_of_user');
 
     Route::delete('/customers_destroy_multiple', [CustomerController::class, 'destroyMultiple'])->name('customers_destroy_multiple');
     

@@ -50,7 +50,7 @@ const test = () => {
                         <div class="flex justify-between border-b border-gray-300 border-dashed py-3 px-6 hover:bg-gray-100 text-lg font-bold"><span>Müşteri Bilgileri </span></div>
 
 
-                        <ListItem title="Adı Soyadı:" :data="customer.name + ' ' + customer.surname" />
+                        <ListItem title="Adı Soyadı:" :data="customer.name_surname" />
                         <ListItem title="Telefon Numarası:" :data="customer.phone" />
                         <ListItem title="E-posta Adresi:" :data="customer.email" />
                         <ListItem title="Yaşadığı Şehir:" :data="customer.city" />

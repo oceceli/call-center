@@ -59,7 +59,7 @@
 <script setup>
     import NavLink from "../Partials/NavLink.vue";
     import { usePage } from '@inertiajs/inertia-vue3'
-    import { computed, onMounted, onUnmounted, ref, watchEffect } from "@vue/runtime-core";
+    import { computed, onMounted, onUnmounted, ref } from "@vue/runtime-core";
     import UserAvatar from "../../Components/UserAvatar.vue";
     import UserForm from "../../Pages/Forms/UserForm.vue";
     
@@ -104,13 +104,13 @@
             displayName: "Müşteriler",
             userHasAccess: true,
         },
-        {
-            toRouteName: "dashboard",
-            component: "Reports",
-            icon: "pi pi-chart-bar",
-            displayName: "Raporlar",
-            userHasAccess: true,
-        },
+        // {
+        //     toRouteName: "dashboard",
+        //     component: "Reports",
+        //     icon: "pi pi-chart-bar",
+        //     displayName: "Raporlar",
+        //     userHasAccess: true,
+        // },
         {
             toRouteName: "roles",
             component: "Roles",

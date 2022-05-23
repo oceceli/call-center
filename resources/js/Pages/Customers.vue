@@ -12,7 +12,7 @@ import Column from "primevue/column/Column.vue";
 import Button from 'primevue/button';
 import {FilterMatchMode} from 'primevue/api';
 
-import { computed, onMounted, ref, watch, watchEffect } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import DeleteButton from "@/Components/DeleteButton.vue";
 

@@ -3,6 +3,7 @@ import AppLayout from "../Layouts/App.vue";
 import UserForm from "./Forms/UserForm.vue";
 import UserAvatar from "@/Components/UserAvatar.vue";
 import Paginator from "@/Components/Paginator.vue";
+import ListAssigned from "./Details/ListAssigned.vue";
 
 import DataTable from "primevue/datatable/DataTable.vue";
 import Column from "primevue/column/Column.vue";
@@ -26,9 +27,9 @@ const props = defineProps({
     users: Object,
 });
 
-const auth = computed(() => {
-    return usePage().props.value.auth;
-});
+// const auth = computed(() => {
+//     return usePage().props.value.auth;
+// });
 
 const buttonsLoading = false;
 const tableLoading = false;
@@ -57,6 +58,13 @@ const openCrudForm = (userObject) => {
 
 const closeCrudForm = () => {
     visibleCrudForm.value = false;
+};
+
+const visibleAssignedModal = ref(false);
+const userObjectDetail = ref();
+const openAssignedModal = (data) => {
+    userObjectDetail.value = data;
+    visibleAssignedModal.value = true;
 };
 
 </script>
@@ -96,7 +104,7 @@ export default {
     :rowsPerPageOptions="[10,20,30]"
     paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
     currentPageReportTemplate="{first} ile {last} arası gösteriliyor" -->
-    {{ auth.all_permissions }}
+    <!-- {{ auth.all_permissions }} -->
 
     <template #header>
         <div class="flex items-center justify-between py-3 pl-2 md:pl-0">
@@ -134,17 +142,17 @@ export default {
     </Column>
     <Column field="email" header="E-posta" sortable></Column>
     <Column field="roles.0.name" header="Kullanıcı Rolü" sortable></Column>
-    <Column field="customers_count" header="Mevcut Atama" sortable>
+    <!-- <Column field="customers_count" header="Mevcut Atama" sortable>
         <template #body="{data}">
             <span class="text-lg font-bold text-cyan-600">{{data.customers_count}}</span>
         </template>
-    </Column>
-    <Column field="called_customers_count" header="Arandı" sortable></Column>
-    <Column field="called_customers_count" header="İşlem Bekleyen" sortable></Column>
+    </Column> -->
+    <!-- <Column field="called_customers_count" header="Arandı" sortable></Column>
+    <Column field="called_customers_count" header="İşlem Bekleyen" sortable></Column> -->
     <Column header="İşlem">
         <template #body="content">
             <span class="p-buttonset text-xs">
-                <Button v-if="content.data.is_active" label="Atama" icon="pi pi-link" class="p-button-primary p-button-raised p-button-sm" badge="8" badgeClass="p-badge-primary" :loading="buttonsLoading"></Button>
+                <Button v-if="content.data.is_active" @click="openAssignedModal(content.data)" label="Atanan" icon="pi pi-link" class="p-button-primary p-button-raised p-button-sm" :badge="content.data.customers_count.toString() ?? '0'" badgeClass="p-badge-primary" :loading="buttonsLoading"></Button>
                 <Button label="" icon="pi pi-user-edit" class=" p-button-primary p-button-text p-button-sm" :loading="buttonsLoading" @click="openCrudForm(content.data)"></Button>
                 <!-- <Button label="" icon="pi pi-trash" class="p-button-danger p-button-text p-button-sm" @click="deleteUser($event, content.data.id)" :loading="buttonsLoading"></Button> -->
                 <DeleteButton :toastInfo="flashError()" :deleteRoute="route('users.destroy', {'user': content.data.id})" customClass="p-button-text" />
@@ -185,16 +193,17 @@ export default {
     :breakpoints="{'960px': '75vw', '640px': '100vw'}"
     >
         <UserForm @close="closeCrudForm" :editUserObject="editUserObject"></UserForm>
-        <!-- <template #footer>
-            <Button label="No" icon="pi pi-times"  class="p-button-text"/>
-            <Button label="Yes" icon="pi pi-check"  autofocus />
-        </template> -->
+    </Dialog>
+    
+    
+    <Dialog :header="userObjectDetail?.name + ' kullanıcısına atananlar'" v-model:visible="visibleAssignedModal" :style="{width: '50vw'}"
+    closeOnEscape
+    modal
+    maximizable
+    :breakpoints="{'960px': '75vw', '640px': '100vw'}"
+    >
+        <ListAssigned :userObjectDetail="userObjectDetail"></ListAssigned>
     </Dialog>
 
   </DataTable>
 </template>
-
-
-
-
-

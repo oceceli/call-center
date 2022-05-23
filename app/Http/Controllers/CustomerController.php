@@ -27,6 +27,7 @@ class CustomerController extends Controller
 
         return Inertia::render('Customers', [
             'customers' => $mainQuery
+                ->with('call')
                 ->paginate($perPage)
                 ->withQueryString(),
 
@@ -34,6 +35,11 @@ class CustomerController extends Controller
                 $request->only(['search']), 
                 'perPage' => $perPage],
         ]);
+    }
+
+    public function customersOfUser(Request $request, User $user)
+    {
+        return $user->customers;
     }
 
 

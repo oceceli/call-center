@@ -28,6 +28,35 @@ class Call extends Model
         return Carbon::parse($this->updated_at)->diffForHumans();
     }
 
+    public function scopeTotalCalls($query)
+    {
+        return $query->whereNotNull('status');
+    }
+
+    public function scopeUnsuccessfulCalls($query)
+    {
+        return $query
+            ->where('status', CallStatus::UNANSWERED)
+            ->orWhere('status', CallStatus::BUSY->value);
+    }
+
+    public function scopeSuccessfulCalls($query)
+    {
+        return $query->where('status', CallStatus::POSITIVE->value);
+    }
+
+    public function scopeBetweenDates($query, $from, $to)
+    {
+        return $query->whereBetween('created_at', [$from, $to]);
+    }
+
+    // public function scopeSinceDaysAgo($query, $days)
+    // {
+    //     $to = Carbon::now();
+    //     $from = $to->copy()->subDays($days);
+    //     return $query->whereBetween('created_at', [$from, $to]);
+    // }
+
     public function getStatusAttribute($value)
     {
         return [

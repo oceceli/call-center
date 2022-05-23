@@ -37,7 +37,7 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request)
     {
         $user = Auth::user();
-        $userPermissions = $user->isAdmin() ? array_column(Role::getAvailablePerms(), 'value') : $user?->getAllPermissions()->pluck('name')->toArray();
+        $userPermissions = $user && $user->isAdmin() ? array_column(Role::getAvailablePerms(), 'value') : $user?->getAllPermissions()->pluck('name')->toArray();
 
         return array_merge(parent::share($request), [
             'auth' => [

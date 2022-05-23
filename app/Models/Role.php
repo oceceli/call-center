@@ -32,7 +32,7 @@ class Role extends SpatieRole
             ['tr' => 'Kullanıcıları düzenleyebilir, silebilir', 'value' => 'edit users'],
             
             ['tr' => 'Müşterileri görebilir', 'value' => 'show customers'],
-            ['tr' => 'Kullanıcıları düzenleyebilir, silebilir', 'value' => 'edit customers'],
+            ['tr' => 'Müşterileri düzenleyebilir, silebilir', 'value' => 'edit customers'],
         ];
     }
 

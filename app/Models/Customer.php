@@ -19,6 +19,8 @@ class Customer extends Model
         'updated_at' => 'datetime:d.m.Y H:i',
     ];
 
+    protected $appends = ['name_surname'];
+
     public static $searchColumns = [
         'name', 'surname', 'phone', 'email', 'city', 'source', 'category',
     ];
@@ -41,6 +43,11 @@ class Customer extends Model
     public static function fetchAll()
     {
         return self::all();
+    }
+
+    public function getNameSurnameAttribute()
+    {
+        return $this->name . ' ' . $this->surname;
     }
 
     public function getSourceAttribute($value)

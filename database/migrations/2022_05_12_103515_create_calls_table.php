@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('calls', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('customer_id')->nullable()->constrained()->onDelete('cascade');
 
             $table->enum('status', [CallStatus::POSITIVE->value, CallStatus::UNANSWERED->value, CallStatus::BUSY->value])->nullable();
             $table->smallInteger('score')->nullable()->default(0);
