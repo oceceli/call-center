@@ -46,7 +46,7 @@ const isMobile = () => {
 
             <div class="p-2 flex items-center justify-center bg-opacity-60">
                 <div class="font-bold">
-                    <a target="_blank" href="https://www.smartmetrics.com.tr" class="text-sm text-blue-400 hover:red-500">SmartMetrics</a>
+                    <a target="_blank" href="https://www.linkedin.com/in/oceceli/" class="text-sm text-blue-400 hover:red-500">Created by oceceli</a>
                 </div>
             </div>
         </div>
