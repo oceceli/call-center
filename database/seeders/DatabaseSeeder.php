@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
 
-        $su = User::create(['name' => 'Super User','email' => 'superuser@example.com', 'password' => '$2a$12$EQwbO8M0fsBxYNc79kGqOO2AenpOyNJj8dRx/TGRy1PrvlmBh4fzm', 'is_active' => '1']); // dH$7qRQCam)3gT=w
+        $su = User::create(['name' => 'Super User','email' => 'superuser@example.com', 'password' => '$2a$12$XG/4M2FxcBFoTrz19uhWkuwnbBj1yUkeyocUM6YoTAVTIgkffRXvW', 'is_active' => '1']); // qwerty123456
         $suRole = Role::where('name', 'super admin')->first();
         $su->roles()->save($suRole);
 
