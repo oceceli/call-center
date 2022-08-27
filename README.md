@@ -1,5 +1,5 @@
 ### Installation
-Install composer dependencies without install composer itself
+Install composer dependencies without installing composer itself
 ```sh
 sudo docker run --rm \
     -u "$(id -u):$(id -g)" \
@@ -12,4 +12,9 @@ sudo docker run --rm \
 ```sh
 ./vendor/bin/sail up -d
 ./vendor/bin/sail artisan migrate:seed
+```
+### Login
+```
+superuser@example.com
+qwerty123456
 ```
