@@ -13,9 +13,9 @@ import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
 import ConfirmationService from 'primevue/confirmationservice';
 
-// import 'primevue/resources/themes/md-light-indigo/theme.css'
-// import 'primevue/resources/primevue.min.css'
-// import 'primeicons/primeicons.css'
+window._ = require('lodash');
+window.axios = require('axios');
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
