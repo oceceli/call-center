@@ -1,3 +1,11 @@
+## Demo
+https://call-center.oceceli.com/
+```
+Credentials: 
+superuser@example.com
+qwerty123456
+```
+
 ### Installation
 Install composer dependencies without installing composer itself
 ```sh
