@@ -31,6 +31,10 @@ class DatabaseSeeder extends Seeder
         $adminRole = Role::where('name', 'admin')->first();
         $user->roles()->save($adminRole);
 
+        $agent = User::create(['name' => 'agent','email' => 'agent@test.com', 'password' => bcrypt('qwerty123456'), 'is_active' => '1']);
+        $agentRole = Role::where('name', 'agent')->first();
+        $agent->roles()->save($agentRole);
+
 
         // dev mode
         User::factory(50)->create();

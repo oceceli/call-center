@@ -41,7 +41,14 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
         $user->last_login = Carbon::now();
         $user->save();
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->to($this->redirectTo());
+    }
+
+    public function redirectTo()
+    {
+        return Auth::user()->hasRole('admin') 
+            ? route('dashboard') 
+            : route('customers');
     }
 
     /**

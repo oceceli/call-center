@@ -22,8 +22,6 @@ use Inertia\Inertia;
 // });
 
 
-\URL::forceScheme('https');
-
 require __DIR__.'/auth.php';
 
 

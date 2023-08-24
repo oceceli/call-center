@@ -18,6 +18,10 @@ class RoleSeeder extends Seeder
         foreach(Role::$untouchables as $roleName) {
             Role::create(['name' => $roleName]);
         }
-        Role::create(['name' => 'temsilci']);
+        $role = Role::create(['name' => 'agent']);
+
+        $role->givePermissionTo('view customers');
+        $role->givePermissionTo('edit customers');
+        $role->givePermissionTo('process customers');
     }
 }
